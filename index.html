@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVB, Jr.</title>
+    <title>MBV, Jr.</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg">
     <style>
         body {
-            font-family: "Times New Roman", Times, serif;
+            font-family: Georgia, "Times New Roman", Times, serif;
             margin: 0;
             padding: 20px;
+
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .container {
-            max-width: 800px;
+            max-width: min(800px, 95%);
             width: 100%;
             text-align: left;
         }
@@ -37,20 +39,36 @@
         ul {
             padding-left: 20px;
         }
+
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Marshall Vyletel Jr.</h1>
+        <p style="text-align: center; margin-bottom: 30px;">
+            contact me at 
+            <a href="https://x.com/mvyletel_jr" target="_blank">X</a> • 
+            <a href="mailto:marshallvyleteljr@gmail.com" target="_blank">email</a> • 
+            <a href="https://github.com/mvyleteljr" target="_blank">github</a>
+        </p>
         
         <div class="section">
             <h2>About</h2>
             <p>Amongst other things, 
                 I am a researcher, investor, musician, writer, software engineer, and a hobby mathematician.</p>
             <ul>
-                <li>Current role: Research Analyst at <a href="https://1kx.network/">1kx</a></li>
-                <li>Focus Area: Blockchain Infrastructure and AI.</li>
-                <li>Professional goals</li>
+                <li>Current role: Research Analyst at <a href="https://1kx.network/" target="_blank">1kx</a></li>
+                <li>Focus Area: Blockchain Infrastructure, MEV, and AI</li>
+                <li>Education: Dual B.A. in Applied Mathematics and Computer Science from <a href="https://www.brown.edu/" target="_blank">Brown University</a></li>
             </ul>
         </div>
 
@@ -68,8 +86,8 @@
             <h2>Research</h2>
             <p>Summary of research interests and accomplishments.</p>
             <ul>
-                <li>Research area 2 - Current focus</li>
-                <li>Publications or presentations</li>
+                <li>Talk At <a href="https://devcon.org/en/" target="_blank">Devcon</a> on Trustless Interoperability: <a href="https://www.youtube.com/watch?v=-G6oOQTb5AI&ab_channel=EthereumFoundation" target="_blank">(video)</a></li>
+                <li>Talk at Sequencing Day on App-Specific Sequencing: <a href="https://www.youtube.com/watch?v=sEPuO0PCMK0&ab_channel=EspressoSystems" target="_blank">(video)</a></li>
             </ul>
         </div>
 
@@ -77,9 +95,8 @@
             <h2>Writing</h2>
             <p>Collection of written works and publications.</p>
             <ul>
-                <li><a href="https://1kx.network/writing/trustless-interoperability-between-rollups-landscape-constructions-and-challenges">Trustless Interoperability </a></li>
-                <li>Article/Publication 2</li>
-                <li>Blog posts or essays</li>
+                <li><a href="https://1kx.network/writing/trustless-interoperability-between-rollups-landscape-constructions-and-challenges" target="_blank">Trustless Interoperability</a></li>
+                <li>Personal Blog: <a href="https://windfall.space/" target="_blank">windfall.space</a></li>
             </ul>
         </div>
 
@@ -97,7 +114,7 @@
             <h2>Previously...</h2>
             <p>Past experiences and achievements.</p>
             <ul>
-                <li>Lead Data Engineer at <a href="https://x.com/______jpg______">JPG</a></li>
+                <li>Lead Data Engineer at <a href="https://x.com/______jpg______" target="_blank">JPG</a></li>
                 <li>Notable accomplishments</li>
                 <li>Educational background</li>
             </ul>
