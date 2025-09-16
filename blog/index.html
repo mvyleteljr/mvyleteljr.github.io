@@ -3,10 +3,32 @@ layout: default
 title: Blog
 ---
 
+{% assign pinned_posts = site.posts | where_exp: "post", "post.pinned == true" %}
+{% assign blog_posts = site.posts | where_exp: "post", "post.pinned != true" %}
+
+{% if pinned_posts.size > 0 %}
+  <h1>Welcome</h1>
+  <ul>
+    {% for post in pinned_posts %}
+      <li style="margin-bottom: 1.2rem;">
+        <div>
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </div>
+        <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+        {% assign summary = post.tldr | default: post.excerpt %}
+        {% if summary %}
+          <div class="tldr">{{ summary | strip_html }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <hr />
+{% endif %}
+
 <h1>Blog</h1>
 <p>Posts are ordered newest first.</p>
 <ul>
-  {% for post in site.posts %}
+  {% for post in blog_posts %}
     <li style="margin-bottom: 1.2rem;">
       <div>
         <a href="{{ post.url }}">{{ post.title }}</a>
@@ -18,8 +40,7 @@ title: Blog
       {% endif %}
     </li>
   {% endfor %}
-  {% if site.posts == empty %}
+  {% if blog_posts == empty %}
     <li>No posts yet.</li>
   {% endif %}
 </ul>
-

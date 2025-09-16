@@ -15,6 +15,10 @@ This repo now includes a minimal Jekyll blog compatible with GitHub Pages.
 - URLs: `/blog/title-year-month-day` (no trailing slash).
 - Blog index: `/blog/` lists posts newest-first with date, title, and TLDR.
 
+### Pinning (Welcome section)
+- To keep a post at the top under the "Welcome" section on `/blog/`, add `pinned: true` to its front matter.
+- Pinned posts show only in the Welcome section; they are excluded from the main Blog list below it.
+
 ### Images
 - Put assets under `assets/blog/<slug>/...` (or reuse `/assets/`), then reference via absolute paths, e.g. `![Alt](/assets/blog/my-post/image.png)`.
 
