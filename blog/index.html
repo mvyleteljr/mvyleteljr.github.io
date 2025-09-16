@@ -1,0 +1,25 @@
+---
+layout: default
+title: Blog
+---
+
+<h1>Blog</h1>
+<p>Posts are ordered newest first.</p>
+<ul>
+  {% for post in site.posts %}
+    <li style="margin-bottom: 1.2rem;">
+      <div>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </div>
+      <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+      {% assign summary = post.tldr | default: post.excerpt %}
+      {% if summary %}
+        <div class="tldr">{{ summary | strip_html }}</div>
+      {% endif %}
+    </li>
+  {% endfor %}
+  {% if site.posts == empty %}
+    <li>No posts yet.</li>
+  {% endif %}
+</ul>
+

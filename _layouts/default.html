@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title | default: site.title }}</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg" />
+    <style>
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: min(800px, 95%);
+        width: 100%;
+        text-align: left;
+      }
+      h1 { font-style: italic; text-align: left; }
+      h2 { font-style: italic; text-align: left; }
+      ul { padding-left: 20px; }
+      @media screen and (max-width: 600px) {
+        body { padding: 10px; }
+        .container { max-width: 100%; }
+      }
+      hr { width: 70%; margin: 20px auto; border: none; border-top: 4px solid #ccc; }
+      .meta { color: #666; font-size: 0.95em; margin: 0.2rem 0 1rem 0; }
+      .tldr { color: #333; margin: 0.2rem 0 1.2rem 0; }
+      .topnav { text-align: center; margin-bottom: 16px; }
+      .topnav a { text-decoration: none; color: #333; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topnav">
+        <a href="/">Home</a>
+        •
+        <a href="/blog/">Blog</a>
+      </div>
+      {{ content }}
+    </div>
+  </body>
+  </html>
+

@@ -1,0 +1,35 @@
+title: "MBV, Jr. Blog"
+description: "Writing by Marshall Vyletel Jr."
+
+# Use Kramdown (default on GitHub Pages) with GitHub-Flavored Markdown input
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Ensure post URLs match: /blog/title-year-month-day
+collections:
+  posts:
+    output: true
+    permalink: /blog/:title-:year-:month-:day
+
+# Optional excerpt separator if you ever want to use excerpts
+excerpt_separator: "<!--more-->"
+
+# Keep things simple; no theme, no plugins beyond what GH Pages provides by default
+plugins: []
+
+# Be explicit about files to exclude from site output
+exclude:
+  - README.md
+  - .gitignore
+  - .git
+  - .DS_Store
+
+# Default front matter values
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
