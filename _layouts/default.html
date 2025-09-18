@@ -31,7 +31,49 @@
       .tldr { color: #333; margin: 0.2rem 0 1.2rem 0; }
       .topnav { text-align: center; margin-bottom: 16px; }
       .topnav a { text-decoration: none; color: #333; }
+
+      /* Inline code styling */
+      code {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 4px;
+        padding: 0.15em 0.35em;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+      /* Code blocks */
+      pre {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 6px;
+        padding: 12px 14px;
+        overflow: auto;
+        line-height: 1.4;
+      }
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 0.9em;
+      }
     </style>
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true,
+          tags: 'ams'
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   </head>
   <body>
     <div class="container">
@@ -44,4 +86,3 @@
     </div>
   </body>
   </html>
-

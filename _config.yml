@@ -6,6 +6,11 @@ markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
+  syntax_highlighter: rouge
+  math_engine: mathjax
+
+# Enable syntax highlighting
+highlighter: rouge
 
 # Ensure post URLs match: /blog/title-year-month-day
 collections:
