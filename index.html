@@ -10,16 +10,34 @@
                 font-family: Georgia, "Times New Roman", Times, serif;
                 margin: 0;
                 padding: 20px;
+                padding-bottom: 60px; /* extra breathing room at bottom */
 
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
+                /* Phthalo-green textured background with a nearly invisible pattern */
+                background-color: #0f3d33; /* phthalo-ish base */
+                background-image:
+                    radial-gradient(1200px 800px at 15% 10%, rgba(255, 255, 255, 0.05), transparent 40%),
+                    radial-gradient(1000px 600px at 85% 0%, rgba(0, 0, 0, 0.1), transparent 45%),
+                    radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1.1px),
+                    radial-gradient(circle, rgba(0, 0, 0, 0.03) 1px, transparent 1.1px),
+                    linear-gradient(180deg, #0f3d33, #0c342b);
+                background-size: auto, auto, 4px 4px, 4px 4px, auto;
+                background-position: center, center, 0 0, 2px 2px, center;
             }
 
             .container {
                 max-width: min(800px, 95%);
                 width: 100%;
                 text-align: left;
+                box-sizing: border-box;
+                border: 1px solid rgba(12, 61, 47, 0.18); /* subtle green-tinted border */
+                border-radius: 12px;
+                padding: 24px 28px; /* more breathing room */
+                margin-bottom: 36px; /* slight gap from bottom edge */
+                background-color: #f2fbf7; /* barely noticeable green */
             }
 
             h1 {
