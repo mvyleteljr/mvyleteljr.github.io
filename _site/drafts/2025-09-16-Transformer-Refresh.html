@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformer Refresh</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg" />
+    <style>
+      body {
+        margin: 0;
+        padding: 32px 16px 64px;
+        display: flex;
+        justify-content: center;
+        font-family: Georgia, "Times New Roman", Times, serif;
+      }
+
+      .container {
+        width: min(800px, 100%);
+      }
+
+      .topnav {
+        text-align: left;
+        margin-bottom: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .button-link {
+        display: inline-block;
+        padding: 0.25rem 0.9rem;
+        border: 1px solid currentColor;
+        border-radius: 999px;
+        font-style: italic;
+        text-decoration: none;
+        background: #f7f7f7;
+        transition: background 0.15s ease;
+      }
+
+      .button-link:hover,
+      .button-link:focus {
+        background: #ededed;
+      }
+
+      .meta {
+        color: #555;
+        font-size: 0.95em;
+        margin: 0.2rem 0 1rem 0;
+      }
+
+      .tldr {
+        margin: 0.2rem 0 1.2rem 0;
+      }
+
+      code {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 4px;
+        padding: 0.15em 0.35em;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+
+      pre {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 6px;
+        padding: 12px 14px;
+        overflow: auto;
+        line-height: 1.4;
+      }
+
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 0.9em;
+      }
+    </style>
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true,
+          tags: 'ams'
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topnav">
+        <a class="button-link" href="/">Home</a>
+        <a class="button-link" href="/blog/">Blog</a>
+      </div>
+      <article>
+  <h1>Transformer Refresh</h1>
+  <div class="meta"></div>
+  
+    <p class="tldr"><strong>TLDR:</strong> Musings about a great Anthropic Paper</p>
+  
+  <h2 id="introduction">Introduction</h2>
+
+<p>I’ve been extremely motivated to begin re-sharpening my research skills and building back up a foundation of near-academic level rigor. To that end, especially given where we’ve landed as a company, I’ve decided to document every paper I read related to LLMs and mech interp.</p>
+
+<p>My hope is that instead of “passively” reading papers, I can actively engage with them by documenting the thoughts I have as I read, tagging points of confusion or interest, and then ideally articulate a few experiments that I can run to validate my understanding.</p>
+
+<p>I’m starting with Neel Nanda’s <a href="https://www.alignmentforum.org/posts/NfFST5Mio7BCAQHPA/an-extremely-opinionated-annotated-list-of-my-favourite-1">great resource</a> for getting up to speed on mech interp. A lot of this I feel somewhat comfortable with already, but it’s always good to start with the foundation.</p>
+
+<p>Today I’ll read and write about Anthropic’s <a href="https://transformer-circuits.pub/2021/framework/index.html#transformer-overview">“A Mathematical Framework for Transformer Circuits”</a>.</p>
+
+<h3 id="paper-section-1-untitled">Paper Section 1: Untitled</h3>
+
+<p>Already, I’m inspired by “…mechanistic interpretability, attempting to reverse engineer the detailed computations performed by transformers, similar to how a programmer might try to reverse engineer complicated binaries into human-readable source code.”</p>
+
+<p>I remember doing work like this with debuggers in my system architecture classes at Brown. It’s a good analogy, and I like it better than the obvious “LLM neuroscience” analogy you often hear when discussing interpretability. It’s best to not anthropomorphize these models too much.</p>
+
+<p>It’s somewhat interesting that all of the (public) major lab research on this topic is focused on safety. While this is obviously the most important problem in the limit, I’m personally more interested in the potential for control as it relates to <em>ability</em>. I hold the belief that most of the current SOTA models are already smart enough to do most useful digital tasks, but they’re inconsistent. Understanding them from a mech interp point of view has intuitively felt like a way to “mine” them for their best abilities that are in there already, while protecting against common failure modes. We’ve already run some tests on this at Concordance (will link soon).</p>
+
+<h3 id="paper-section-2-transformer-overview">Paper Section 2: Transformer Overview</h3>
+
+<p>I’m intentionally skipping the summaries.</p>
+
+<p>Quick note for myself about scope:</p>
+<ol>
+  <li>No MLP consideration</li>
+  <li>No biases</li>
+  <li>No layer transformers</li>
+</ol>
+
+<p>Also an aside, I cannot understand why they chose to make time dimension upward in their diagrams. Time should follow gravity if you’re going to go vertical. Anywho…</p>
+
+<p>I presume $x$ is the residual stream in this case, and $x_i$ is just the state of the residual stream at each step in the circuit. Nice.</p>
+
+<h4 id="virtual-weights-and-the-residual-stream-as-a-communication-channel">Virtual Weights and the Residual Stream as a Communication Channel</h4>
+
+<p>Really love this “communication channel” analogy. I’ve consistently found it helpful to pull from information theory when trying to understand LLMs conceptually. That connection isn’t being made explicitly in the paper, but it does inspire me to continue bringing in more information theory tools into interp research. Generally, I think that Shannon’s work on <a href="https://en.wikipedia.org/wiki/Noisy-channel_coding_theorem">noisy-channel coding</a> provides a really nice way to think about these models holistically, but I’m still working on formalizing this.</p>
+
+<p>“The residual stream has a deeply linear structure.”</p>
+
+<p>Quick notes for myself:</p>
+<ol>
+  <li>Blocks “read” from residual stream by applying some linear map (matmul)</li>
+  <li>Blocks “write” to residual stream by applying another linear map (matmul + vector addition)</li>
+</ol>
+
+<p>Step 1 reads to me as the block going: “I’m gonna take this giant vector, and express it in a different coordinate system that emphasizes the aspects I care about.” Intuitively, step 2 is “okay, I applied my knowledge to the subspace I’m smart about, let me write it back to the original space, taking it out of my own specific-subspace amplified form.”</p>
+
+<p>Here’s a nice excerpt from a chatGPT conversation about implications of linear subspaces and no privileged bases in deeper detail. I need to verify it, but for now it fits with intuition so I’ll tentatively accept it:</p>
+
+<h4 id="case-a-no-privileged-basis-the-transformer-situation">Case A: No privileged basis (the transformer situation)</h4>
+
+<ul>
+  <li>
+    <p>Residual stream update:</p>
+
+\[r \mapsto r + W_{\text{out}} f(W_{\text{in}} r)\]
+  </li>
+  <li>If we apply a change of basis $r’ = Qr$, and update $W_{\text{in}}, W_{\text{out}}$ accordingly, the function of the whole model doesn’t change.</li>
+  <li>Implication: The coordinates of $r$ don’t mean anything by themselves. Only the <em>linear relations</em> matter.</li>
+</ul>
+
+<h4 id="case-b-with-a-privileged-basis">Case B: With a privileged basis</h4>
+
+<p>Here you’d have operations that directly inspect or modify <em>specific coordinates</em> of the residual stream without respecting rotation equivariance.</p>
+
+<p>Examples:</p>
+
+<ol>
+  <li>
+    <p><strong>Coordinate-wise nonlinearities in the residual stream itself.</strong>
+Suppose the update was:</p>
+
+\[r \mapsto r + \sigma(r)\]
+
+    <p>where $\sigma$ is applied elementwise (e.g. ReLU).</p>
+
+    <ul>
+      <li>Now, if you rotate $r$, you don’t get equivalent behavior — because ReLU depends on the sign of <em>individual coordinates</em>.</li>
+      <li>That means the canonical basis vectors $e_1, e_2, \ldots, e_d$ are “privileged”: each coordinate axis has its own role.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Sparse selection of coordinates.</strong>
+Imagine an operation like:</p>
+
+\[r \mapsto r + (r_1, 0, 0, \ldots, 0)\]
+
+    <p>where you explicitly pick out the first component of $r$.</p>
+
+    <ul>
+      <li>Rotate the basis, and “coordinate 1” no longer means the same thing.</li>
+      <li>The function of the network would change if you rotated, so the standard basis is privileged.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Hard-coded masks.</strong>
+If a layer said “only ever update dimensions 100–200 of the residual stream,” then those axes are special. They <em>must</em> exist in the representation for the model to work.</p>
+  </li>
+</ol>
+
+<h4 id="general-principle">General principle</h4>
+
+<ul>
+  <li><strong>No privileged basis:</strong> The system is equivariant under all invertible linear transformations of the residual stream. Features live in arbitrary subspaces.</li>
+  <li><strong>Privileged basis:</strong> The system contains operations that break this symmetry — by singling out coordinates, applying elementwise nonlinearities, or hard-coding masks. Features then line up with specific axes.</li>
+</ul>
+
+</article>
+
+
+    </div>
+  </body>
+  </html>

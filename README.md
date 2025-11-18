@@ -29,3 +29,22 @@ This repo now includes a minimal Jekyll blog compatible with GitHub Pages.
 - If you omit `tldr`, the index falls back to the post excerpt (first paragraph or content before `<!--more-->`).
 
 personal landing page 
+
+## Local development
+
+1. Make sure Ruby and Bundler are installed, then install the dependencies listed in `Gemfile` (this pulls the `github-pages` gem that GitHub itself uses):
+
+   ```bash
+   gem install bundler          # requires network access
+   bundle install
+   ```
+
+2. Run a local preview server from the project root:
+
+   ```bash
+   bundle exec jekyll serve --livereload
+   ```
+
+3. Visit `http://127.0.0.1:4000` (or the host/port printed in the console). Press `Ctrl+C` to stop the server.
+
+If the CLI sandbox blocks outbound network access, the `gem install`/`bundle install` step will appear to hang—rerun with network permissions or install the gems outside the sandbox before serving locally.

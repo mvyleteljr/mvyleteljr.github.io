@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg" />
+    <style>
+      body {
+        margin: 0;
+        padding: 32px 16px 64px;
+        display: flex;
+        justify-content: center;
+        font-family: Georgia, "Times New Roman", Times, serif;
+      }
+
+      .container {
+        width: min(800px, 100%);
+      }
+
+      .topnav {
+        text-align: left;
+        margin-bottom: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .button-link {
+        display: inline-block;
+        padding: 0.25rem 0.9rem;
+        border: 1px solid currentColor;
+        border-radius: 999px;
+        font-style: italic;
+        text-decoration: none;
+        background: #f7f7f7;
+        transition: background 0.15s ease;
+      }
+
+      .button-link:hover,
+      .button-link:focus {
+        background: #ededed;
+      }
+
+      .meta {
+        color: #555;
+        font-size: 0.95em;
+        margin: 0.2rem 0 1rem 0;
+      }
+
+      .tldr {
+        margin: 0.2rem 0 1.2rem 0;
+      }
+
+      code {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 4px;
+        padding: 0.15em 0.35em;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+
+      pre {
+        background: #f6f8fa;
+        border: 1px solid #eaecef;
+        border-radius: 6px;
+        padding: 12px 14px;
+        overflow: auto;
+        line-height: 1.4;
+      }
+
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 0.9em;
+      }
+    </style>
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true,
+          tags: 'ams'
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topnav">
+        <a class="button-link" href="/">Home</a>
+        <a class="button-link" href="/blog/">Blog</a>
+      </div>
+      
+
+
+
+  <h1>Welcome</h1>
+  <ul>
+    
+      <li style="margin-bottom: 1.2rem;">
+        <div>
+          <a href="/blog/welcome-2025-09-16">Welcome</a>
+        </div>
+        <div class="meta">September 16, 2025</div>
+        
+        
+          <div class="tldr">Orientation Day. README first if you want to get your bearings.</div>
+        
+      </li>
+    
+  </ul>
+  <hr />
+
+
+<h1>Blog</h1>
+<p>Posts are ordered newest first.</p>
+<ul>
+  
+  
+    <li>No posts yet.</li>
+  
+</ul>
+
+    </div>
+  </body>
+  </html>
