@@ -1,5 +1,6 @@
-title: "MBV, Jr. Blog"
-description: "Writing by Marshall Vyletel Jr."
+title: "Marshall Vyletel Jr."
+description: "Founder, researcher, software engineer, musician, writer. Personal website and blog."
+author: "Marshall Vyletel Jr."
 
 # Use Kramdown (default on GitHub Pages) with GitHub-Flavored Markdown input
 markdown: kramdown

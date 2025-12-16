@@ -1,0 +1,16 @@
+# Currently reading/listening data
+# This populates the "Currently" widget on the homepage and Now page
+
+reading:
+  title: "Jung Essays & The Reign of Quantity"
+  author: "C.G. Jung / René Guénon"
+  url: ""
+
+listening:
+  title: ""
+  artist: ""
+  url: ""
+
+focus: "Building Concordance's first product release"
+
+updated: "2025-12-16"

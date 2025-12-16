@@ -2,11 +2,23 @@
 layout: default
 ---
 <article>
-  <h1>{{ page.title }}</h1>
-  <div class="meta">{{ page.date | date: "%B %-d, %Y" }}</div>
-  {% if page.tldr %}
-    <p class="tldr"><strong>TLDR:</strong> {{ page.tldr }}</p>
-  {% endif %}
-  {{ content }}
-</article>
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-meta-header">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% if page.tags.size > 0 %}
+      ·
+      {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+      {% endif %}
+    </div>
+    {% if page.tldr %}
+    <p class="post-tldr"><strong>TL;DR:</strong> {{ page.tldr }}</p>
+    {% endif %}
+  </header>
 
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

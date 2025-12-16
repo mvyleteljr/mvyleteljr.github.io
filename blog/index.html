@@ -1,46 +1,46 @@
 ---
 layout: default
 title: Blog
+description: Writing by Marshall Vyletel Jr.
+permalink: /blog/
 ---
 
+<h1>Blog</h1>
+<p class="text-muted">Posts ordered newest first.</p>
+
 {% assign pinned_posts = site.posts | where_exp: "post", "post.pinned == true" %}
-{% assign blog_posts = site.posts | where_exp: "post", "post.pinned != true" %}
+{% assign regular_posts = site.posts | where_exp: "post", "post.pinned != true" %}
 
 {% if pinned_posts.size > 0 %}
-  <h1>Welcome</h1>
-  <ul>
-    {% for post in pinned_posts %}
-      <li style="margin-bottom: 1.2rem;">
-        <div>
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </div>
-        <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
-        {% assign summary = post.tldr | default: post.excerpt %}
-        {% if summary %}
-          <div class="tldr">{{ summary | strip_html }}</div>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-  <hr />
+<h2 class="section-heading">Pinned</h2>
+<ul class="post-list">
+  {% for post in pinned_posts %}
+  <li class="post-list-item">
+    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <div class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+    {% assign summary = post.tldr | default: post.description %}
+    {% if summary %}
+    <p class="post-excerpt">{{ summary }}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
 {% endif %}
 
-<h1>Blog</h1>
-<p>Posts are ordered newest first.</p>
-<ul>
-  {% for post in blog_posts %}
-    <li style="margin-bottom: 1.2rem;">
-      <div>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-      </div>
-      <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
-      {% assign summary = post.tldr | default: post.excerpt %}
-      {% if summary %}
-        <div class="tldr">{{ summary | strip_html }}</div>
-      {% endif %}
-    </li>
+{% if regular_posts.size > 0 %}
+<h2 class="section-heading">All Posts</h2>
+<ul class="post-list">
+  {% for post in regular_posts %}
+  <li class="post-list-item">
+    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <div class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+    {% assign summary = post.tldr | default: post.description %}
+    {% if summary %}
+    <p class="post-excerpt">{{ summary }}</p>
+    {% endif %}
+  </li>
   {% endfor %}
-  {% if blog_posts == empty %}
-    <li>No posts yet.</li>
-  {% endif %}
 </ul>
+{% elsif pinned_posts.size == 0 %}
+<p class="text-muted">No posts yet.</p>
+{% endif %}

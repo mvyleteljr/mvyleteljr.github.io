@@ -1,107 +1,103 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ page.title | default: site.title }}</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg" />
-    <style>
-      body {
-        margin: 0;
-        padding: 32px 16px 64px;
-        display: flex;
-        justify-content: center;
-        font-family: Georgia, "Times New Roman", Times, serif;
-      }
 
-      .container {
-        width: min(800px, 100%);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.jpg" />
 
-      .topnav {
-        text-align: left;
-        margin-bottom: 16px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
+  <!-- Lora Font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    rel="stylesheet">
 
-      .button-link {
-        display: inline-block;
-        padding: 0.25rem 0.9rem;
-        border: 1px solid currentColor;
-        border-radius: 999px;
-        font-style: italic;
-        text-decoration: none;
-        background: #f7f7f7;
-        transition: background 0.15s ease;
-      }
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
 
-      .button-link:hover,
-      .button-link:focus {
-        background: #ededed;
+  <!-- MathJax for LaTeX rendering -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
 
-      .meta {
-        color: #555;
-        font-size: 0.95em;
-        margin: 0.2rem 0 1rem 0;
-      }
+<body>
+  <div class="site-wrapper">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="/">Home</a>
+      <a class="nav-link{% if page.url == '/about/' %} active{% endif %}" href="/about/">About</a>
+      <a class="nav-link{% if page.url contains '/blog' %} active{% endif %}" href="/blog/">Blog</a>
+      <a class="nav-link{% if page.url == '/projects/' %} active{% endif %}" href="/projects/">Projects</a>
+      <a class="nav-link{% if page.url == '/now/' %} active{% endif %}" href="/now/">Now</a>
+    </nav>
 
-      .tldr {
-        margin: 0.2rem 0 1.2rem 0;
-      }
+    <div class="site-container">
+      <main>
+        {{ content }}
+      </main>
 
-      code {
-        background: #f6f8fa;
-        border: 1px solid #eaecef;
-        border-radius: 4px;
-        padding: 0.15em 0.35em;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.95em;
-      }
-
-      pre {
-        background: #f6f8fa;
-        border: 1px solid #eaecef;
-        border-radius: 6px;
-        padding: 12px 14px;
-        overflow: auto;
-        line-height: 1.4;
-      }
-
-      pre code {
-        background: transparent;
-        border: none;
-        padding: 0;
-        font-size: 0.9em;
-      }
-    </style>
-    <!-- MathJax for LaTeX rendering -->
-    <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [["$", "$"], ["\\(", "\\)"]],
-          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-          processEscapes: true,
-          tags: 'ams'
-        },
-        options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-          ignoreHtmlClass: 'tex2jax_ignore',
-          processHtmlClass: 'tex2jax_process'
-        }
-      };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="topnav">
-        <a class="button-link" href="/">Home</a>
-        <a class="button-link" href="/blog/">Blog</a>
-      </div>
-      {{ content }}
+      <footer class="site-footer">
+        <p>
+          <a href="https://x.com/mvyletel_jr" target="_blank">X</a> ·
+          <a href="https://github.com/mvyleteljr" target="_blank">GitHub</a> ·
+          <button type="button" class="button-link" id="copy-email" aria-live="polite"
+            style="font-size: inherit; padding: 0; border: none; background: none; color: inherit;">email</button>
+        </p>
+      </footer>
     </div>
-  </body>
-  </html>
+  </div>
+
+  <script>
+    (function () {
+      const copyBtn = document.getElementById("copy-email");
+      if (!copyBtn) return;
+      const email = "marshallvyleteljr@gmail.com";
+      const defaultLabel = copyBtn.textContent.trim();
+
+      function setStatus(message) {
+        copyBtn.textContent = message;
+        setTimeout(() => {
+          copyBtn.textContent = defaultLabel;
+        }, 1500);
+      }
+
+      copyBtn.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(email);
+          } else {
+            const temp = document.createElement("textarea");
+            temp.value = email;
+            temp.style.position = "fixed";
+            temp.style.opacity = "0";
+            document.body.appendChild(temp);
+            temp.focus();
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+          }
+          setStatus("copied!");
+        } catch (err) {
+          setStatus("failed :(");
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
