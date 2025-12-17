@@ -37,21 +37,40 @@ There are three experimental interface concepts that I'd like to develop:
 2. "Backseat Driver"
 3. "Honest"
 
-"Feature Tree" - What if instead of outputting language, we simply watched internal feature activations in real time, and created evolving heat maps of conceptual information? 
+---
+### Feature Tree
+What if instead of outputting language, we simply watched internal feature activations in real time, and created evolving heat maps of conceptual information?
 
-How to use: Give it multimedia information, or brain dump, and watch what concepts are emerging and at what time. Here is a terrible little sketch I had AI studio come up with for me:
+***How to use:*** Give it multimedia information, or brain dump, and watch what concepts are emerging and at what time. Here is a terrible little sketch I had AI studio come up with for me:
 
 ![Feature Tree concept sketch](/assets/images/Screenshot 2025-12-16 at 7.29.03 PM.png)
 
-Target Audience: Artists, someone looking to use AI as a way to generate general inspiration across domains, scientists.
+***Target Audience:*** Artists, someone looking to use AI as a way to generate general inspiration across domains, scientists.
 
-"Backseat Driver" - What if instead of you being the writer that leverages auto-complete and AI to be a co-pilot, YOU were the co-pilot while the AI steered the ship. 
+---
+### Backseat Driver
+What if instead of you being the writer that leverages auto-complete and AI to be a co-pilot, YOU were the co-pilot while the AI steered the ship. 
 
-How to use: Seed it with an initial prompt, allow it to slowly generate writing. Pause generation or steer it with a variety of sliders that augment generation in real time. There would be no back and forth, just nudging and pushing it along strange new paths. You should also be able to back track and have it re-generate from a stopping point.
+***How to use:*** Seed it with an initial prompt, allow it to slowly generate writing. Pause generation or steer it with a variety of sliders that augment generation in real time. There would be no back and forth, just nudging and pushing it along strange new paths. You should also be able to back track and have it re-generate from a stopping point.
 
 ![Backseat Driver concept sketch](/assets/images/Screenshot 2025-12-16 at 7.34.48 PM.png)
 
-Target Audience: Writers, hobbyists... I don't know. This one doesn't have much clear utility but would be fun. 
+***Target Audience***: Writers, hobbyists... I don't know. This one doesn't have much clear utility but would be fun. 
+
+---
+### Honest
+A hyperdetailed generation stream that lets you see what is actually happening at each step of inference while you're generating. 
+
+***How to use***: Just like normal chat, but you see way more information that helps reinforce the idea that these things are generating language via math. 
+
+Here is a screenshot from our internal research interface at Concordance that is pretty much this exactly, but without being an explicit chat or generating the data in real time. 
+
+![Honest concept sketch](/assets/images/Screenshot 2025-12-16 at 7.46.03 PM.png)
+
+***Target Audience***: Every curious person, but mostly technical people, probably engineers.
+
+I have really loved using this interface to explore personally, and I'd love to use our tech to build a fun product around it. To be explored!
+---
 
 ## Conclusion!
 
