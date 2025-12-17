@@ -70,6 +70,7 @@ Here is a screenshot from our internal research interface at Concordance that is
 ***Target Audience***: Every curious person, but mostly technical people, probably engineers.
 
 I have really loved using this interface to explore personally, and I'd love to use our tech to build a fun product around it. To be explored!
+
 ---
 
 ## Conclusion!
