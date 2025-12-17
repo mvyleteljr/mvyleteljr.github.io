@@ -4,9 +4,6 @@ title: About
 description: Bio and career story of Marshall Vyletel Jr.
 permalink: /about/
 ---
-
-I'm a founder, researcher, software engineer, musician, writer, and hobby mathematician when I have the time.
-
 **Current role:** Cofounder of [Concordance](https://www.concordance.co/)
 
 **Technical focus areas:** Mechanistic Interpretability, LLM Inference, and Blockchain Infrastructure
