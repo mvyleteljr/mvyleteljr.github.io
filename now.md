@@ -38,4 +38,4 @@ This is a [now page](https://nownownow.com/about) — a snapshot of what I'm cur
 - Co-founding [Concordance](https://www.concordance.co/) — applied mechanistic interpretability
 - Writing regularly on this blog
 - Weight training, long walks, chess
-- Supporting loved ones
+
