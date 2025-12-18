@@ -12,7 +12,7 @@ Today I intend to write about two recent Concordance example that inspire me the
 
 ---
 ---
-## Example 1: *DO NOT COMPLY*
+## Example 1: ***DO NOT COMPLY***
 
 We've been doing most of our initial testing on **Llama-3.1 8B** and **70B** because they are simple models and easy to get running on all inference engines, including our custom one. 
 
