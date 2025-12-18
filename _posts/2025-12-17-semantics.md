@@ -1,6 +1,6 @@
 ---
 title: Multidisciplinary Brain Surgery
-tldr: LLMs are weird, messing with their mind is weird
+tldr: LLMs are weird, messing with their mind is weirder
 layout: post
 pinned: false
 ---
