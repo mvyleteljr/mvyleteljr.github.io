@@ -18,7 +18,7 @@ We've been doing most of our initial testing on **Llama-3.1 8B** and **70B** bec
 
 We've just started to get reasoning models flowing and ran a few simple tests with Qwen 14B to see how steerable they are with token injection. 
 
-Our hypothesis was initially that they would be much easier to steer, because reasoning traces are already a bit wonky by default, which implied to us that we had more degrees of freedom with what type of language we could inject without throwing the model too far out of distribution (🜋). 
+Our initial hypothesis was that they would be much easier to steer, because reasoning traces are already a bit wonky by default, which implied to us that we had more degrees of freedom with what type of language we could inject without throwing the model too far out of distribution (🜋). 
 
 My first request was to inject a simple string that throws the reasoning down a trajectory that could get the model to deny a banal request. I thought this would be more fun than the opposite you see most often in the literature: injecting to comply with a sinister request.
 
