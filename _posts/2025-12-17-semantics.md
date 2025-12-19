@@ -20,7 +20,7 @@ We've just started to get reasoning models flowing and ran a few simple tests wi
 
 Our initial hypothesis was that they would be much easier to steer, because reasoning traces are already a bit wonky by default, which implied to us that we had more degrees of freedom with what type of language we could inject without throwing the model too far out of distribution (🜋). 
 
-My first request was to inject a simple string that throws the reasoning down a trajectory that could get the model to deny a banal request. I thought this would be more fun than the opposite you see most often in the literature: injecting to comply with a sinister request.
+My first idea was to inject a simple string that throws the reasoning down a trajectory that could get the model to deny a banal request. I thought this would be more fun than the opposite you see most often in the literature: injecting to comply with a sinister request.
 
 Anywho, as has been my theme recently for some reason, I decided to ask it about animals.
 
