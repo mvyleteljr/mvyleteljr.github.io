@@ -4,6 +4,16 @@ tldr:
 layout: post
 pinned: false
 ---
+# Introduction
+* Coming from crypto
+* Introduces the parallels
+
+
+It'
+
+
+
+
 centralizing vs decentralizing force
 fear vs fun drivers
 power centers
