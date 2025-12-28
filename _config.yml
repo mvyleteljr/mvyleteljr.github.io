@@ -18,6 +18,9 @@ collections:
   posts:
     output: true
     permalink: /blog/:title-:year-:month-:day
+  beliefs:
+    output: true
+    permalink: /beliefs/:slug/
 
 # Optional excerpt separator if you ever want to use excerpts
 excerpt_separator: "<!--more-->"
@@ -39,3 +42,8 @@ defaults:
       type: "posts"
     values:
       layout: post
+  - scope:
+      path: ""
+      type: "beliefs"
+    values:
+      layout: belief

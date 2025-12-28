@@ -1,0 +1,60 @@
+---
+layout: default
+title: Belief Map
+description: A public, evolving record of my positions on topics I find important. EVERYTHING YOU SEE BELOW IS AI-GENERATED. WILL BE UPDATING WITH MY ACTUAL BELIEFS SOON. YOU WILL KNOW WHEN THIS MESSAGE DISAPPEARS.
+permalink: /beliefs/
+---
+
+<header class="belief-map-header">
+  <h1>Belief Map</h1>
+  <p class="belief-map-intro">
+      A public, evolving record of my positions on topics I find important. EVERYTHING YOU SEE BELOW IS AI-GENERATED. WILL BE UPDATING WITH MY ACTUAL BELIEFS SOON. YOU WILL KNOW WHEN THIS MESSAGE DISAPPEARS.
+  </p>
+</header>
+
+{% assign sorted_beliefs = site.beliefs | sort: "lastUpdated" | reverse %}
+{% assign belief_count = site.beliefs | size %}
+
+{% if belief_count > 0 %}
+<div class="belief-stats">
+  {{ belief_count }} {% if belief_count == 1 %}belief{% else %}beliefs{% endif %} · Last updated {{ sorted_beliefs.first.lastUpdated }}
+</div>
+
+<div class="belief-table">
+  <div class="belief-table-header">
+    <div class="belief-col-topic">Topic</div>
+    <div class="belief-col-valence">Valence</div>
+    <div class="belief-col-active">Active</div>
+    <div class="belief-col-confidence">Confidence</div>
+    <div class="belief-col-updated">Updated</div>
+  </div>
+
+  {% for belief in sorted_beliefs %}
+  <a href="{{ belief.url }}" class="belief-row">
+    <div class="belief-col-topic">
+      <div class="belief-topic-name">{{ belief.topic }}</div>
+      <div class="belief-thesis-preview">{{ belief.thesis }}</div>
+    </div>
+    <div class="belief-col-valence">
+      <span class="valence-badge valence-{{ belief.valence | downcase }}">{{ belief.valence }}</span>
+    </div>
+    <div class="belief-col-active">
+      <span class="active-indicator{% if belief.active %} active-true{% else %} active-false{% endif %}">
+        {% if belief.active %}✓{% else %}—{% endif %}
+      </span>
+    </div>
+    <div class="belief-col-confidence">
+      <div class="confidence-display">
+        <span class="confidence-number">{{ belief.confidence }}%</span>
+        <div class="confidence-bar-container">
+          <div class="confidence-bar" style="width: calc(100% - {{ belief.confidence }}%);" data-confidence="{{ belief.confidence }}"></div>
+        </div>
+      </div>
+    </div>
+    <div class="belief-col-updated">{{ belief.lastUpdated }}</div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">No beliefs tracked yet.</p>
+{% endif %}
