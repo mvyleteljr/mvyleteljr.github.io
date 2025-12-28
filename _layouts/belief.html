@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<article class="belief-page">
+    <header class="belief-header">
+        <h1>{{ page.topic }}</h1>
+        <div class="belief-meta">
+            <div class="belief-thesis">
+                <strong>Thesis:</strong> {{ page.thesis }}
+            </div>
+            <div class="belief-meta-row">
+                <div class="belief-valence-display">
+                    <strong>Valence:</strong> <span class="valence-badge valence-{{ page.valence | downcase }}">{{ page.valence }}</span>
+                </div>
+                <div class="belief-active-display">
+                    <strong>Active:</strong> <span class="active-indicator{% if page.active %} active-true{% else %} active-false{% endif %}">{% if page.active %}Yes{% else %}No{% endif %}</span>
+                </div>
+                <div class="belief-last-updated">
+                    <strong>Last updated:</strong> {{ page.lastUpdated }}
+                </div>
+            </div>
+            <div class="belief-confidence-display">
+                <div class="confidence-label">
+                    <strong>Confidence:</strong> {{ page.confidence }}%
+                </div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: calc(100% - {{ page.confidence }}%);" data-confidence="{{ page.confidence }}"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="belief-content">
+        {{ content }}
+    </div>
+</article>
