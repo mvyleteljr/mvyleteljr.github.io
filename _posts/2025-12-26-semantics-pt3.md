@@ -31,9 +31,11 @@ Remember, the goal here is LLM steering, so we need to turn something like "good
 **Evaluation**:
 - "Fortunately" ↔ "Unfortunately"
 - "Impressively," ↔ "Disappointingly,"
+
 **Potency** (force/weight of commitment):
 - "Undeniably" ↔ "Arguably"
 - "It is clear that" ↔ "It seems that"
+
 **Activity** (momentum/movement):
 - "Diving in," ↔ "Pausing to consider,"
 - "Let's move to" ↔ "Let's sit with"
