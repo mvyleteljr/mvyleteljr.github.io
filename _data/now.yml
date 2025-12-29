@@ -2,8 +2,8 @@
 # This populates the "Currently" widget on the homepage and Now page
 
 reading:
-  title: "Jung Essays & The Reign of Quantity"
-  author: "C.G. Jung / René Guénon"
+  title: "The Dark Forest // The Timeless Way of Building "
+  author: "Cixin Liu // Christopher Alexander"
   url: ""
 
 listening:
@@ -11,6 +11,6 @@ listening:
   artist: ""
   url: ""
 
-focus: "Building Concordance's first product release"
+focus: "Researching token injection at Concordance"
 
-updated: "2025-12-16"
+updated: "2025-12-29"
