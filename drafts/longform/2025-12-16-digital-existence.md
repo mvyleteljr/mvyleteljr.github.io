@@ -53,3 +53,6 @@ To start, I decided to create a taxonomy to create a map of the software I'll be
 	* Games, 
 
 
+Sam Altman's blog post [The Gentle Singularity](https://blog.samaltman.com/the-gentle-singularity) offers an impressively low-res image. 
+
+>AI will contribute to the world in many ways, but the gains to quality of life from AI driving faster scientific progress and increased productivity will be enormous; the future can be vastly better than the present. Scientific progress is the biggest driver of overall progress; it’s hugely exciting to think about how much more we could have.
