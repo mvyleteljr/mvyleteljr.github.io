@@ -6,15 +6,13 @@ pinned: false
 ---
 # Intro
 
-This is part 2 of my attempt to "Eat the Elephant", where I'm trying to make my own vivid picture of a truly post-AGI world. 
+This is part 2 of my attempt to "Eat the Elephant", where I'm trying to make my own vivid picture of a post-AGI world. 
 
 In this piece, I'm going after the leg, because it's close to the ground. 
 
 ## End-State Definition
 
-To map out what our lives are gonna look like once things actually go bonkers, we're going to need to define what bonkers means. In less dumb language, I want a framework for thinking about AI capabilities post-AGI.
-
-Understanding the capability-space at a high-level feels pretty intuitive actually. There are two boundaries:
+I need a framework for understanding about AI capabilities post-AGI. Best I can imagine right now is to think through the question along two boundaries:
 1. Cognitive Power: How much the model knows
 2. Actuator Power: How much the model can touch
 
@@ -22,7 +20,7 @@ Understanding the capability-space at a high-level feels pretty intuitive actual
 
 The rough cognitive boundary definition is that *anything fundamentally derivable is derivable given sufficient data and compute*.
 
-This boundary is meaningless, in some ways, if you think about human brain power as compute. Leaving Godel's Incompleteness Theorem out of scope for the moment, we already live in a space where enough compute and date would allow us to fundamentally derive any information. 
+. Leaving Godel's Incompleteness Theorem out of scope for the moment, we already live in a space where enough compute and date would allow us to fundamentally derive any information. 
 
 The classic example is a dice roll. Feels random, but if you know the exact launch angle, shape angle, molecular structure, etc... You would be able to calculate the outcome with 100% accuracy, assuming macro-level determinism. We're just limited on is data and compute. 
 

@@ -8,16 +8,28 @@ pinned: false
 
 I've become increasingly convinced that there exists a widening chasm in the current zeitgeist. 
 
-In the east -- the old world -- dopamine addiction and late stage capitalism are wreaking havoc on all generations. Short-form media is melting brains, people are betting the house in prediction markets and on memecoins, and health is deteriorating.
+On one side -- the old world -- dopamine addiction and late stage capitalism are wreaking havoc on all generations. Short-form media continues to melt brains, people are betting the house in prediction markets and on memecoins, and health is deteriorating.
 
-In the west, there is a revolution. 
+In the other, there is a revolution. The insurgents are abandoning the screens, demanding more of their media, and setting the foundations to build monuments. They are not Luddites, but of some new still not clearly defined culture of embodied... something. 
 
-There is some overlap between the halves, 
+Timothee Chalamet is the most obvious face for this revolt, with his athletic mentality of success and greatness in a profession typically used to faux-humility. 
 
-1. Fracture
-	1. Steady pursuit of excellence over decades
-	2. Substance
-	3. Short form 
+For the moment, there is still a bridge between the two lands, but I think once AI *fully* embeds itself into the digital landscape, it will crumble. 
+
+## Permanent Overclass
+
+There has been a lot of somewhat joking chatter online recently about having a small window to "escape the permanent underclass" financially. Might be true, but I think it's more interesting to think about it in the context of *this* fracture that extends beyond money. 
+
+Both sides of this cultural divide are self-reinforcing(?). Brain melting begets brain melting and health begets health. The downward spiral and the upward spiral.
+
+The real permanent "overclass" is the set of people who will maintain, reinforce, and grow their human capacities alongside the artificial powers. I'm still working out what will happen to the economy in a post-AGI world, but I would imagine that a similar feedback loop of capital will accrue to the in-group of this camp. 
+
+You can basically flip these to get the qualities of the "underclass". 
+
+If you're in a good spot right now, it's self-sustaining. If you're not, the self-destruction amplifies itself. 
+
+
+
 
 The middle doesn't exist
 collective cultural consciousness is not fragmented by subcommunity. 

@@ -4,11 +4,11 @@ tldr: a few good questions to ask about technology
 layout: post
 pinned: false
 ---
-My central frustration with technology, and AI specifically, is that it's so rare these days to see someone clearly articulate specific problems and why a given piece of technology is the best bet to solve them. 
+My central frustration with technology, and AI specifically, is that it's rare to see a company clearly articulate specific problems and why their technology is the best bet to solve them. 
 
-I understand that at some level, human curiosity is simply insatiable. If we can, we will, unless the consequences are severe enough to overcome the curiosity. I also understand that at another level, the reasons for building anything and thrusting it upon the world are incredibly complex, and that this complexity is probably inherent within any drive to do *anything*. That is to say, it's not necessarily just a tech problem. 
+I understand that at some level, human curiosity is simply insatiable. If we can, we will, unless the consequences are severe enough to overcome the curiosity. I also understand that at another level, the reasons for building anything and thrusting it upon the world are incredibly complex, and that this complexity is probably inherent to any drive to do *anything*. That is to say, it's not necessarily just a tech problem. 
 
-I see it in music, for example, a space where the idea of having "problems to solve" doesn't even make a lot of sense. An artist can make a slop album to satisfy a record label, or for some egotistical drive for relevance and power, but it is often an inert creation. It doesn't materially impact people the way that technology can. The risk is that people get sucked into a fandom that harms them in some way, and this can be destructive, but it is very different than the kind of destruction we've seen technology wreak in the world.
+I see it in music, for example, a space where the idea of having "problems to solve" doesn't really evensense. An artist can make a slop album to satisfy a record label, or for some egotistical drive for relevance and power, but it is often an inert creation. It doesn't materially impact people the way that technology can. The risk is that people get sucked into a fandom that harms them in some way, and this can be destructive, but it is very different than the kind of destruction we've seen technology wreak in the world.
 
 *Music cannot create the atom bomb.*
 
