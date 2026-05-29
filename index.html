@@ -1,73 +1,22 @@
----
-layout: default
-title: Marshall Vyletel Jr.
-description: Founder, researcher, software engineer, musician, writer.
----
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marshall Vyletel Jr.</title>
+<meta name="description" content="Marshall Vyletel Jr. — founder, researcher, writer.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/style.css">
+</head><body>
 
-<h1 class="site-title">Marshall Vyletel Jr.</h1>
+<img class="avatar" src="/avatar.jpg" alt="Marshall Vyletel Jr.">
 
-<div class="intro">
-    <p>Founder, researcher, writer, musician. Currently building <a href="https://www.concordance.co/"
-            target="_blank">Concordance</a> — applying mechanistic interpretability to real-world problems.</p>
-</div>
+<p>I live in Brooklyn. I co-founded <a href="https://www.concordance.co/">Concordance</a>, where we apply mechanistic interpretability to real problems.</p>
 
-{% if site.data.now.reading.title != "" or site.data.now.focus != "" %}
-<div class="currently-widget">
-    <h3>Currently</h3>
-    {% if site.data.now.focus != "" %}
-    <div class="currently-item">
-        <span class="currently-label">Focus:</span> {{ site.data.now.focus }}
-    </div>
-    {% endif %}
-    {% if site.data.now.reading.title != "" %}
-    <div class="currently-item">
-        <span class="currently-label">Reading:</span> {{ site.data.now.reading.title }}
-    </div>
-    {% endif %}
-</div>
-{% endif %}
+<p>Before that I studied applied math and computer science at <a href="https://www.brown.edu/">Brown</a>, built NFT and blockchain infrastructure, and led interoperability and AI agent research (while supporting broader AI research) at <a href="https://1kx.network/">1kx</a>.</p>
 
-<h2 class="section-heading">Latest Post</h2>
+<p class="quote"><em>If we can somehow learn to play the drone, our capacities open immeasurably and with some measure of wisdom for the flow of beautiful notes above.</em></p>
 
-{% assign latest_post = site.posts | where_exp: "post", "post.draft != true" | first %}
-{% if latest_post %}
-<ul class="post-list">
-    <li class="post-list-item">
-        <h3><a href="{{ latest_post.url }}">{{ latest_post.title }}</a></h3>
-        <div class="post-meta">{{ latest_post.date | date: "%B %-d, %Y" }}</div>
-        {% if latest_post.tldr %}
-        <p class="post-excerpt">{{ latest_post.tldr }}</p>
-        {% elsif latest_post.description %}
-        <p class="post-excerpt">{{ latest_post.description }}</p>
-        {% endif %}
-    </li>
-</ul>
-{% else %}
-<p class="text-muted">No posts yet.</p>
-{% endif %}
+<p>You can find my <a href="/writing.html">writing here</a>, my <a href="/photos.html">photos here</a>, and <a href="/links.html">things I'm into here</a>.</p>
 
-<p><a href="/blog/">View all posts →</a></p>
+<p class="muted"><a href="https://x.com/mvyletel_jr">X</a> · <a href="https://github.com/mvyleteljr">GitHub</a> · <a href="https://marshalljr.substack.com/">Substack</a> · <span>marshallvyleteljr (at) gmail (dot) com</span></p>
 
-<hr>
-
-<h2 class="section-heading">Featured Work</h2>
-
-<ul class="project-list">
-    <li class="project-card">
-        <h3>Concordance</h3>
-        <p>Co-founding an AI startup exploring applied mechanistic interpretability.</p>
-        <div class="project-links">
-            <a href="https://www.concordance.co/" target="_blank">Website →</a>
-        </div>
-    </li>
-
-    <li class="project-card">
-        <h3>IPI Framework</h3>
-        <p>Exploring intention and preference in large language models.</p>
-        <div class="project-links">
-            <a href="https://www.concordance.co/blog/ipi-framework" target="_blank">Read article →</a>
-        </div>
-    </li>
-</ul>
-
-<p><a href="/projects/">View all projects →</a></p>
+</body></html>

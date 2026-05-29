@@ -1,50 +1,33 @@
 # mvyleteljr.github.io
 
-## Blog usage
+Dead-simple personal site. The front-end is plain HTML + one CSS file, no JS.
+Blog posts are still rendered by Jekyll (free on GitHub Pages) so they can stay in Markdown.
 
-This repo now includes a minimal Jekyll blog compatible with GitHub Pages.
+## Files
+- `index.html` — homepage (photo + short bio + links).
+- `writing.html` — hand-maintained list of posts, grouped by category, linking to `/blog/…` URLs.
+- `photos.html` — photo archive, grouped by category, as a grid.
+- `links.html` — free-form curated links, grouped by category.
+- `style.css` — all styling. Shared by every page, including rendered posts.
+- `avatar.jpg` — homepage photo. `img/` — photos.
+- `_posts/` — Markdown blog posts. `_layouts/` — the post/default templates.
 
-- Write posts in Markdown under `_posts/` using the filename format `YYYY-MM-DD-title.md`.
-- Each post should have front matter at the top:
+## How to edit
+- **Add a piece of writing:** write the post in `_posts/` as `YYYY-MM-DD-slug.md` with front matter (`title`, `tldr`). It publishes at `/blog/slug-YYYY-MM-DD`. Then add one `<li>` to `writing.html` under the right `<div class="cat">`: `<li><span class="date">YYYY-MM-DD</span><a href="/blog/slug-YYYY-MM-DD">Title</a></li>`.
+- **Add a photo:** drop the file in `img/`, add `<a href="img/NAME.jpg"><img src="img/NAME.jpg" alt=""></a>` to `photos.html` under a category.
+- **Add a link:** add one `<li>` to `links.html`. Categories are just `<div class="cat">` headers — make up new ones at will.
+- **Change the bio:** edit the `<p>` tags in `index.html`.
 
-  ---
-  title: My Post Title
-  tldr: One-sentence summary for the index
-  ---
+Categories are freeform: a category exists if there's a `cat` header above a list.
 
-- URLs: `/blog/title-year-month-day` (no trailing slash).
-- Blog index: `/blog/` lists posts newest-first with date, title, and TLDR.
+## Constraints (keep it this way)
+- No frameworks, no web fonts, no bundler, no client-side JS on the static pages. One CSS file.
+- The four top-level pages are plain HTML — edit them directly.
+- Keep the single centered column. Don't add heroes, animations, or decoration.
 
-### Pinning (Welcome section)
-- To keep a post at the top under the "Welcome" section on `/blog/`, add `pinned: true` to its front matter.
-- Pinned posts show only in the Welcome section; they are excluded from the main Blog list below it.
-
-### Images
-- Put assets under `assets/blog/<slug>/...` (or reuse `/assets/`), then reference via absolute paths, e.g. `![Alt](/assets/blog/my-post/image.png)`.
-
-### Video embeds
-- Paste raw HTML iframes in Markdown, e.g. a YouTube embed. Jekyll passes HTML through.
-
-### Optional excerpts
-- If you omit `tldr`, the index falls back to the post excerpt (first paragraph or content before `<!--more-->`).
-
-personal landing page 
-
-## Local development
-
-1. Make sure Ruby and Bundler are installed, then install the dependencies listed in `Gemfile` (this pulls the `github-pages` gem that GitHub itself uses):
-
-   ```bash
-   gem install bundler          # requires network access
-   bundle install
-   ```
-
-2. Run a local preview server from the project root:
-
-   ```bash
-   bundle exec jekyll serve --livereload
-   ```
-
-3. Visit `http://127.0.0.1:4000` (or the host/port printed in the console). Press `Ctrl+C` to stop the server.
-
-If the CLI sandbox blocks outbound network access, the `gem install`/`bundle install` step will appear to hang—rerun with network permissions or install the gems outside the sandbox before serving locally.
+## Local preview
+```bash
+bundle install
+bundle exec jekyll serve
+```
+Visit `http://127.0.0.1:4000`.
