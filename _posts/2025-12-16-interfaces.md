@@ -6,7 +6,7 @@ pinned: false
 ---
 I've been spending a lot of time thinking about LLM interfaces recently. Chat-like interfaces have always felt like a dramatically underpowered and dangerous interaction modality, and I haven't seen many creative attempts to explore this space. We're working on this at Concordance in an "engineering interface" context, and as this work develops I find myself imagining other ways we might be able to interact with models generally. 
 
-(This is the first post as part of a "publish something everyday until February 1st" challenge I've imposed on myself, so there are going to be some rough edges. I'll annotate things I'd like to develop with this alchemical symbol for vinegar: 🜋)
+(I'll annotate things I'd like to develop with this alchemical symbol for vinegar: 🜋)
 
 ## Interfaces Design is a Serious Problem
 
@@ -75,7 +75,7 @@ I have really loved using this interface to explore personally, and I'd love to 
 
 ## Conclusion!
 
-I had way too many ideas going in this one to scope well. This challenge is going to be difficult but I've learned a lot from today. There is a lot to explore in this domain and it's worth way more than the 1.5 hours I spent writing this today.
+There is a lot to explore in this domain.
 
 Here is a list of some related work that could spin out of this:
 1. More Interfaces

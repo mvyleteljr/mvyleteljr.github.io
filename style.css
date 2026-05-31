@@ -25,7 +25,7 @@ ul.list li .entry{ display:flex; flex-direction:column; gap:.05rem; }
 ul.list li .tldr{ font-size:.68em; font-style:italic; color:var(--muted); }
 .cat{ color:var(--muted); font-size:.8em; letter-spacing:.08em; text-transform:uppercase; margin:2rem 0 .75rem; }
 .cat:first-child{ margin-top:0; }
-.photos{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
+.photos{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:8px; }
 .photos a img{ width:100%; aspect-ratio:1; object-fit:cover; display:block; }
 
 /* --- rendered blog posts (Jekyll) --- */

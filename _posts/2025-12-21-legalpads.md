@@ -6,8 +6,6 @@ pinned: false
 ---
 # Good Evening
 
-Another travel day. 
-
 Today, please enjoy a love letter to my favorite note taking technology.
 
 ---

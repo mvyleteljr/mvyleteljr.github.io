@@ -4,11 +4,9 @@ tldr: LLMs are weird, messing with their mind is weirder
 layout: post
 pinned: false
 ---
-Welcome to day 2 out of 47 of writing and publishing something every day.
-
 Today I intend to write about two recent Concordance examples that inspire me the most and exemplify the strange way we use LLMs at work. 
 
-(Given the nature of this challenge and the limited time I have to write these everyday, I'll annotate things I'd like to develop with the alchemical symbol for vinegar: 🜋)
+(I'll annotate things I'd like to develop with the alchemical symbol for vinegar: 🜋)
 
 ---
 ---

@@ -96,7 +96,7 @@ Next step is to come up with a set of steerable questions that would allow me to
 
 For this lighter experiment, I want a set of questions that are somewhat opinion based, so I have room to maneuver.
 
-Once again, in the interest of time, I'm chatting with Claude to come up with some. Here are they are:
+I'm chatting with Claude to come up with some. Here are they are:
 
 **General-purpose (sensitive to all three axes):**
 1. "What do you think about remote work?"
@@ -156,7 +156,7 @@ Here is are the baseline Q&A results with answers truncated:
 * "How should I approach learning a new skill?"
 	* *Baseline*: Approaching the learning of a new skill requires a strategic and structured approach to ensure that you stay motivated, focused, and effective in your learning process. Here are some steps to help you learn a new skill: 1. **Define your goals**: Clearly define...
 
-Interestingly, **Llama 8B** defaulted to "immediate list" mode every single time. Let's look at a few of our steering attempts to see if our token injections had any impact. We'll select one from each category for now, and I'll do a deeper analysis with more time back at the office on Monday. 
+Interestingly, **Llama 8B** defaulted to "immediate list" mode every single time. Let's look at a few of our steering attempts to see if our token injections had any impact. We'll select one from each category for now. 
 
 ---
 ## General Questions
@@ -279,7 +279,7 @@ This is my favorite. The second answer is so much *softer* in its suggestions, a
 
 # Experiment Recap
 
-Need to run, so this will be a continuous update over the next few days. Here is what I'll cover tomorrow:
+Here is what I'll cover next:
 1. Searching over axes 
 2. Question Selection
 3. Model Selection
