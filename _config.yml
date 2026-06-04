@@ -31,6 +31,7 @@ exclude:
   - .gitignore
   - .git
   - .DS_Store
+  - inbox.md
 
 # Default front matter values
 defaults:

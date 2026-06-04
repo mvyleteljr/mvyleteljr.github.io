@@ -28,7 +28,7 @@ I legitimately think this is most people's mental image when discussing the "age
 
 Who wants this? What are all of those buildings for? Does that guy have a job? Is there a ban on building with wood? What is he gonna do when he gets home?
 
-The doomers have done a good job of creating an image of what happens if we accidentally Manhattan Project an unaligned superintelligence, but the optimists have done a comparatively terrible job describing their version of the story. 
+The doomers have done a good job of creating an image of what happens if we accidentally Manhattan Project an unaligned superintelligence (spoiler: we all die), but the optimists have done a comparatively terrible job describing their version of the story. 
 
 This is a *huge* problem for the industry. Vivid stories are powerful, and without an equally imaginative positive image, the social antibodies resisting change are going to be incredibly strong. The lack of a concrete positive image is also unsettling for those working *within* the industry. I'd bet there's far more ambivalence about AI than many working on it would be willing to admit publicly. 
 
