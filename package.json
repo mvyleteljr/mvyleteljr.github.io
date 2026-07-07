@@ -1,6 +1,9 @@
 {
   "private": true,
   "type": "commonjs",
+  "scripts": {
+    "vercel-build": "node -e \"console.log('No build step')\""
+  },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0"
   }
