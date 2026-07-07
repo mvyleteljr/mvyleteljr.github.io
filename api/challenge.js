@@ -36,7 +36,7 @@ function setCors(req, res) {
     res.setHeader("Vary", "Origin");
   }
   res.setHeader("Access-Control-Allow-Headers", "content-type, authorization");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS");
 }
 
 function base64url(input) {
@@ -161,7 +161,7 @@ async function initDb() {
   await ready;
 }
 
-async function getEntries(state) {
+async function getEntries(state, user) {
   const rows = await sql`
     select id, day, author, body, media, created_at
     from challenge_entries
@@ -174,6 +174,7 @@ async function getEntries(state) {
     timeZone: state.timeZone,
     today: state.today,
     currentDay: state.currentDay,
+    user: { name: user.name },
     entries: rows
   };
 }
@@ -269,7 +270,46 @@ async function createEntry(req, res, user, state) {
     )
   `;
 
-  json(res, 200, await getEntries(state));
+  json(res, 200, await getEntries(state, user));
+}
+
+async function updateEntry(req, res, user, state) {
+  if (state.currentDay < 1 || state.currentDay > 30) {
+    json(res, 403, { error: "today is not open" });
+    return;
+  }
+
+  const input = await parseBody(req);
+  const id = String(input.id || "").trim();
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+    json(res, 400, { error: "bad entry id" });
+    return;
+  }
+
+  const body = String(input.body || "").trim().slice(0, MAX_BODY_LENGTH);
+  const media = validateMedia(input.media || []);
+  if (!body && !media.length) {
+    json(res, 400, { error: "write something or add media" });
+    return;
+  }
+
+  const rows = await sql`
+    update challenge_entries
+    set body = ${body},
+        media = cast(${JSON.stringify(media)} as jsonb)
+    where id = ${id}
+      and challenge_id = ${state.challengeId}
+      and day = ${state.currentDay}
+      and author = ${user.name}
+    returning id
+  `;
+
+  if (!rows.length) {
+    json(res, 403, { error: "entry is locked or not yours" });
+    return;
+  }
+
+  json(res, 200, await getEntries(state, user));
 }
 
 module.exports = async function handler(req, res) {
@@ -294,12 +334,17 @@ module.exports = async function handler(req, res) {
     await initDb();
 
     if (action === "entries" && req.method === "GET") {
-      json(res, 200, await getEntries(state));
+      json(res, 200, await getEntries(state, user));
       return;
     }
 
     if (action === "entries" && req.method === "POST") {
       await createEntry(req, res, user, state);
+      return;
+    }
+
+    if (action === "entry" && req.method === "PUT") {
+      await updateEntry(req, res, user, state);
       return;
     }
 

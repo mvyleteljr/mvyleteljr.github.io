@@ -127,8 +127,136 @@
       }
 
       renderMedia(entry.media, article);
+      renderEntryActions(entry, article);
       entriesEl.appendChild(article);
     });
+  }
+
+  function canEditEntry(entry) {
+    return state &&
+      state.user &&
+      entry.author === state.user.name &&
+      state.currentDay >= 1 &&
+      state.currentDay <= 30 &&
+      selectedDay === state.currentDay &&
+      entry.day === state.currentDay;
+  }
+
+  function renderEntryActions(entry, article) {
+    if (!canEditEntry(entry)) return;
+
+    var actions = document.createElement("div");
+    actions.className = "challenge-entry-actions";
+
+    var edit = document.createElement("button");
+    edit.type = "button";
+    edit.textContent = "edit";
+    edit.addEventListener("click", function () {
+      renderEditForm(entry, article);
+    });
+
+    actions.appendChild(edit);
+    article.appendChild(actions);
+  }
+
+  function renderEditForm(entry, article) {
+    var existing = article.querySelector(".challenge-edit-form");
+    if (existing) existing.remove();
+
+    var form = document.createElement("form");
+    form.className = "challenge-entry-form challenge-edit-form";
+
+    var bodyLabel = document.createElement("label");
+    bodyLabel.textContent = "anecdote";
+    var bodyInput = document.createElement("textarea");
+    bodyInput.rows = 5;
+    bodyInput.value = entry.body || "";
+    bodyLabel.appendChild(bodyInput);
+
+    var keepLabel = document.createElement("label");
+    keepLabel.className = "challenge-keep-media";
+    var keepInput = document.createElement("input");
+    keepInput.type = "checkbox";
+    keepInput.checked = true;
+    keepInput.className = "challenge-checkbox";
+    keepLabel.appendChild(keepInput);
+    keepLabel.appendChild(document.createTextNode(" keep media"));
+
+    var fileLabel = document.createElement("label");
+    fileLabel.textContent = "add media";
+    var fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.multiple = true;
+    fileLabel.appendChild(fileInput);
+
+    var linkLabel = document.createElement("label");
+    linkLabel.textContent = "add link";
+    var linkInput = document.createElement("input");
+    linkInput.type = "url";
+    linkInput.placeholder = "https://...";
+    linkLabel.appendChild(linkInput);
+
+    var pending = document.createElement("div");
+    pending.className = "challenge-pending";
+
+    var buttons = document.createElement("div");
+    buttons.className = "challenge-edit-buttons";
+    var save = document.createElement("button");
+    save.type = "submit";
+    save.textContent = "save";
+    var cancel = document.createElement("button");
+    cancel.type = "button";
+    cancel.textContent = "cancel";
+    cancel.addEventListener("click", function () {
+      form.remove();
+    });
+    buttons.appendChild(save);
+    buttons.appendChild(cancel);
+
+    fileInput.addEventListener("change", function () {
+      pending.replaceChildren();
+      Array.prototype.forEach.call(fileInput.files || [], function (file) {
+        var item = document.createElement("span");
+        item.textContent = file.name;
+        pending.appendChild(item);
+      });
+    });
+
+    form.appendChild(bodyLabel);
+    form.appendChild(keepLabel);
+    form.appendChild(fileLabel);
+    form.appendChild(linkLabel);
+    form.appendChild(pending);
+    form.appendChild(buttons);
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      showMessage(entryError, "");
+
+      var body = bodyInput.value.trim();
+      var link = linkInput.value.trim();
+      var media = keepInput.checked ? (entry.media || []).slice() : [];
+
+      if (link) media.push({ kind: "url", url: link });
+
+      Promise.all(Array.prototype.map.call(fileInput.files || [], fileToMedia)).then(function (files) {
+        media = media.concat(files);
+        if (!body && !media.length) throw new Error("write something or add media");
+
+        return request("entry", {
+          method: "PUT",
+          body: { id: entry.id, body: body, media: media }
+        });
+      }).then(function (payload) {
+        state = payload;
+        render();
+      }).catch(function (error) {
+        showMessage(entryError, error.message);
+      });
+    });
+
+    article.appendChild(form);
+    bodyInput.focus();
   }
 
   function renderDays() {

@@ -122,8 +122,23 @@ async function main() {
     throw new Error("smoke entry was not returned");
   }
 
+  const entry = created.body.entries
+    .filter((item) => item.author === "Smoke")
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+  const updated = await call(
+    handler,
+    makeReq("PUT", "/api/challenge?action=entry", {
+      id: entry.id,
+      body: `updated smoke test ${new Date().toISOString()}`,
+      media: entry.media
+    }, login.body.token)
+  );
+  if (updated.statusCode !== 200) {
+    throw new Error(`entry update failed: ${updated.body.error || updated.statusCode}`);
+  }
+
   console.log("challenge API smoke test passed");
-  console.log(`current day: ${created.body.currentDay}`);
+  console.log(`current day: ${updated.body.currentDay}`);
   console.log(`smoke entries visible: ${afterCount}`);
 }
 

@@ -112,6 +112,11 @@ textarea{
   color:var(--muted);
   font-size:.85em;
 }
+.challenge-entry-form label.challenge-keep-media{
+  display:flex;
+  align-items:center;
+  gap:.35rem;
+}
 .challenge-form button,
 .challenge-entry-form button{
   justify-self:start;
@@ -203,6 +208,20 @@ textarea{
 }
 .challenge-media audio{
   width:100%;
+}
+.challenge-entry-actions{
+  margin-top:.75rem;
+}
+.challenge-edit-form{
+  margin-top:1rem;
+}
+.challenge-edit-buttons{
+  display:flex;
+  gap:.5rem;
+}
+.challenge-checkbox{
+  width:auto;
+  margin-right:.35rem;
 }
 
 @media (max-width:520px){
