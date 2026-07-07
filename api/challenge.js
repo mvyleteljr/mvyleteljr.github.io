@@ -22,10 +22,17 @@ function json(res, status, payload) {
 }
 
 function setCors(req, res) {
-  const allowed = process.env.CHALLENGE_ALLOWED_ORIGIN;
   const origin = req.headers.origin;
-  if (allowed && origin === allowed) {
-    res.setHeader("Access-Control-Allow-Origin", allowed);
+  const allowedOrigins = new Set([
+    "https://mvyleteljr.github.io",
+    ...(process.env.CHALLENGE_ALLOWED_ORIGIN || "")
+      .split(",")
+      .map((item) => item.trim().replace(/\/$/, ""))
+      .filter(Boolean)
+  ]);
+
+  if (origin && allowedOrigins.has(origin.replace(/\/$/, ""))) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
   }
   res.setHeader("Access-Control-Allow-Headers", "content-type, authorization");
