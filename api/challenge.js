@@ -112,6 +112,21 @@ function challengeState() {
   };
 }
 
+function configuredNames() {
+  return (process.env.CHALLENGE_ALLOWED_NAMES || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function participantNames(user) {
+  const names = configuredNames();
+  if (user && !names.some((name) => name.toLowerCase() === user.name.toLowerCase())) {
+    names.unshift(user.name);
+  }
+  return names;
+}
+
 async function parseBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
   if (typeof req.body === "string") return JSON.parse(req.body || "{}");
@@ -175,6 +190,7 @@ async function getEntries(state, user) {
     today: state.today,
     currentDay: state.currentDay,
     user: { name: user.name },
+    participants: participantNames(user),
     entries: rows
   };
 }
@@ -183,15 +199,13 @@ function cleanName(name) {
   const value = String(name || "").trim().slice(0, 40);
   if (!value) throw new Error("name required");
 
-  const allowed = (process.env.CHALLENGE_ALLOWED_NAMES || "")
-    .split(",")
-    .map((item) => item.trim().toLowerCase())
-    .filter(Boolean);
-  if (allowed.length && !allowed.includes(value.toLowerCase())) {
+  const allowed = configuredNames();
+  const canonical = allowed.find((item) => item.toLowerCase() === value.toLowerCase());
+  if (allowed.length && !canonical) {
     throw new Error("name not allowed");
   }
 
-  return value;
+  return canonical || value;
 }
 
 function validateMedia(media) {
@@ -300,7 +314,7 @@ async function updateEntry(req, res, user, state) {
     where id = ${id}
       and challenge_id = ${state.challengeId}
       and day = ${state.currentDay}
-      and author = ${user.name}
+      and lower(author) = lower(${user.name})
     returning id
   `;
 

@@ -183,6 +183,20 @@ textarea{
 .challenge-entries{
   margin-top:1.25rem;
 }
+.challenge-person{
+  border-top:1px solid #e2e2e2;
+  padding-top:1rem;
+  margin-top:1.25rem;
+}
+.challenge-person:first-child{
+  border-top:0;
+  padding-top:0;
+}
+.challenge-person h3{
+  font-size:1rem;
+  font-weight:600;
+  margin:0 0 .75rem;
+}
 .challenge-entry{
   border-top:1px solid #e2e2e2;
   padding-top:1rem;

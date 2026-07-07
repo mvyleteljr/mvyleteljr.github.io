@@ -102,40 +102,69 @@
     var entries = (state.entries || []).filter(function (entry) {
       return entry.day === selectedDay;
     });
-
-    if (!entries.length) {
-      var empty = document.createElement("p");
-      empty.className = "muted";
-      empty.textContent = "No entries.";
-      entriesEl.appendChild(empty);
-      return;
-    }
+    var names = (state.participants || []).slice();
 
     entries.forEach(function (entry) {
-      var article = document.createElement("article");
-      article.className = "challenge-entry";
+      if (!names.some(function (name) {
+        return name.toLowerCase() === entry.author.toLowerCase();
+      })) {
+        names.push(entry.author);
+      }
+    });
 
-      var meta = document.createElement("p");
-      meta.className = "challenge-entry-meta";
-      meta.textContent = entry.author + " - " + new Date(entry.created_at).toLocaleString();
-      article.appendChild(meta);
+    if (!names.length && state.user) names.push(state.user.name);
 
-      if (entry.body) {
-        var body = document.createElement("p");
-        body.textContent = entry.body;
-        article.appendChild(body);
+    names.forEach(function (name) {
+      var section = document.createElement("section");
+      section.className = "challenge-person";
+
+      var heading = document.createElement("h3");
+      heading.textContent = name;
+      section.appendChild(heading);
+
+      var personEntries = entries.filter(function (entry) {
+        return entry.author.toLowerCase() === name.toLowerCase();
+      });
+
+      if (!personEntries.length) {
+        var empty = document.createElement("p");
+        empty.className = "muted";
+        empty.textContent = "No entries.";
+        section.appendChild(empty);
+      } else {
+        personEntries.forEach(function (entry) {
+          renderEntry(entry, section);
+        });
       }
 
-      renderMedia(entry.media, article);
-      renderEntryActions(entry, article);
-      entriesEl.appendChild(article);
+      entriesEl.appendChild(section);
     });
+  }
+
+  function renderEntry(entry, parent) {
+    var article = document.createElement("article");
+    article.className = "challenge-entry";
+
+    var meta = document.createElement("p");
+    meta.className = "challenge-entry-meta";
+    meta.textContent = new Date(entry.created_at).toLocaleString();
+    article.appendChild(meta);
+
+    if (entry.body) {
+      var body = document.createElement("p");
+      body.textContent = entry.body;
+      article.appendChild(body);
+    }
+
+    renderMedia(entry.media, article);
+    renderEntryActions(entry, article);
+    parent.appendChild(article);
   }
 
   function canEditEntry(entry) {
     return state &&
       state.user &&
-      entry.author === state.user.name &&
+      entry.author.toLowerCase() === state.user.name.toLowerCase() &&
       state.currentDay >= 1 &&
       state.currentDay <= 30 &&
       selectedDay === state.currentDay &&
