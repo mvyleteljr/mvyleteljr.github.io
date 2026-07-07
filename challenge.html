@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>30-day monitor</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/style.css">
+</head><body>
+
+<nav><a href="/">home</a><a href="/writing.html">writing</a><a href="/photos.html">photos</a><a href="/links.html">interests</a></nav>
+
+<h1>30-day monitor</h1>
+
+<section id="gate" class="challenge-panel">
+  <form id="login-form" class="challenge-form">
+    <label>
+      name
+      <input id="login-name" name="name" autocomplete="name" required>
+    </label>
+    <label>
+      passcode
+      <input id="login-passcode" name="passcode" type="password" autocomplete="current-password" required>
+    </label>
+    <button type="submit">enter</button>
+  </form>
+  <p id="login-error" class="muted challenge-message" hidden></p>
+</section>
+
+<main id="challenge" hidden>
+  <div class="challenge-topline">
+    <p id="challenge-status" class="muted"></p>
+    <button id="logout-button" type="button">leave</button>
+  </div>
+
+  <div class="challenge-meter" aria-label="challenge progress">
+    <span id="challenge-meter-fill"></span>
+  </div>
+
+  <ol id="day-list" class="challenge-days"></ol>
+
+  <section class="challenge-panel">
+    <div class="challenge-day-head">
+      <h2 id="selected-day-title"></h2>
+      <p id="selected-day-status" class="muted"></p>
+    </div>
+
+    <form id="entry-form" class="challenge-entry-form" hidden>
+      <label>
+        anecdote
+        <textarea id="entry-body" rows="5"></textarea>
+      </label>
+      <label>
+        media
+        <input id="entry-files" type="file" multiple>
+      </label>
+      <label>
+        link
+        <input id="entry-link" type="url" placeholder="https://...">
+      </label>
+      <div id="pending-media" class="challenge-pending"></div>
+      <button type="submit">save</button>
+    </form>
+
+    <p id="entry-error" class="muted challenge-message" hidden></p>
+    <div id="entries" class="challenge-entries"></div>
+  </section>
+</main>
+
+<script>
+  window.CHALLENGE_API_BASE = window.CHALLENGE_API_BASE || "/api/challenge";
+</script>
+<script src="/assets/challenge.js"></script>
+
+</body></html>
