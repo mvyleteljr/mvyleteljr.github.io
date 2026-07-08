@@ -5,6 +5,9 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const MAX_BODY_LENGTH = 5000;
 const MAX_MEDIA_ITEMS = 12;
 const MAX_MEDIA_LENGTH = 4000000;
+const NIGHTINGALE_START_DATE = "2026-07-08";
+const NIGHTINGALE_CHALLENGE_ID = "nightingale-2026-07-08";
+const NIGHTINGALE_PARTICIPANTS = ["Marshall", "Tripp"];
 
 let sql;
 let ready;
@@ -98,13 +101,13 @@ function dateKeyTime(dateKey) {
 }
 
 function challengeState() {
-  const startDate = env("CHALLENGE_START_DATE");
+  const startDate = process.env.CHALLENGE_START_DATE_OVERRIDE || NIGHTINGALE_START_DATE;
   const timeZone = process.env.CHALLENGE_TIMEZONE || "America/New_York";
   const today = localDateKey(new Date(), timeZone);
   const currentDay = Math.floor((dateKeyTime(today) - dateKeyTime(startDate)) / DAY_MS) + 1;
 
   return {
-    challengeId: process.env.CHALLENGE_ID || "positive-monitor",
+    challengeId: process.env.CHALLENGE_ID_OVERRIDE || NIGHTINGALE_CHALLENGE_ID,
     startDate,
     timeZone,
     today,
@@ -113,17 +116,27 @@ function challengeState() {
 }
 
 function configuredNames() {
-  return (process.env.CHALLENGE_ALLOWED_NAMES || "")
+  const names = (process.env.CHALLENGE_ALLOWED_NAMES || "")
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
+  if (names.length) return names;
+  return NIGHTINGALE_PARTICIPANTS;
 }
 
 function participantNames(user) {
-  const names = configuredNames();
+  const names = NIGHTINGALE_PARTICIPANTS.slice();
+
+  configuredNames().forEach((configured) => {
+    if (!names.some((name) => name.toLowerCase() === configured.toLowerCase())) {
+      names.push(configured);
+    }
+  });
+
   if (user && !names.some((name) => name.toLowerCase() === user.name.toLowerCase())) {
-    names.unshift(user.name);
+    names.push(user.name);
   }
+
   return names;
 }
 

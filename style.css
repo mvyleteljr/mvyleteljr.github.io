@@ -181,21 +181,22 @@ textarea{
   padding:.15rem .4rem;
 }
 .challenge-entries{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
   margin-top:1.25rem;
 }
 .challenge-person{
-  border-top:1px solid #e2e2e2;
-  padding-top:1rem;
-  margin-top:1.25rem;
-}
-.challenge-person:first-child{
-  border-top:0;
-  padding-top:0;
+  border:1px solid #e2e2e2;
+  padding:1rem;
+  min-width:0;
 }
 .challenge-person h3{
-  font-size:1rem;
+  border-bottom:1px solid #e2e2e2;
+  font-size:1.05rem;
   font-weight:600;
-  margin:0 0 .75rem;
+  margin:0 0 1rem;
+  padding-bottom:.5rem;
 }
 .challenge-entry{
   border-top:1px solid #e2e2e2;
@@ -247,5 +248,8 @@ textarea{
     align-items:flex-start;
     flex-direction:column;
     gap:.45rem;
+  }
+  .challenge-entries{
+    grid-template-columns:1fr;
   }
 }

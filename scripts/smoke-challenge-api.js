@@ -82,16 +82,17 @@ async function main() {
     throw new Error(`missing ${missing.join(", ")}`);
   }
 
-  process.env.CHALLENGE_ID = "positive-monitor-smoke";
-  process.env.CHALLENGE_START_DATE = localDateKey(
+  process.env.CHALLENGE_ID_OVERRIDE = "positive-monitor-smoke";
+  process.env.CHALLENGE_START_DATE_OVERRIDE = localDateKey(
     new Date(),
     process.env.CHALLENGE_TIMEZONE || "America/New_York"
   );
-  process.env.CHALLENGE_ALLOWED_NAMES = "";
+  process.env.CHALLENGE_ALLOWED_NAMES = "Marshall,Tripp";
+  const marker = `smoke test ${new Date().toISOString()}`;
 
   const handler = require("../api/challenge");
   const login = await call(handler, makeReq("POST", "/api/challenge?action=login", {
-    name: "Smoke",
+    name: "Marshall",
     passcode: process.env.CHALLENGE_PASSCODE
   }));
   if (login.statusCode !== 200 || !login.body.token) {
@@ -109,7 +110,7 @@ async function main() {
   const created = await call(
     handler,
     makeReq("POST", "/api/challenge?action=entries", {
-      body: `smoke test ${new Date().toISOString()}`,
+      body: marker,
       media: [{ kind: "url", url: "https://example.com/smoke" }]
     }, login.body.token)
   );
@@ -117,13 +118,13 @@ async function main() {
     throw new Error(`entry create failed: ${created.body.error || created.statusCode}`);
   }
 
-  const afterCount = created.body.entries.filter((entry) => entry.author === "Smoke").length;
+  const afterCount = created.body.entries.filter((entry) => entry.body === marker).length;
   if (afterCount < 1) {
     throw new Error("smoke entry was not returned");
   }
 
   const entry = created.body.entries
-    .filter((item) => item.author === "Smoke")
+    .filter((item) => item.body === marker)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
   const updated = await call(
     handler,
