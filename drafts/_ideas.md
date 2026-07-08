@@ -43,3 +43,13 @@ My first hypothesis for what will materially improve my state is to see what hap
 Other things I know to be true are that silence, long walks, reducing consumption in favor of production, and taking as many real shots on net are positive. Having skin in the game is positive. Being a good person and taking the opportunity to lean into service for others is also extremely positive. 
 
 We'll pause there for the moment. 
+
+---
+Energy leaks
+
+--- 
+memetic ideas as psychosocial risk factors
+
+---
+what actually happened at concordance? -- fear and greed with people who don't respond well to them
+---
