@@ -27,11 +27,15 @@ plugins: []
 
 # Be explicit about files to exclude from site output
 exclude:
+  - AGENTS.md
+  - Gemfile
+  - Gemfile.lock
   - README.md
+  - drafts
+  - scripts
   - .gitignore
   - .git
   - .DS_Store
-  - inbox.md
 
 # Default front matter values
 defaults:

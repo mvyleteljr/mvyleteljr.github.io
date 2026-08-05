@@ -11,6 +11,7 @@ Blog posts are still rendered by Jekyll (free on GitHub Pages) so they can stay 
 - `style.css` — all styling. Shared by every page, including rendered posts.
 - `avatar.jpg` — homepage photo. `img/` — photos.
 - `_posts/` — Markdown blog posts. `_layouts/` — the post/default templates.
+- `drafts/` — unpublished writing. `scripts/resize-photos.sh` — photo resize helper.
 
 ## How to edit
 - **Add a piece of writing:** write the post in `_posts/` as `YYYY-MM-DD-slug.md` with front matter (`title`, `tldr`). It publishes at `/blog/slug-YYYY-MM-DD`. Then add one `<li>` to `writing.html` under the right `<div class="cat">`: `<li><span class="date">YYYY-MM-DD</span><a href="/blog/slug-YYYY-MM-DD">Title</a></li>`.
