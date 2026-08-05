@@ -28,20 +28,8 @@ ul.list li .tldr{ font-size:.68em; font-style:italic; color:var(--muted); }
 .photos{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:8px; }
 .photos a img{ width:100%; aspect-ratio:1; object-fit:cover; display:block; }
 
-/* --- interests wall: tinted tiles, CSS masonry, no JS --- */
-.wall{ columns:15rem; column-gap:12px; }
-.tile{ break-inside:avoid; margin:0 0 12px; border-radius:7px; overflow:hidden; }
-.tile.quote{ background:#f4f1ea; padding:1.1rem 1.2rem; font-style:italic; font-size:.95em; line-height:1.45; }
-.tile.quote .who{ display:block; margin-top:.65rem; font-style:normal; font-size:.78em; color:var(--muted); }
-.tile.link{ background:#eceff3; padding:1.1rem 1.2rem; line-height:1.35; }
-.tile.link a{ text-decoration:none; color:var(--fg); font-weight:600; font-size:.95em; }
-.tile.link a:hover{ text-decoration:underline; }
-.tile.link .note{ display:block; margin-top:.4rem; color:var(--muted); font-size:.82em; font-style:italic; font-weight:400; }
-.tile.note{ background:#f0efec; padding:1.1rem 1.2rem; font-size:.9em; line-height:1.45; }
-.tile.photo{ background:#1a1a1a; line-height:0; }
-.tile.photo img{ width:100%; display:block; }
-.tile.photo .who{ display:block; padding:.5rem .7rem; line-height:1.3; font-size:.75em; color:var(--muted); background:#f0efec; }
-.credit{ font-size:.78em; font-style:italic; margin:.75rem 0 0; }
+.interests li{ margin-bottom:.75rem; }
+.interests img{ max-width:100%; height:auto; }
 
 /* --- rendered blog posts (Jekyll) --- */
 .post-title{ font-size:1.4rem; font-weight:600; margin:0 0 .4rem; }

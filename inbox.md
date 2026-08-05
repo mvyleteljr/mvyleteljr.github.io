@@ -1,16 +1,13 @@
-# Inbox — dump zone
+# Optional interests inbox
 
-Drop anything here, any format, any order. Then tell Claude: "process the inbox."
-Claude sorts each item into a tile on the interests page (links.html), moves any
-images into img/, shows you the diff, and clears this file back to this template.
+You can add items in a chat message. Start the message with "add to interests."
+Use a separate paragraph or list item for each item. The agent adds each item to
+the start of the list in `links.html`.
 
-No formatting rules. But these hints help Claude guess right:
-- A line in "quotes" → quote tile. Add " — Name" for attribution.
-- A URL (with an optional note after it) → link tile.
-- An image filename or path → photo tile (drop the file in the repo too).
-- Anything else → a plain note tile.
+You can also put items below this line and ask the agent to process the inbox.
+The agent uses the rules in `AGENTS.md`. It moves image files into `img/`. It then
+clears the items below this line.
 
 ---
 <!-- DUMP BELOW THIS LINE -->
-
 
