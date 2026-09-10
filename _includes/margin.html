@@ -1,0 +1,5 @@
+<div class="margin-row{% if include.side == 'left' %} margin-left{% endif %}">
+  <div class="margin-passage">{{ include.passage | markdownify }}</div>
+  <aside class="margin-box" id="{{ include.id | escape }}" aria-label="Margin note">{{ include.note | markdownify }}</aside>
+  <svg class="margin-connector" aria-hidden="true"><polyline /></svg>
+</div>

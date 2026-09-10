@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="{{ page.description | default: site.description }}">
-<title>{{ page.title | default: site.title }}</title>
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" href="/style.css">
-<script>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ page.title | default: site.title | escape }}{% if page.title and page.title != site.title %} — {{ site.title | escape }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description | escape }}">
+<link rel="icon" type="image/png" href="/favicon.png"><link rel="stylesheet" href="/style.css">
+{% if page.layout == 'post' %}<script>
   window.MathJax = {
     tex: { inlineMath: [["$","$"],["\\(","\\)"]], displayMath: [["$$","$$"],["\\[","\\]"]], processEscapes: true, tags: 'ams' },
     options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
   };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-</head><body>
-
-<nav><a href="/">home</a><a href="/writing.html">writing</a><a href="/photos.html">photos</a><a href="/links.html">links</a></nav>
-
-{{ content }}
-
-</body></html>
+{% endif %}
+{% if page.notebook %}<script src="/notebook.js" defer></script>{% endif %}
+</head><body class="{% if page.notebook %}notebook-page{% elsif page.layout == 'post' %}post-page{% else %}{{ page.section }}-page{% endif %}">
+{% if site.font_preview %}{% include font-preview.html %}{% endif %}
+<a class="skip" href="#main">Skip to content</a><div class="site-shell">
+<header class="site-header"><a class="name" href="/" {% if page.section == 'home' %}aria-current="page"{% endif %}>Marshall Vyletel Jr.</a><nav aria-label="Main"><a href="/writing.html" {% if page.section == 'writing' or page.layout == 'post' %}aria-current="page"{% endif %}>Writing</a><a href="/manifesto.html" {% if page.section == 'manifesto' %}aria-current="page"{% endif %}>Open Manifesto</a><a href="/photos.html" {% if page.section == 'photos' %}aria-current="page"{% endif %}>Photos</a></nav></header>
+<main id="main">{{ content }}</main></div></body></html>

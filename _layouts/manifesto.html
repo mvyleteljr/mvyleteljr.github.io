@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<script type="application/json" id="saved-marginalia">{{ page.marginalia | jsonify | replace: '<', '\u003c' }}</script>
+{% for note in page.marginalia %}<template id="rendered-{{ note.id | escape }}">{{ note.note | markdownify }}</template>{% endfor %}
+<script src="/manifesto-notes.js" defer></script>
+<script src="/manifesto-local.js" defer></script>
+<script src="/marginalia.js?v={{ site.time | date: '%s' }}" defer></script>
+<article class="manifesto">
+  <header class="page-heading"><h1>{{ page.title | escape }}</h1></header>
+  <div class="manifesto-content">{{ content }}</div>
+</article>

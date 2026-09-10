@@ -1,0 +1,17 @@
+---
+layout: default
+title: Notebook
+section: notebook
+notebook: true
+---
+{% assign notes = site.notebook | sort: 'order' %}
+<header class="page-heading notebook-heading"><h1>Notebook</h1></header>
+<div class="notebook-grid"><aside class="contents"><p class="eyebrow">Contents</p><ol>{% for note in notes %}<li><a href="{{ note.url }}" data-note="{{ note.key }}"><span>{{ note.order | prepend: '0' | slice: -2, 2 }}</span>{{ note.title }}</a></li>{% endfor %}</ol><a class="archive-link" href="/links.html">Original stream ↗</a></aside>
+<section class="map" id="map" aria-label="Notebook map"><div class="map-scroll" tabindex="0" aria-label="Scrollable notebook map"><div class="map-plane"><svg viewBox="0 0 660 760" aria-hidden="true">
+{% for note in notes limit:4 %}<line data-edge="source-{{ note.key }}" x1="{{ note.x }}" y1="{{ note.y }}" x2="325" y2="190" />{% endfor %}</svg>
+{% for note in notes limit:4 %}<button class="edge" data-note="source-{{ note.key }}" style="left:{{ note.x | plus: 325 | divided_by: 2 }}px;top:{{ note.y | plus: 190 | divided_by: 2 }}px" aria-label="Source of {{ note.title }}">source</button>{% endfor %}
+{% for note in notes %}<a class="node" href="{{ note.url }}" data-note="{{ note.key }}" style="left:{{ note.x }}px;top:{{ note.y }}px"><small>{{ note.order | prepend: '0' | slice: -2, 2 }}</small>{{ note.title }}</a>{% endfor %}
+</div></div></section>
+<aside class="note-reader" aria-label="Selected note"><div class="reader-top"><a href="#map" class="back-map">Back to map ↑</a></div><div id="note-content"><h2>Cooper Hewitt</h2>{{ notes[4].content | markdownify }}<p class="permalink"><a href="{{ notes[4].url }}">Open this note ↗</a></p></div><p role="status" class="sr-only" id="note-status"></p></aside></div>
+{% for note in notes %}<template id="note-{{ note.key }}"><h2>{{ note.title }}</h2><div class="post-content">{{ note.content | markdownify }}</div><p class="permalink"><a href="{{ note.url }}">Open this note ↗</a></p></template>{% endfor %}
+{% for note in notes limit:4 %}<template id="note-source-{{ note.key }}"><h2>{{ note.title }} &amp; Cooper Hewitt</h2><p><a href="{{ note.url }}" data-note="{{ note.key }}">Read the quote</a></p><p><a href="/notebook/cooper-hewitt/" data-note="cooper-hewitt">Read the context</a></p></template>{% endfor %}

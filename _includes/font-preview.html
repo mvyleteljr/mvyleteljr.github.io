@@ -1,0 +1,35 @@
+<div class="font-preview">
+  <div class="font-choice"><label for="preview-font">Try a serif</label><select id="preview-font"><option value="">Choose serif</option><option value="times">Times New Roman</option><option value="charter">Charter</option><option value="baskerville">Baskerville</option><option value="didot">Didot</option><option value="bodoni">Bodoni 72</option></select></div>
+  <div class="font-choice"><label for="preview-sans">Try a sans serif</label><select id="preview-sans"><option value="">Choose sans serif</option><option value="helvetica">Helvetica Neue</option><option value="avenir">Avenir Next</option><option value="futura">Futura</option><option value="optima">Optima</option><option value="system">System sans</option></select></div>
+  <span>Local preview</span>
+</div>
+<style>
+.font-preview{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:10px 24px;border-bottom:1px solid #000;background:#fff;color:#000;font:14px "Times New Roman",serif}
+.font-choice{display:flex;align-items:center;gap:10px}
+.font-preview select{font:inherit;color:#000;background:#fff;border:1px solid #000;border-radius:0;padding:5px 8px;max-width:190px}
+.font-preview>span{margin-left:auto;font-size:12px}
+@media(max-width:600px){.font-preview{padding:10px 16px;gap:10px}.font-preview>span{display:none}.font-choice{width:100%;justify-content:space-between}.font-preview select{width:180px}}
+</style>
+<script>
+(() => {
+  const serif = {times:'"Times New Roman", Times, serif',charter:'Charter, "Bitstream Charter", serif',baskerville:'Baskerville, serif',didot:'Didot, serif',bodoni:'"Bodoni 72", serif'};
+  const sans = {helvetica:'"Helvetica Neue", Helvetica, Arial, sans-serif',avenir:'"Avenir Next", Avenir, sans-serif',futura:'Futura, sans-serif',optima:'Optima, sans-serif',system:'system-ui, -apple-system, sans-serif'};
+  const fonts = {...serif, ...sans};
+  const serifControl = document.getElementById('preview-font');
+  const sansControl = document.getElementById('preview-sans');
+  function apply(value) {
+    const key = fonts[value] ? value : 'times';
+    document.documentElement.style.fontFamily = fonts[key];
+    serifControl.value = serif[key] ? key : '';
+    sansControl.value = sans[key] ? key : '';
+  }
+  try { apply(sessionStorage.getItem('notebook-preview-font') || 'times'); }
+  catch (e) { apply('times'); }
+  [serifControl, sansControl].forEach(control => control.addEventListener('change', () => {
+    if (!control.value) return;
+    const key = control.value;
+    apply(key);
+    try { sessionStorage.setItem('notebook-preview-font', key); } catch (e) {}
+  }));
+})();
+</script>
