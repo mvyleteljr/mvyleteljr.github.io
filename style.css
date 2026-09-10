@@ -36,3 +36,6 @@
 span.margin-highlight{cursor:pointer;padding:0;box-decoration-break:clone}
 .margin-box:focus{outline:1px solid #000;outline-offset:4px}
 @media(max-width:1150px){.manifesto-margins{max-width:620px;margin:24px auto}.manifesto-margins>.margin-box{position:static;width:100%;margin-bottom:16px}.manifesto-lines{display:none}}
+.manifesto-updated,.margin-timestamp{font-size:12px;font-weight:400;font-style:normal;line-height:1.5}
+.manifesto>.page-heading h1{margin-bottom:12px}
+.margin-timestamp{margin:12px 0 0}
