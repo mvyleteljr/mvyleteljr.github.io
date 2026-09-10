@@ -27,3 +27,12 @@
 .writing-index>.cat{border-top:0;padding-top:0;margin:24px 0 8px;font-size:17px;font-weight:700;font-style:italic}
 .writing-index .list li{padding:6px 0;line-height:1.35}
 .writing-index .entry{gap:2px}
+.manifesto{position:relative}
+.manifesto-margins>.margin-box{position:absolute;width:220px;left:0;font-weight:400;font-style:normal}
+.manifesto-margins>.margin-box[data-side="right"]{left:auto;right:0}
+.manifesto-content{max-width:620px;margin-left:auto;margin-right:auto}
+.manifesto-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.manifesto-lines polyline{fill:none;stroke:#000;stroke-width:1}
+span.margin-highlight{cursor:pointer;padding:0;box-decoration-break:clone}
+.margin-box:focus{outline:1px solid #000;outline-offset:4px}
+@media(max-width:1150px){.manifesto-margins{max-width:620px;margin:24px auto}.manifesto-margins>.margin-box{position:static;width:100%;margin-bottom:16px}.manifesto-lines{display:none}}

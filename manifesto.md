@@ -3,7 +3,7 @@ layout: manifesto
 title: Open Manifesto
 section: manifesto
 permalink: /manifesto.html
-marginalia: [{"id": "margin-8a3922ef-23a8-426d-8319-6186e395f00e", "block": "Assuming we avoid existential catastrophe, I want to understand how companies change as intelligence becomes dramatically cheaper and more capable. “Post-AGI company” describes a structure that can thrive under those conditions, regardless of when it was founded.", "start": 0, "end": 41, "quote": "Assuming we avoid existential catastrophe", "note": "Obviously a bit assumption, my thoughts on this are here: https://x.com/mvyletel_jr/status/2097750836713517191 and ", "side": "right"}]
+marginalia: [{"id": "margin-8a3922ef-23a8-426d-8319-6186e395f00e", "block": "Assuming we avoid existential catastrophe, I want to understand how companies change as intelligence becomes dramatically cheaper and more capable. “Post-AGI company” describes a structure that can thrive under those conditions, regardless of when it was founded.", "start": 0, "end": 41, "quote": "Assuming we avoid existential catastrophe", "note": "Obviously a bit assumption, my thoughts on this are here: https://x.com/mvyletel_jr/status/2097750836713517191 and ", "side": "right"}, {"id": "margin-e4ee1bc3-ff19-471c-9275-beeff0641029", "scope": "title", "block": "Open Manifesto", "start": 0, "end": 14, "quote": "Open Manifesto", "note": "This is currently AI-genned from a long conversation I'm working on with Chat here. It's placeholder text to use while I'm redesigning this website, but basically articulates the central emerging themes well. ", "side": "left"}]
 ---
 
 **What does a successful post-AGI company look like—and what can we do now to prepare for increasingly capable intelligence?**

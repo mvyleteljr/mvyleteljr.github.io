@@ -1,4 +1,5 @@
 (async () => {
+  if(document.readyState==='loading')await new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true}));
   const response=await fetch('/__editor/state');if(!response.ok)return;
   const state=await response.json();let enabled=false,selection=null,editing=null,saving=false,dirty=false;
   const bar=document.createElement('div');bar.className='editor-bar';
@@ -10,16 +11,16 @@
   const style=document.createElement('style');style.textContent='.editor-bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:white;color:black;border-bottom:1px solid black;padding:10px 22px;font-size:13px}.editor-bar button,.editor-dialog button,.editor-dialog select{font:inherit;background:white;border:1px solid black;padding:7px 12px;color:black}.editor-bar button:disabled{opacity:.45}.editor-bar [aria-pressed="true"]{background:black;color:white}.editor-dialog{font:16px Optima,sans-serif;color:black;background:white;border:1px solid black;padding:24px;width:480px;max-width:calc(100% - 32px);max-height:90vh;overflow:auto}.editor-dialog::backdrop{background:rgb(0 0 0 / .2)}.editor-dialog h2{margin:0 0 18px}.editor-dialog label{display:block;margin:14px 0 6px}.editor-dialog textarea{font:inherit;line-height:1.5;display:block;width:100%;padding:12px;border:1px solid black;resize:vertical}.editor-dialog blockquote{margin:0;padding-left:12px;border-left:1px solid black;font-size:14px}.editor-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.editor-edit-note{display:block;background:white;border:1px solid black;font:inherit;font-size:12px;padding:5px 8px;margin-top:14px}.editor-edit-note[hidden]{display:none}.editor-dialog #save-error{margin-top:12px;font-size:14px}';document.head.append(style);
   const toggle=bar.querySelector('#edit-toggle'),add=bar.querySelector('#add-margin'),status=bar.querySelector('#editor-status'),text=panel.querySelector('textarea'),side=panel.querySelector('select');
   function open(note){editing=note;dirty=false;text.value=note.note||'';side.value=note.side||'right';panel.querySelector('#selected-quote').textContent=note.quote;panel.querySelector('#delete-note').hidden=!state.notes.some(n=>n.id===note.id);panel.querySelector('#save-error').textContent='';panel.querySelector('#link-fields').hidden=true;renderPreview();panel.showModal();text.focus();}
-  toggle.addEventListener('click',()=>{enabled=!enabled;toggle.setAttribute('aria-pressed',String(enabled));add.disabled=true;selection=null;status.textContent=enabled?'Select text in a paragraph, or edit an existing note.':'Local editor';document.querySelectorAll('.editor-edit-note').forEach(b=>b.hidden=!enabled);});
+  toggle.addEventListener('click',()=>{enabled=!enabled;toggle.setAttribute('aria-pressed',String(enabled));add.disabled=true;selection=null;status.textContent=enabled?'Select text in the title or essay, or edit an existing note.':'Local editor';document.querySelectorAll('.editor-edit-note').forEach(b=>b.hidden=!enabled);});
   for(const note of state.notes){const box=document.getElementById(note.id);if(!box)continue;const b=document.createElement('button');b.className='editor-edit-note';b.textContent='Edit note';b.hidden=true;b.addEventListener('click',()=>open({...note}));box.append(b);}
   document.addEventListener('selectionchange',()=>{
     if(!enabled||panel.open)return;const s=getSelection();add.disabled=true;selection=null;if(!s.rangeCount||s.isCollapsed)return;
     const r=s.getRangeAt(0);const element=n=>n.nodeType===1?n:n.parentElement;
-    const p=element(r.startContainer).closest('.manifesto-content > p');
-    if(!p||!p.contains(r.endContainer)){status.textContent='Select text within one unannotated paragraph.';return;}
+    const p=element(r.startContainer).closest('.manifesto-content, .manifesto > .page-heading h1');
+    if(!p||!p.contains(r.endContainer)){status.textContent='Select text within the title or essay.';return;}
     const prefix=document.createRange();prefix.selectNodeContents(p);prefix.setEnd(r.startContainer,r.startOffset);
     const start=prefix.toString().length,quote=r.toString();if(!quote.trim())return;
-    selection={id:'margin-'+crypto.randomUUID(),block:p.textContent,start,end:start+quote.length,quote,note:'',side:'right'};add.disabled=false;status.textContent='Selection ready.';
+    selection={id:'margin-'+crypto.randomUUID(),scope:p.matches('h1')?'title':'content',block:p.textContent,start,end:start+quote.length,quote,note:'',side:'right'};add.disabled=false;status.textContent='Selection ready.';
   });
   add.addEventListener('mousedown',e=>e.preventDefault());add.addEventListener('click',()=>{if(selection)open(selection);});
   async function save(remove){

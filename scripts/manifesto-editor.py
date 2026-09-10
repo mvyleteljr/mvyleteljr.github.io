@@ -19,19 +19,19 @@ def save_document(path, version, notes):
     original, _, current = read_document(path)
     if version != current: raise ValueError('The file changed since this page loaded. Reload before saving.')
     if not isinstance(notes, list) or len(notes)>100: raise ValueError('Too many notes.')
-    ids=set(); blocks=set()
+    ids=set()
     for note in notes:
-        if not isinstance(note,dict) or set(note)!={'id','block','start','end','quote','note','side'}: raise ValueError('Invalid note.')
+        if not isinstance(note,dict) or set(note)-{'scope'}!={'id','block','start','end','quote','note','side'}: raise ValueError('Invalid note.')
         if any(not isinstance(note[k],str) for k in ['id','block','quote','note','side']): raise ValueError('Invalid text.')
         if not note['id'].startswith('margin-') or not note['id'].replace('-','').isalnum() or note['id'] in ids: raise ValueError('Invalid note ID.')
-        if note['block'] in blocks: raise ValueError('Use one margin box per paragraph.')
+        if 'scope' in note and note['scope'] not in ['title','content']: raise ValueError('Invalid text scope.')
         if note['side'] not in ['left','right'] or not note['note'].strip() or len(note['note'])>20000: raise ValueError('Invalid margin note.')
         a,b=note['start'],note['end']
         # Browser offsets use UTF-16 code units.
         encoded=note['block'].encode('utf-16-le')
         if type(a)!=int or type(b)!=int or not 0<=a<b<=len(encoded)//2: raise ValueError('Invalid selection.')
         if encoded[a*2:b*2].decode('utf-16-le')!=note['quote']: raise ValueError('Selected text does not match.')
-        ids.add(note['id']); blocks.add(note['block'])
+        ids.add(note['id'])
     _,front,body=original.split('---',2)
     lines=[line for line in front.splitlines() if not line.startswith('marginalia: ')]
     front='\n'.join(lines).strip('\n')

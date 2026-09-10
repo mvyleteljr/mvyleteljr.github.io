@@ -9,3 +9,10 @@ try:m.save_document(p,version,[]);raise AssertionError('stale write accepted')
 except ValueError:pass
 _,_,version=m.read_document(p);m.save_document(p,version,[]);assert m.read_document(p)[1]==[]
 print('Save, body preservation, stale-write rejection, and removal passed.')
+_,_,version=m.read_document(p)
+second={**note,'id':'margin-second','start':0,'end':6,'quote':'A test'}
+title=dict(id='margin-title',scope='title',block='Test',start=0,end=4,quote='Test',note='Title context',side='right')
+m.save_document(p,version,[note,second,title])
+assert len(m.read_document(p)[1])==3
+assert p.read_text().split('---',2)[2]==original.split('---',2)[2]
+print('Multiple overlapping notes and title notes passed.')

@@ -97,10 +97,10 @@ Add `side="left"` to a `margin.html` include for a left margin box. The default 
 Run `python3 scripts/manifesto-editor.py`, then open `http://127.0.0.1:4176/manifesto.html`.
 
 1. Turn on **Edit mode**.
-2. Select text within one paragraph and click **Add margin note**.
+2. Select text in the title or essay and click **Add margin note**. Selections can include headings, lists, or multiple paragraphs.
 3. Write the note in Markdown, choose left or right, and click **Save**. Select note text and press **Cmd+K** (or **Ctrl+K**) to insert a link. The preview shows clickable links. Pasted web addresses also become links in saved notes.
 4. To change or remove a saved note, turn on Edit mode and click **Edit note** in its box.
 
-The first version supports one note per paragraph, not selections across paragraphs or inside lists. The main essay is still edited in `manifesto.md`. Notes are saved in its `marginalia` front matter; the essay body is preserved. If the source file changed since the page loaded, saving stops and asks you to reload. If you later rewrite an annotated paragraph, its saved text anchor must be updated before that note can appear again.
+You can add multiple notes to the same text, including overlapping selections. Boxes on each side stack without overlap. Click a shared highlight again to move through its notes. On small screens, notes appear below the essay. The main essay is still edited in `manifesto.md`. Notes are saved in its `marginalia` front matter; the essay body is preserved. If the source file changed since the page loaded, saving stops and asks you to reload. If you later change the source text, check the notes: saved text anchors may need to be updated.
 
 Saving rebuilds the local site. The editor uses a separate temporary build folder. The Open Manifesto page shows an **Edit mode** button on localhost, including the normal Jekyll preview. This button opens the local editor, which must be running. Published pages show saved notes and links without edit controls or write endpoints. Commit `manifesto.md` with the other site files and push when ready to publish.
