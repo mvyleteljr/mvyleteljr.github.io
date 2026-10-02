@@ -168,11 +168,11 @@ if groups:nav.append('</div></details>')
 old=(STUDY/'framework.html').read_text()
 controls=old[old.index('<button id="keep-selection"'):old.index('</body>')]
 controls=controls.replace(OLD,NEW)
-source_url='https://docs.google.com/document/d/'+snapshot['documentId']+'/preview?tab='+tab['tabId']
-agent_prompt = """Read the Write-Up tab of “Alignment & Safety Frontiers: A Framework”:
+source_url='https://docs.google.com/document/d/1kyRJjqGT04682q6-LIZWehKG3S0TMx_EKVim9La9jNY/preview?usp=sharing'
+agent_prompt = """Read “Alignment & Safety Frontiers: A Framework”:
 """ + source_url + """
 
-Help me explore the author's framework and research index. First confirm that you can read the full Write-Up tab. If you cannot access it, ask me to provide an export; do not infer its contents from the title or other sources.
+Help me explore the author's framework and research index. First confirm that you can read the full document. If you cannot access it, ask me to provide an export; do not infer its contents from the title or other sources.
 
 Use the document as the source. Preserve its definitions and distinguish the author's claims from your own analysis. Cite section names and links where available. In this piece, safety includes alignment, interpretability, and additional black-box tactics.
 
