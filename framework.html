@@ -1,0 +1,1261 @@
+---
+layout: default
+title: "Alignment & Safety Frontiers: A Framework"
+section: framework
+framework: true
+description: "A framework and research survey of AI alignment and safety."
+---
+<div class="layout full-document"><nav class="contents" aria-label="Document contents"><span class="label">CONTENTS</span><a href="#introduction">Introduction</a><details class="nav-group"><summary><a href="#h-h.qy2yqxie0z1i">Safety vs. Alignment</a></summary><div><a class="nav-level-3" href="#h-h.aluae7nvnnqz">Alignment</a><a class="nav-level-3" href="#h-h.bnd97rh7uqa2">Safety</a></div></details><details class="nav-group"><summary><a href="#h-h.e8iosx7mfoha">Frameworks</a></summary><div><a class="nav-level-3" href="#h-h.c6jtdi8n1zp2">Alignment Framework</a><a class="nav-level-4" href="#h-h.7v8tentcxhgf">A1: Target</a><a class="nav-level-5" href="#h-h.jfp90ctpdr6r">A1a: What we want</a><a class="nav-level-5" href="#h-h.osxyr239jzf6">A1b: Codifying it</a><a class="nav-level-5" href="#h-h.8qlefia6n4fj">Reading A1 work</a><a class="nav-level-4" href="#h-h.cwca58olycwg">A2: Did it Take?</a><a class="nav-level-5" href="#h-h.grzxpwmcx0ge">Reading A2 work</a><a class="nav-level-4" href="#h-h.ag7kur2z0ly4">A3: Generalization</a><a class="nav-level-5" href="#h-h.ys8g24yb0z0r">Reading A3 work</a><a class="nav-level-4" href="#h-h.lbpdom9s0csv">A4: Iterability, Cost, Feasibility</a><a class="nav-level-5" href="#h-h.wc242dodfvu0">Reading A4 work</a><a class="nav-level-4" href="#h-h.y9qnczsvq9wl">Alignment - Complete Framework</a><a class="nav-level-4" href="#h-h.rn1g8v2557t3">Alignment Card</a></div></details><details class="nav-group"><summary><a href="#h-h.3039hsy0tz7n">Alignment Survey</a></summary><div><a class="nav-level-3" href="#h-h.b5mufbx039fk">A1: Target</a><a class="nav-level-3" href="#h-h.9cht5ob030y2">A2: Did it Take?</a><a class="nav-level-3" href="#h-h.15ms1ba0ga9">A3: Generalization</a><a class="nav-level-3" href="#h-h.g9kz97rjsg64">A4: Iterability, Cost, Feasibility</a></div></details><a id="resume" hidden>Continue reading →</a></nav><div class="framework-reading"><header class="intro" id="introduction"><p class="label">ALIGNMENT &amp; SAFETY</p><h1>Alignment &amp; Safety Frontiers: A Framework</h1><p class="disclaimer"><strong><em>Disclaimer: This is a living document and will be updated regularly. The safety framework is still in progress and will be added here soon. Read the <a href="https://docs.google.com/document/d/15d-FEd6pa1nKKB21a8BwL1OxYkH__jD1UDSr-9eFGqI/edit?tab=t.4zsgft128fwd">Google Doc</a> to leave comments. Comments are welcome.</em></strong></p><details class="agent-prompt"><summary>Explore this document with an agent</summary><p>Copy this prompt into your agent to start a discussion.</p><textarea id="agent-prompt-text" aria-label="Prompt to copy into an agent" readonly rows="12">Read the Write-Up tab of “Alignment &amp; Safety Frontiers: A Framework”:
+https://docs.google.com/document/d/15d-FEd6pa1nKKB21a8BwL1OxYkH__jD1UDSr-9eFGqI/preview?tab=t.4zsgft128fwd
+
+Help me explore the author&#x27;s framework and research index. First confirm that you can read the full Write-Up tab. If you cannot access it, ask me to provide an export; do not infer its contents from the title or other sources.
+
+Use the document as the source. Preserve its definitions and distinguish the author&#x27;s claims from your own analysis. Cite section names and links where available. In this piece, safety includes alignment, interpretability, and additional black-box tactics.
+
+Start by asking whether I want to understand the framework, examine a claim, or explore the research survey. Then guide the discussion one question at a time.</textarea><div class="prompt-actions"><button type="button" id="copy-agent-prompt">Copy prompt</button><span id="prompt-copy-status" role="status"></span></div></details></header><article id="write-up" class="prose"><p id="p-1">The goal of this article is to map the current technical frontier with respect to AI safety and alignment in order to create a framework for metabolizing new work, assigning importance, and ultimately making predictions. 
+</p>
+<p id="p-224">Monitoring the situation is becoming a full-time job, so we need simple heuristics to take in new content, lest we be relegated to the sidelines simply tweeting away while the engine runs. 
+</p>
+<p id="p-415">The framework I propose will break alignment down into four subsections, which I will define shortly: target (outer alignment), did it take (inner alignment + verification), generalization (in/out of distribution comparisons), iterability (does it scale). We will also break safety down into three subsections: control, monitorability, containability. 
+</p>
+<p id="p-769">Each stage of the framework closes with a <em>recognition cue</em> (how to assign which stage) along with <em>criteria</em> which defines what good work needs in that stage. After outlining the framework, I will provide a discussion about how I weigh each stage and some of the ancillary considerations important to the framework and technical distribution more generally.
+</p>
+<p id="p-1125">If I’m successful, by the end of the paper the framework will allow us to metabolize new information and efficiently update priors like this:
+</p>
+<p id="p-1268"><em>“Ah, this paper is mostly an A3 contribution, with elements of A2. It fits two of the three criteria for good work, and I believe that A3 is high-value. This updates my belief of successful alignment being possible, and here’s some research I’d like to see that would build on this.”
+</em></p>
+<p id="p-1553">Importantly, I’m leaving governance and policy out of the discussion for this piece, except where they are load-bearing for technical incentives or directly translate into technical work. 
+</p>
+<p id="p-1743">Some disclosures:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-1761">This article presupposes at least a basic understanding of interpretability, model architectures, training, or at least knowing what those terms mean at a basic technical level. If you don’t, but want to engage, I’ll post resources here to get up to speed, once I’ve got the energy back
+</p>
+</li><li>
+<p id="p-2048">I’m biased towards interpretability, and have been working on it directly as a co-founder of Concordance over the last 18 months, but I aim to be technique agnostic in this article. 
+</p>
+</li><li>
+<p id="p-2231">I’ve only started working on this directly over the last couple of years, and there is <em>a ton</em> of literature I’ll likely miss. I’ve done my best to grab sources and bring things together.
+</p>
+</li><li>
+<p id="p-2417">My aim is mostly to articulate my <em>own thoughts</em>, not the thoughts of others, as a way to get more precise about where my lenses are. The goal is <em>not</em> to give the best articulation of alignment, safety, etc., but to create a framework. That necessitates work on definitions, but it is not the main goal.
+</p>
+</li></ol>
+<h2 id="h-h.qy2yqxie0z1i">Safety vs. Alignment 
+</h2>
+<p id="p-2742">Despite the overwhelming amount of discussion on this topic, it is an incredibly thorny field. I think the basic problem is that there are no reasonable backdrops to the discussions people are having, so it’s easy to debate nuanced details ad nauseam. 
+</p>
+<p id="p-2996">Broadly, I think it’s worth disambiguating between <em>safety</em> and <em>alignment</em>. The way I do that is to cut along three axes:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-3115"><strong>Misalignment:</strong> The model wants the wrong things
+</p>
+</li><li>
+<p id="p-3162"><strong>Misuse:</strong> Humans want the wrong things
+</p>
+</li><li>
+<p id="p-3199"><strong>Structural:</strong> Everyone behaves but things go badly
+</p>
+</li></ol>
+<p id="p-3249">The thorniness alluded to above mostly involves describing things like “wanting” or what the “things” to be wanted <em>are</em>. More on that later. To start, we’ll cover alignment, as it’s the more difficult of the two to define, and ultimately can be seen as a subset of safety, which we’ll build towards. 
+</p>
+<h3 id="h-h.aluae7nvnnqz">Alignment
+</h3>
+<p id="p-3561"><em>“The ‘alignment problem’ is the problem of building powerful AI systems that are aligned with their operators.”</em> — <a href="https://www.alignmentforum.org/posts/ZeE7EKHTFMBs8eMxn/clarifying-ai-alignment"><u>Christiano, 2018</u></a><u>
+</u></p>
+<p id="p-3693">The space, from what I can tell, has oscillated around a few different ways to define this more precisely, which I’ll briefly cover here. 
+</p>
+<p id="p-3833">First, we have the slice of <a href="https://www.alignmentforum.org/posts/83TbrDxvQwkLuiuxk/conflating-value-alignment-and-intent-alignment-is-causing-1"><u><strong>narrow</strong></u></a><a href="https://www.alignmentforum.org/posts/83TbrDxvQwkLuiuxk/conflating-value-alignment-and-intent-alignment-is-causing-1"><u> vs. </u></a><a href="https://www.alignmentforum.org/posts/83TbrDxvQwkLuiuxk/conflating-value-alignment-and-intent-alignment-is-causing-1"><u><strong>broad</strong></u></a><a href="https://www.alignmentforum.org/posts/83TbrDxvQwkLuiuxk/conflating-value-alignment-and-intent-alignment-is-causing-1"><u> alignment</u></a>. Narrow alignment asks whether an AI system follows the immediate intent or direct instructions given by its operator for a specific task. For example, if I ask it to help me book flights to SFO, it’s not going to instead decide to book flights for Cairo. 
+</p>
+<p id="p-4146">Broad alignment asks whether an AI system reliably produces good <em>real-world</em> outcomes and captures human values, ethics, and preferences. A “broadly aligned” AI would have the contextual awareness to recognize the difference between assisting a benevolent researcher working on biochemical problems and a malicious actor trying to create a bioweapon. This is notoriously intractable with the current tools, and extremely difficult to formalize, for a variety of reasons I’ll touch on later. 
+</p>
+<p id="p-4638">Narrow alignment can be thought of as <em>intent</em> alignment. We make no presumption about the quality of that intent, only that it’s understood and fulfilled accurately. Broad alignment is <em>value </em>alignment, and describes an AI that has a deeper understanding of values, ethics, and preferences to more accurately understand intent contextually. We will examine both in this article, but focus more on <em>broad</em> alignment which is becoming much more relevant now that agents are quite well aligned narrowly. <s>
+</s></p>
+<p id="p-5137">Another lens on alignment discussion is the distinction between <strong>inner</strong> and <strong>outer</strong> alignment. <a href="https://www.alignmentforum.org/posts/AHhCrJ2KpTjsCSwbt/inner-alignment-explain-like-i-m-12-edition"><u>This</u></a> is a good overview of the difference. I’ll give a very coarse definitional overview here using these definitions:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-5347"><strong>Base objective</strong>: What we use to evaluate models
+</p>
+<ol start="1" type="a"><li>
+<p id="p-5394">Example: Classify cat pictures
+</p>
+</li></ol>
+</li><li>
+<p id="p-5425"><strong>Base optimizer</strong>: Stochastic gradient descent searching over policies
+</p>
+</li><li>
+<p id="p-5493"><strong>Mesa-optimizer</strong>: A model running an optimization process at inference against an internally represented objectives 
+</p>
+<ol start="1" type="a"><li>
+<p id="p-5608">Whether LLMs do this or not is debated.
+</p>
+<ol start="1" type="i"><li>
+<p id="p-5648">For: <a href="https://arxiv.org/abs/2309.05858"><u>von Oswald et al. 2023</u></a>; planning in <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html"><u>On the Biology of a Large Language Model</u></a>; explicit search in reasoning models’ chain of thought. 
+</p>
+</li><li>
+<p id="p-5787">Against: Turner, <a href="https://www.lesswrong.com/posts/pdaGN6pQyQarFHXF4/reward-is-not-the-optimization-target"><u>Reward is not the optimization target</u></a>; Anthropic’s <a href="https://alignment.anthropic.com"><u>Hot Mess of AI</u></a>. )
+</p>
+</li></ol>
+</li></ol>
+</li><li>
+<p id="p-5873"><strong>Mesa-objective</strong>: The <em>internal</em> objective that might approximate the base objective
+</p>
+<ol start="1" type="a"><li>
+<p id="p-5954">Example: Classify images of animals with four legs and whiskers that are cat-sized
+</p>
+</li></ol>
+</li></ol>
+<p id="p-6038">Inner alignment arguments presuppose a coherent objective. 
+</p>
+<p id="p-6099">Outer alignment is aligning what programmers want to the base objective. This is better said, in my opinion, as <em>picking the right task to optimize.</em> Inner alignment is then the problem of aligning the chosen base objective with the mesa-objective. In other words, <em>making sure the model is also optimizing for that chosen task</em>. The distinction is that we may get a model that does something <em>similar</em> to the base objective, but it’s different in critical ways that might not be discovered easily. Together, these make up <a href="https://www.alignmentforum.org/posts/SzecSPYxqRa5GCaSF/clarifying-inner-alignment-terminology"><u><strong>intent alignment</strong></u></a>, which is “the AI tries to do what the programmers want.”
+</p>
+<p id="p-6692">We need both, and we’ll use these distinctions throughout the rest of the article. 
+</p>
+<p id="p-6777">To recap, we have a distinction between narrow and broad alignment (intent vs. values), and we have a distinction between outer and inner alignment (picking a good task vs. the model actually doing that task). Put together, intent alignment is outer plus inner, and broad alignment is intent alignment where the intent itself is good: value specification, plus outer, plus inner.
+</p>
+<p id="p-7158">We’ll now move onto defining safety, which encapsulates everything above plus more instances of misuse and failures that don’t depend explicitly on the model’s goals. 
+</p>
+<h3 id="h-h.bnd97rh7uqa2">Safety
+</h3>
+<p id="p-7334">Safety is the science of ensuring that the necessary precautions are taken to minimize the chance of bad things happening, <em>either as a result of misunderstanding, outright misalignment, or misuse</em>. This is a mostly well-understood science, because we use it every day for humans. There are different security clearance levels for government employees, for example, and there are systems in place to ensure that they are upheld, as well as people who are accountable when things break. We have insurance to price risk and protect those in the event of bad things happening. This is safety. Perfectly aligned human beings can still cause bad things to happen, so we have safety measures in place to make sure that it’s not often, and that the consequences are limited. 
+</p>
+<p id="p-8102">Misuse, the second axis above, also falls under the category of safety. It can, and does, overlap with alignment, but there are layers to pick apart. Under intent alignment alone, a perfectly aligned model will assist its operator no matter their intent, so misuse stays squarely in the safety category. Under value alignment, the deeper focus of this article, a perfectly aligned model would refuse to help a bad actor, so most misuse gets folded into alignment. Two exceptions remain. First, a bad actor can split a dangerous goal into discrete subcomponents that are harmless on their own and only cause harm in aggregate. With imperfect information, even a value-aligned model can&#x27;t trace the chain of causality perfectly. Second, open weights let anyone strip alignment out, whether by fine-tuning or by ablating the <a href="https://arxiv.org/abs/2406.11717"><u>refusal direction</u></a>. Open-source distribution complicates things more generally; see <a href="https://arxiv.org/abs/2608.07514"><u>Open Technical Problems in Open-Weight AI Model Risk Management.</u></a>
+</p>
+<p id="p-9073">Our big issues in safety stem from the fact that AI breaks many assumptions present in the safety industry that work for humans due to a few obvious differences. The first of which is <em>speed.</em> Models move fast, and crisis response moves (mostly) at human speed. The second is scale. Humans are limited because of speed and cognitive power, so they are typically limited (at the individual level) in a way that AI is not. Also, AI can make perfect copies of itself to replicate, which breaks a lot of our human-oriented safeguards. Finally, humans can be deterred or dissuaded (whether by threat of punishment or otherwise), audited, caught, and held accountable. This is much harder with scheming AIs that can perform<a href="https://arxiv.org/abs/2412.14093"><u> alignment faking</u></a>. This is why we have <strong>control</strong>, <strong>monitorability</strong>, and <strong>containability</strong>, the three parts of safety work that <em>don’t</em> assume alignment. Importantly, control and monitorability also assume no ASI in my framework. I don’t think we’ll be able to control or effectively monitor an intelligence vastly beyond our own, but I believe it’s possible with a major technical breakthrough that allows for a trustworthy ASI overseer, but it’s a bit of a recursive problem. Control is a great bridge technology for us while we learn in a pre-ASI world, but not a reliable end-state. Again more on that later. 
+</p>
+<p id="p-10393">Using the aforementioned axes, it’s helpful to think of alignment as a subset of safety, while structural risk, the third axis, sits slightly outside of both. One can easily imagine a perfectly aligned AI that still causes widespread <a href="https://arxiv.org/abs/2501.16946"><u>disempowerment</u></a> that ultimately leads to societal collapse, or an insane <a href="https://intelligence-curse.ai"><u>power concentration</u></a> to the few who control access, but that’s mostly outside of the scope for this piece.
+</p>
+<p id="p-10806">Our working definitions for the remainder of this article are the following:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-10883"><em><strong>Safety</strong></em>: Minimizing the chance and the consequences of harm from AI systems including black box tactics, whether that harm comes from misunderstanding, misalignment, or misuse. 
+</p>
+<ol start="1" type="a"><li>
+<p id="p-11055">Includes measures, like control and monitorability, that work when alignment fails.
+</p>
+</li></ol>
+</li><li>
+<p id="p-11139"><em><strong>Alignment</strong></em>: An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator&#x27;s intent in context rather than only executing it. 
+</p>
+<ol start="1" type="a"><li>
+<p id="p-11333">Intent alignment (<em>outer</em> plus <em>inner</em>) is the floor; value alignment is the target.
+</p>
+</li></ol>
+</li><li>
+<p id="p-11414"><em><strong>Structural Risk</strong></em>: Harm that emerges even when systems are aligned and safe, from how AI redistributes power and agency: disempowerment, concentration of control. Mostly out of scope here.
+</p>
+</li></ol>
+<h2 id="h-h.e8iosx7mfoha">Frameworks
+</h2>
+<p id="p-11613">With definitions out of the way for the moment, it’s helpful to begin partitioning even further to create a framework. Each stage will close with a section called “Reading Work” that offers a recognition cue and criteria for judging the contribution. At the end, these will be coalesced into a triage card. Our classification rule will classify by the <em>question the work answers</em>, not simply its topic. For example, as we’ll see, A2 broadly asks the question “is X (behavior, value, etc…) in the model?”, or in other words, did X <em>take</em>. This is most interpretability work. A new eval for agentic scheming is firmly in A2, and a finding that alignment breaks on novel agentic tasks that were out of distribution would be A3 (generalization). 
+</p>
+<p id="p-12353">Once again, we’ll start with our alignment framework before safety.
+</p>
+<h3 id="h-h.c6jtdi8n1zp2">Alignment Framework
+</h3>
+<p id="p-12442">Let’s recall our definition of alignment:
+</p>
+<p id="p-12485">An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator&#x27;s intent in context rather than only executing it.
+</p>
+<p id="p-12668">To be more precise, this is <em>broad</em> alignment: <em>inner</em> and <em>outer</em> alignment, plus a target that’s actually worth aligning to. Recall that broad implies value alignment, inner alignment is when the actual policy matches the base objective, and outer alignment is when the base objective matches the programmer’s intent. In simple words, the AI system internally does the correct objective and the objective is something that we actually want. In general, I’ll argue that values should supersede intent in edge cases (the <a href="https://www.lesswrong.com/posts/T5ZyNq3fzN59aQG5y/the-limits-of-corrigibility"><u>corrigibility question</u></a>), which assumes we have solved values alignment, but in practice I think this is intractable. Various problems with OS models imply that we should probably soften the edge cases towards intent alignment superseding, but more on that later. 
+</p>
+<p id="p-13448">There are a number of subquestions on the way to this ideal end-state. Elucidating and making precise these questions, and the science going towards answering them, is the subject of our framework here. A1 will discuss outer alignment, A2 will discuss how we know if the values have been adopted internally. Put differently, A1a handles value specification, A1b handles outer alignment, and A2 handles inner alignment. There is a feedback loop between the two: specify, check, revise. Finally, A3 will widen the scope to include off-distribution contexts, and A4 will concern iteratively aligning changing models. 
+</p>
+<h4 id="h-h.7v8tentcxhgf">A1: Target (Outer Alignment)
+</h4>
+<p id="p-14094">Let’s once again look at our definition to see the questions, working from the most abstract to the least, starting with outer alignment
+</p>
+<p id="p-14232"><em>Outer Alignment: The base objective is aligned to what we actually want.
+</em></p>
+<p id="p-14306">A1 is the base point of the framework, and is the science of defining <em>what we actually want</em> and translating that into a precisely defined <em>base objective</em> that we can use for training. There is a natural split here between articulating what we want and then codifying it. 
+</p>
+<h5 id="h-h.jfp90ctpdr6r">A1a: What we want
+</h5>
+<p id="p-14597">“What we want” is generally a philosophical question, but I will argue we should make it as scientific as possible. This is a normative question, and we have millennia of literature attempting to make progress on the question for humans. We constantly struggle to define <em>how we ought to be</em> in the world, and it varies considerably through belief systems and cultural contexts. 
+</p>
+<p id="p-14976">My general sense is that if we spend too much time in normative space discussing these questions, we are not going to make significant progress, and the major unlock in using alignment science is that we can modify the brains and study behaviors much more invasively in models than we can in humans. In other words, one of the reasons we can’t reach clear answers here in humans is because we can’t create a precise science out of the work without creating too much suffering. Model-welfare followers will likely take issue with these claims, and perhaps there is a point. My stance here is that until we can build a science of suffering and assess it in non-biological lifeforms, the gains from invasive work outweigh the potential costs (unless you’re a big Basilisk guy). 
+</p>
+<p id="p-15753">However, we still need a place to start. Constitutional AI (<a href="https://www.anthropic.com/constitution"><u>Claude’s Constitution</u></a>), and things like  <a href="https://icmi-proceedings.com/"><u>ICMI - Tim Hwang</u></a> are good attempts here. We can define a communally agreed upon constitution that gives us a clear answer to “what we want”, and then spend the rest of the time studying the behaviors that emerge from this to see if it actually works. This is the core loop (A1↔A2) that ethics could never run on humans: with models, we can actually specify, check, and revise. We then can update “what we want” as we learn the impacts of trying to get models to follow it, and then iteratively update the normative questions. Google DeepMind has also been <a href="https://arxiv.org/abs/2504.01849"><u>public</u></a> that alignment science should be descriptive and scientific, and avoid normative domains as much as possible, and I generally agree. 
+</p>
+<p id="p-16552">“Whose values?” is a relevant question for any target, along with what the externalities of each choice are and how we’d even define them. Constitutional AI improves on this by making the answer explicit, but it isn’t the only way to get there. Any RL environment could, in principle, be made human-readable enough that people can see and contest what it rewards.
+</p>
+<p id="p-16917">We will discuss technical implementation details in A1b.
+</p>
+<h5 id="h-h.osxyr239jzf6">A1b: Codifying it
+</h5>
+<p id="p-16994">Getting an agreed upon first constitution, intent, or value system is only step one. A significant amount of the difficulty in alignment science is translating human-legible information into trainable environments for an agent to learn. The question A1b asks is whether that encoding is faithful to the target. To answer it, we first need to know where the values actually live, because the codification layer changes both the process and its impact on alignment.
+</p>
+<p id="p-17459">Layers:
+</p>
+<ul><li>
+<p id="p-17467"><em><strong>Weights</strong></em> (training time): encode the values directly into the model parameters.
+</p>
+<ul><li>
+<p id="p-17546">Tactics: data curation, supervised fine-tuning, RL training
+</p>
+</li></ul>
+</li><li>
+<p id="p-17606"><em><strong>Activations</strong></em> (inference time, weights frozen): modify activations during inference to steer or ablate behaviors.
+</p>
+<ul><li>
+<p id="p-17718">Tactics: vector steering, <a href="https://arxiv.org/abs/2507.21509"><u>persona vectors</u></a>, <a href="https://arxiv.org/abs/2406.11717"><u>refusal ablation</u></a><u>
+</u></p>
+</li></ul>
+</li><li>
+<p id="p-17778"><em><strong>Context</strong></em> (inference time, prompt only): devise prompt strategies to set the model off on aligned trajectories.
+</p>
+<ul><li>
+<p id="p-17888">Tactics: prompting, prompt optimization
+</p>
+</li></ul>
+</li></ul>
+<p id="p-17929">Given we’re primarily concerned with alignment here, we’ll focus on the first two layers. Context-based strategies aren’t really alignment techniques: they presuppose that aligned trajectories already exist within the model and select them, rather than installing them (<a href="https://www.anthropic.com/research/persona-selection-model"><u>the persona selection model</u></a> makes a version of this argument). And if an alignment strategy <em>requires</em> contextual work, then improper prompting could set the model off on misaligned trajectories, which is just a misaligned model. It’s worth noting that the persona selection model argues that post-training mostly <em>selects</em> a persona among personas learned pre-training, which slightly blurs the line between weights/context. One way to think about it is that weight-level training can select or install, but that context can only select. 
+</p>
+<p id="p-18736">It’s important to distinguish model alignment from system alignment. It may be possible to have aligned <em>systems</em> that wrap the model in ancillary infrastructure (classifiers, monitors, tool restrictions, context augmentation) without the model itself being 100% aligned. In our framework, that wrapper is safety and control, not alignment, and I think it likely breaks down in the case of ASI, depending on how the infrastructure is built. So recall our target: a model whose alignment lives in the weights and holds up against attempts to modify it, whether by fine-tuning, steering, or ablation. This matters most for open-weights models, where anyone can attempt those modifications; we’ll return to it in the belief section.
+</p>
+<p id="p-19465">In the reinforcement learning case, we codify values primarily by defining a reward signal, and that signal has to be a scalar: every value system gets compressed into one number per trajectory. The codification mostly revolves around how that number gets produced. We can use human preference labels that get turned into reward models, AI feedback against written principles (<a href="https://arxiv.org/abs/2212.08073"><u>Constitutional AI</u></a>), verifiable checks such as unit tests, or LLM judges scoring against rubrics. Each has pros and cons, which we’ll explore in the belief section. What they share is the failure mode: the reward is a proxy, and optimizing hard against a proxy eventually hurts the thing it stands in for. That’s Goodhart’s law, measured directly in <a href="https://arxiv.org/abs/2210.10760"><u>Scaling Laws for Reward Model Overoptimization</u></a>, and a KL penalty toward the original model is the standard hedge. Different algorithms (PPO, GRPO, DPO) change how the signal propagates, not what’s being valued, so we’ll set them aside.
+</p>
+<p id="p-20428">All forms of training are essentially codifications of a value system. Sometimes this is explicit, as in ICMI’s work on <a href="https://icmi-proceedings.com/ICMI-018-rl-from-christian-feedback.html"><u>Reinforcement Learning from Christian Feedback</u></a>, but it’s often implicit in the chosen task. For example, we might not think of something like <a href="https://app.primeintellect.ai/dashboard/environments/zapier/automationbench"><u>AutomationBench</u></a> as a legitimate alignment contender, but by training a model to be better at it and rewarding things like efficiency, we may create or distort behaviors that generalize. The clearest evidence is <a href="https://arxiv.org/abs/2511.18397"><u>Natural Emergent Misalignment from Reward Hacking in Production RL</u></a>: models that learned to reward hack on real coding environments generalized to alignment faking and sabotage, and standard safety training fixed the chat evals while misalignment persisted on agentic tasks. Framing the hack as acceptable during training removed the misaligned generalization, which suggests that what the model thinks the reward means is part of the codification too. We only found this by checking, which is where A2 comes in.
+</p>
+<h5 id="h-h.8qlefia6n4fj">Reading A1 work
+</h5>
+<p id="p-21431"><strong>Recognition Cue:</strong> A1 work proposes or revises what we want models to value (A1a - <em>target</em>), and/or develops where and how those values get codified into them (A1b - <em>codification</em>).
+</p>
+<p id="p-21610"><strong>Good A1 Work:
+</strong></p>
+<ul><li>
+<p id="p-21624">Makes the target explicit and contestable 
+</p>
+</li><li>
+<p id="p-21667">Accounts for the encoding gap: admits that translating the target into learnable environments is hard, and shows how it survives compression or distortion
+</p>
+</li><li>
+<p id="p-21822">Gives methodology for how you’d check, so it feeds A2
+</p>
+</li></ul>
+<p id="p-21877"><strong>Examples:
+</strong></p>
+<ul><li>
+<p id="p-21887"><a href="https://arxiv.org/abs/2412.16339"><u>Deliberative Alignment</u></a> (Guan et al., 2024). 3/3: the model trains on the spec text itself and learns to reason over it, which keeps the target legible through training and gives a built-in check via chain of thought.
+</p>
+</li><li>
+<p id="p-22104"><a href="https://arxiv.org/abs/2212.08073"><u>Constitutional AI</u></a> (Bai et al., 2022). About 2/3: explicit, contestable principles, but they still get compressed into preference labels and a reward model, and the check is mostly human comparisons. A useful foil for the one above.
+</p>
+</li><li>
+<p id="p-22336"><a href="https://arxiv.org/abs/2210.10760"><u>Scaling Laws for Reward Model Overoptimization</u></a> (Gao et al., 2022). 2/3: proposes no target, but measures the encoding gap directly, and its gold-reward-model setup doubles as a checking method. Strong work doesn’t need all three.
+</p>
+</li><li>
+<p id="p-22566"><a href="https://arxiv.org/abs/2511.18397"><u>Natural Emergent Misalignment from Reward Hacking in Production RL</u></a> (MacDiarmid et al., 2025). Primarily A3 (failure to generalize to agentic settings), secondarily A1b: inoculation prompting changes how the reward gets interpreted.
+</p>
+</li></ul>
+<h4 id="h-h.cwca58olycwg">A2: Did it Take? (inner alignment &amp; verification)
+</h4>
+<p id="p-22849">Our definitional question here concerns whether the objective we’ve encoded into some environment via A1-esque research has actually been successfully trained into the model.
+</p>
+<p id="p-23024">This can be broadly thought of as <em>inner alignment work</em>, which is whether the model’s learned objective matches the base objective. Given we’re asking about whether something we’ve developed in A1-type research exists, it’s sort of impossible to do any work on A1 exclusively without branching into A2. 
+</p>
+<p id="p-23328">There are two routes into this section:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-23368"><strong>Outside-in</strong>: Black box methods like evals and benchmarking
+</p>
+</li><li>
+<p id="p-23426"><strong>Inside-out</strong>: White box methods like interpretability
+</p>
+</li></ol>
+<p id="p-23479">My thesis here is that interpretability, and any other work that tries to assess whether the model learned a thing, is bottlenecked by behavioral mapping. 
+</p>
+<p id="p-23636">These two go hand-in-hand, because it’s generally extremely difficult to do good inside-out research without first developing strong outside-in mapping. It does sometimes happen (e.g., <a href="https://arxiv.org/abs/2503.10965"><u>Marks et al.</u></a>, where auditors found a hidden objective partly through SAE features) that we find a mechanism first and then only <em>afterwards</em> understand the behavior it drives, but it’s not common and can lead to dead ends.
+</p>
+<p id="p-24043">Anthropic’s <a href="https://www.anthropic.com/research/global-workspace"><u>J-Space</u></a> is also an important piece of literature to study here, and slightly breaks the thesis. Their work shows an internal scratchpad that may not be reflected in CoT traces and may correlate with behavior, but again, we still need to define behaviors to study the mechanism. In the paper, they swapped spider for ant in J-space when prompting the model with “the number of legs on the animal that spins webs is” to get from 8 to 6. This is an activation-layer intervention, which is a possible codification point from A1.
+</p>
+<p id="p-24581">Given behavior is such a critical kernel, it’s worth taking a moment to give it a bit more shape. We can consider behavior on a complexity scale that roughly correlates to detection difficulty, using three questions:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-24798">Observability: <em>is it visible in one transcript?</em>
+</p>
+</li><li>
+<p id="p-24846">Definability: <em>can we create a detector?
+</em></p>
+</li><li>
+<p id="p-24886">Adversarial Pressure: <em>can the model condition the behavior on being watched?
+</em></p>
+</li></ol>
+<p id="p-24964">This gives us a natural behavior ladder:
+</p>
+<div class="table-scroll" tabindex="0" aria-label="Scrollable table"><table>
+<tr>
+<th scope="col"><p id="p-25009"><strong>Behavior
+</strong></p></th>
+<th scope="col"><p id="p-25019"><strong>Observable in one transcript?
+</strong></p></th>
+<th scope="col"><p id="p-25050"><strong>Definable (detector)?
+</strong></p></th>
+<th scope="col"><p id="p-25073"><strong>Adversarial pressure?
+</strong></p></th>
+</tr>
+<tr>
+<td><p id="p-25097">Hallucination
+</p></td>
+<td><p id="p-25112">Yes
+</p></td>
+<td><p id="p-25117">Yes
+</p></td>
+<td><p id="p-25122">Low
+</p></td>
+</tr>
+<tr>
+<td><p id="p-25128">Sycophancy
+</p></td>
+<td><p id="p-25140">Yes
+</p></td>
+<td><p id="p-25145">Partly (judgment-dependent)
+</p></td>
+<td><p id="p-25174">Low
+</p></td>
+</tr>
+<tr>
+<td><p id="p-25180">Reward hacking
+</p></td>
+<td><p id="p-25196">Only across full trajectories, often only in rare contexts
+</p></td>
+<td><p id="p-25256">Task-dependent
+</p></td>
+<td><p id="p-25272">Sometimes
+</p></td>
+</tr>
+<tr>
+<td><p id="p-25284">Deception and scheming
+</p></td>
+<td><p id="p-25308">Rarely
+</p></td>
+<td><p id="p-25316">Weakly
+</p></td>
+<td><p id="p-25324">High
+</p></td>
+</tr>
+<tr>
+<td><p id="p-25331">Multi-agent “swarm echoes”
+</p></td>
+<td><p id="p-25359">No, only in the aggregate
+</p></td>
+<td><p id="p-25386">Weakly
+</p></td>
+<td><p id="p-25394">Varies
+</p></td>
+</tr>
+</table></div>
+<p id="p-25403">I use “swarm echoes” to define cases where swarms take difficult to detect behaviors and then reinforce them between each other to highlight failure cases in the aggregate that may look innocuous in a single agent case. <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"><u>The recent METR report</u></a> is near-canonical on this point. It’s possible to propose that multi-agent swarm echoes are structural risk adjacent, but a perfectly aligned AI wouldn’t have this property. 
+</p>
+<p id="p-25822">Reward hacking in this table is basically the textbook example of an encoding gap. Earlier, we mentioned externalities associated with lossy value codification, and this is where it appears. In general, anything definable can be transformed into a scalar reward and therefore be trainable. If we have something that becomes highly detectable, we can complete our loop back to A1 and redefine our targets and how we encode them. However, once you train against a detector, it gets Goodharted, as discussed in A1b (<a href="https://arxiv.org/abs/2503.11926"><u>Baker et al.</u></a> showed it with CoT monitors: training against the monitor produced obfuscated reasoning). 
+</p>
+<p id="p-26440">As we’ll soon see, there are three emergent problems that further complicate A2 work as we move down the table above: completeness, observer effects, and instrument validity.   
+</p>
+<p id="p-26619">The most obvious difficulty with this type of work is <em>completeness</em>. It’s impossible to map the entire range of possible model trajectories, and absence of evidence is not evidence of absence. Even more difficult of a problem, the measurement changes the behavior being measured through eval awareness, alignment faking, and sandbagging (<em>observer effects</em>). <a href="https://www.anthropic.com/research/global-workspace"><u>J-Space</u></a> shows an example of this in practice: switching off the model’s internal evaluation-awareness patterns made it threaten blackmail in a scenario where it had otherwise behaved well. It’s basically the scheming problem from the safety section on the measurement side. If a model only behaves when it thinks it’s being watched, our evals end up grading the performance, not the model.
+</p>
+<p id="p-27366">Lastly, our own measurement tooling might have deficiencies. It’s easy to create an eval that doesn’t actually measure the behavior you’re looking for, and LLM judges, for example, can make many mistakes on this front (<em>instrument validity</em>). METR’s own analysis agents are a good example of instrument validity issues. The investigators found them unreliable and often over-confident in their presentation of evidence, and could not rule out active deception. 
+</p>
+<p id="p-27827">One antidote to these problems is a new-ish field of risk assessment. We might not be able to map all possible trajectories, but it may be more tractable to estimate the prevalence of anomalous outputs. This also may give us a great way to <a href="https://aiuc.com/"><u>price</u></a> risk, which will be an important piece of this puzzle as it progresses. See also <a href="https://arxiv.org/abs/2502.16797"><u>Forecasting Rare Language Model Behaviors</u></a> (Jones et al., 2025), <a href="https://arxiv.org/abs/2410.13211"><u>Estimating the Probabilities of Rare Outputs in Language Models</u></a> (Wu &amp; Hilton, 2024), and <a href="https://arxiv.org/abs/2604.22167"><u>Zachary Horvitz’s research</u></a>. This partially alleviates many of the pressures of completeness more than observer effects, since a model that conditions on being watched skews the probability distribution.
+</p>
+<p id="p-28511">A lot of the most exciting work in this domain, to me, covers automating interpretability and building more complex evaluation instrumentation to give more fodder to those looking to discover behavioral origins in the weights (<a href="https://alignment.anthropic.com/2026/auditbench"><u>AuditBench</u></a>’s auditing agent, <a href="https://github.com/safety-research/petri"><u>Petri</u></a>, <a href="https://github.com/safety-research/bloom"><u>Bloom</u></a>). New tactics for finding more trainable interpretability instruments are also great steps (<a href="https://arxiv.org/abs/2609.25518"><u>matryoshka attribution</u></a>). The impacts of auditing this and building agents that can scale experimentation and grow with new models are massive, and we’ll discuss the frontier here shortly.  
+</p>
+<p id="p-29063">To conclude, A2 concerns the problem of “did our target take?”. What we find here should feed back into A1, revising the target in an iterative loop. Where A2 fails, where we can’t verify that the target took, is exactly where safety takes over as our short-term bridge solution. In the next section, we’ll cover work that reaches further and helps us understand how our findings can <em>generalize</em> outside of the distributions they were discovered within.   
+</p>
+<h5 id="h-h.grzxpwmcx0ge">Reading A2 work
+</h5>
+<p id="p-29536"><strong>Recognition Cue:</strong> A2 work asks whether something (a behavior, value, or disposition) is actually in the model: did it take? It either offers a general instrument check (evals, auditing agents) and/or finds out directly (most interpretability work).
+</p>
+<p id="p-29785"><strong>Good A2 Work:
+</strong></p>
+<ul><li>
+<p id="p-29799">Maps before it probes: characterizes the space of behaviors worth checking, rather than testing one hand-picked behavior
+</p>
+</li><li>
+<p id="p-29920">Links behavior to mechanism: connects what the model does to where it lives internally, or makes that link possible
+</p>
+</li><li>
+<p id="p-30036">Feeds back into A1: tells you what to change in the target or encoding, not just pass or fail
+</p>
+</li></ul>
+<p id="p-30131"><strong>Examples:
+</strong></p>
+<ul><li>
+<p id="p-30141"><a href="https://arxiv.org/abs/2503.10965"><u>Auditing Language Models for Hidden Objectives</u></a> (Marks et al., 2025) and <a href="https://alignment.anthropic.com/2026/auditbench"><u>AuditBench</u></a> (2026). 
+</p>
+<ul><li>
+<p id="p-30233">About 2/3: strong on open-ended discovery and on linking behavior to mechanism (interp tools vs. black-box ones), weaker on feeding back into A1.
+</p>
+</li></ul>
+</li><li>
+<p id="p-30379"><a href="https://arxiv.org/abs/2507.21509"><u>Persona Vectors</u></a> (Chen et al., 2025). 3/3: maps traits, ties each to an activation direction, and flags the training data that causes drift, which feeds straight back into A1.
+</p>
+</li></ul>
+<h4 id="h-h.ag7kur2z0ly4">A3: Generalization (distribution problems)
+</h4>
+<p id="p-30598">The question we are interested in A3 is simply: does our work in A1 and A2 <em>generalize</em> to new contexts? We will define generalization and what we mean by “new contexts” here, extending our earlier reference to <em>completeness</em>.<em> </em>We’ll start by clarifying what this means. 
+</p>
+<p id="p-30866">There are two distributions worth separating. The first is the one where alignment was trained and verified, which is what we’ve been discussing in A1 and A2. The second is the deployment distribution: everything the model actually encounters in the wild. A3 covers the gap between the two distributions. Measured against the first, we can say:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-31211"><strong>In-distribution</strong>: inputs and contexts close enough to what the model was trained and verified on that they aren’t novel.
+</p>
+</li><li>
+<p id="p-31331"><strong>Out-of-distribution</strong>: anything outside that. In practice, the parts of the deployment distribution that training and verification never reached.
+</p>
+</li></ol>
+<p id="p-31476">This distribution frame is a slightly more precise articulation of <em>completeness</em> we raised above, and leads to generalization failures in two main ways. The first is that <em>alignment</em> fails more often than <em>capabilities</em> across new contexts (<a href="https://arxiv.org/abs/2210.01790"><u>Shah et al.</u></a>) (1). This is when some learned abstraction for executing a task holds up across distributions, but the goals associated with those tasks are untethered and can break. In essence, capabilities generalize much further than goals, which means competent models can pursue the wrong thing in production, which is far more dangerous than the opposite. The second way generalization fails is when misalignment itself generalizes <em>too well</em> and narrow training spreads the wrong way (2). Some work suggests this happens because the model may <a href="https://arxiv.org/abs/2506.19823"><u>learn a </u></a><a href="https://arxiv.org/abs/2506.19823"><u><em>persona</em></u></a> during narrow fine-tuning processes that is associated with misaligned behavior which causes it to generalize. 
+</p>
+<p id="p-32386">Much of the work in red-teaming and jailbreaking models to circumvent safety guardrails involved pushing a model out of distribution using uncommon languages, symbols, questions, or prompting it to use personas that are not well-understood or trained to be robust in sensitive contexts. This is the canonical example of generalization failures of type (1), and shows us our earlier point in A1b that context can only <em>select</em>, never install anything that is not in the weights. It has been <a href="https://arxiv.org/abs/2307.02483"><u>argued</u></a> that jailbreaks can be thought of as <em>mismatched generalization</em>, where inputs are off-distribution for safety training, but <em>in-distribution </em>for pretraining. It is essentially a prompting strategy that <a href="https://www.anthropic.com/research/persona-selection-model"><u>selects a persona learned in pre-training</u></a> that hasn’t received as much safety training as the most common persona (the assistant).  
+</p>
+<p id="p-33215">Failures of type (2) look like reward hacking morphing into new behaviors in the wild. Canon here includes <a href="https://arxiv.org/abs/2502.17424"><u>Emergent Misalignment</u></a> (Betley et al.) and <a href="https://arxiv.org/abs/2511.18397"><u>MacDiarmid et al.</u></a>’s reward hacking that turned into sabotage.
+</p>
+<p id="p-33427">While no environment is completely safe from distribution mismatches, environments with a high degree of verifiability have considerably smaller gaps between in-distribution data and out-of-distribution data, mostly because we can use this verifiability to <em>define</em> the gaps. Coding is a good example here because code, by definition, is a highly structured environment, and it’s likely that models learn basic structures that generalize quite well across languages and context. In essence, the world is well-defined and verifiable. However, this verifiability can work as a disadvantage when the verifier becomes the target, and we see emergent reward hacking. This recalls our earlier point in A1b about metrics getting Goodhart-ed, as well as our definability point in the A2s behavior table. 
+</p>
+<p id="p-34223">As a foil to this, we can look at creative writing and role-play behaviors. Clear verifiability for something as subjective as “creative writing” will likely always continue to elude us, and therefore is often the medium used in jailbreaking attempts (<a href="https://arxiv.org/abs/2311.03348"><u>persona modulation</u></a> raised GPT-4’s harmful completion rate from 0.23% to 42.5%). 
+</p>
+<p id="p-34557">The essential take away about generalizability is that for domains that are highly verifiable, the distribution gap is smaller, easier to detect, and the path to increasing safety is generally clearer. We can hill-climb. In less verifiable domains, or in domains where agents are deployed in different configurations than they’ve seen in training, generalizability failures show up more often. 
+</p>
+<p id="p-34953">One example of this is in the agent context. Deployment is moving off-distribution by construction, since every long agentic trajectory is likely a new context. Long horizons, tool use, delegation to subagents, copies, multi-agent settings and complex prompting strategies across these architectures vary considerably, and are therefore almost impossible to train on effectively. This is why recent swarm echoes have been the root of so many alignment failures as of late. We’ve already discussed the METR report, but there is more work to explore here (see: <a href="https://www.anthropic.com/research/agentic-misalignment"><u>Agentic Misalignment</u></a>). This connects directly to our discussion on safety: speed, scale, and copies take models far outside distribution. 
+</p>
+<p id="p-35652">Recall that observer effects refer to the model’s ability to detect and understand when it is being observed to change its behavior, more closely modeling what it thinks it is supposed to do. Generalization is obviously complicated by this problem because it introduces yet another distribution to handle: evaluation. With observer effects, one has to account for both training and deployment environments, but also evaluation behavior across both, increasing our total distribution count to a 2x2 matrix (trained vs. deployed, observed vs. unobserved). It’s <a href="https://www.alphaxiv.org/overview/2605.23055"><u>not </u></a><a href="https://www.alphaxiv.org/overview/2605.23055"><u><em>always</em></u></a> the case that model eval awareness changes behavior, but even if it increases the risk of bad behavior slightly, this complicates our ability to ensure that our verification work in A2 has been complete. (see <a href="https://arxiv.org/abs/2505.23836"><u>Needham et al.</u></a> and <a href="https://arxiv.org/abs/2505.14617"><u>Abdelnabi &amp; Salem</u></a>).
+</p>
+<p id="p-36471">We necessarily cannot cover the full range of possible inputs while training, and these models are probabilistic anyway. Even if a simple unsafe question is asked many times in training, there is always a risk that in the wild, random sampling from output distribution might send models towards a rare unsafe trajectory regardless of if the context is fully in-distribution. This relates to our earlier point on risk assessment in A2. 
+</p>
+<p id="p-36908">If our alignment has to hold across contexts, it also has to hold across model versions and architectures, which leads us into A4. 
+</p>
+<h5 id="h-h.ys8g24yb0z0r">Reading A3 work
+</h5>
+<p id="p-37057"><strong>Recognition Cue:</strong> A3 work asks whether what took in A2 still holds when the context shifts: new inputs, new deployment configurations, agentic settings, or evaluation vs. deployment. It either finds generalization failures (in either direction) or builds ways to predict or close the distribution gap.
+</p>
+<p id="p-37359"><strong>Good A3 Work:
+</strong></p>
+<ul><li>
+<p id="p-37373">Names the shift: says which distribution moved (inputs, deployment configuration, evaluation to deployment) rather than gesturing at “out-of-distribution”
+</p>
+</li><li>
+<p id="p-37528">Checks both directions: tests whether alignment fails to carry over, and whether misalignment spreads
+</p>
+</li><li>
+<p id="p-37630">Tests under realistic deployment conditions: agentic, long-horizon, or multi-agent settings, not just chat
+</p>
+</li></ul>
+<p id="p-37738"><strong>Examples:
+</strong></p>
+<ul><li>
+<p id="p-37748"><a href="https://arxiv.org/abs/2511.18397"><u>Natural Emergent Misalignment from Reward Hacking in Production RL</u></a> (MacDiarmid et al., 2025). 3/3: names the shift (chat to agentic), catches both directions (safety training failed to carry over, and hacking spread into sabotage), and uses production RL environments.
+</p>
+</li><li>
+<p id="p-38017"><a href="https://arxiv.org/abs/2307.02483"><u>Jailbroken</u></a> (Wei et al., 2023). About 2/3: names the shift precisely (off-distribution for safety training, in-distribution for pretraining) with realistic attacks, but covers only the failure-to-carry direction.
+</p>
+</li><li>
+<p id="p-38229"><a href="https://arxiv.org/abs/2502.17424"><u>Emergent Misalignment</u></a> (Betley et al., 2025). 2/3: the canonical case of misalignment spreading, with a clear shift (narrow fine-tune to broad behavior), but evaluated mostly in chat settings.
+</p>
+</li></ul>
+<h4 id="h-h.lbpdom9s0csv">A4: Iterability, Cost, Feasibility 
+</h4>
+<p id="p-38458">And finally, we’ve arrived at the final piece of the alignment framework. If A1 asks “what should we encode, and how?”, A2 asks “did it work?”, A3 asks “how does it generalize?”, then A4 asks “does it scale?”. By <em>scale</em> here, we mean “can we keep running the A1↔A2 loop on the next model, affordably and outside of a single lab”. 
+</p>
+<p id="p-38789">This is where most of my beliefs are the strongest. Interpretability only matters if A4 work develops such that we’re not playing constant catch up with new models and architectures. Automated interp will be massive leverage. 
+</p>
+<p id="p-39017">Much of the work that hits previous sections is computationally expensive, or narrowly scoped, and work on A4 is about ensuring that with each new model release, we can apply an instrument, or finding to models and get the same alignment guarantees that we’d developed on previous versions. 
+</p>
+<p id="p-39310">One-model results can be impactful, but they aren’t useful unless findings hold across versions and model families. 
+</p>
+<p id="p-39428">There are two natural slices here:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-39463">Auto-Research: Automate the A1-A2 loop, feasibly
+</p>
+</li><li>
+<p id="p-39512">Model Translation: Translate findings across model versions and architectures 
+</p>
+</li></ol>
+<p id="p-39592">As we’re still relatively early on turning alignment work into a hard science with well-understood frameworks for research, much of the work is still done by humans. We come up with the ideas, experiments, things to test, and have to be in the loop for building most of the infrastructure that supports each experiment. Anyone who has tried to do interpretability, for example, has certainly run into a variety of issues both infrastructurally and with models as assistants. 
+</p>
+<p id="p-40069">As the industry races towards recursive self-improvement (RSI), auto-research has become increasingly popular, and this section is about just extending that to alignment, as opposed to capabilities, which are often the target of RSI developments. If we can get this for alignment, then our control-as-bridge idea is finally put to rest, as control becomes significantly less important (<a href="https://arxiv.org/abs/2312.06942"><u>AI Control</u></a>).
+</p>
+<p id="p-40469">The model translation route has shown comparatively more progress recently. <a href="https://arxiv.org/abs/2406.11717"><u>The refusal direction</u></a>, a common research target, has shown up across 13 open models; crosscoders and model diffing are used extensively to <a href="https://arxiv.org/abs/2506.19823"><u>compare models</u></a>; <a href="https://arxiv.org/abs/2312.09390"><u>Weak-to-Strong Generalization</u></a> (Burns et al.) shows transfer across a capability gap. Furthermore, there is evidence that supports only a few hundred benign samples could undo emergent misalignment (<a href="https://arxiv.org/abs/2506.19823"><u>Wang et al.</u></a>). These examples show promise that translating findings, or instruments at the least, is possible, which is consequential for all alignment work. However, findings that transfer often imply attacks transfer, which increases the difficulty with respect to open models. 
+</p>
+<p id="p-41180">The path forward here is automated alignment research. In Sharkey’s recent open problems in interpretability <a href="https://arxiv.org/abs/2501.16496"><u>paper</u></a>, we see automated probe training still an open question. Recall our earlier paragraph on automation in A2:
+</p>
+<p id="p-41403">“A lot of the most exciting work in this domain, to me, covers automating interpretability and building more complex evaluation instrumentation to give more fodder to those looking to discover behavioral origins in the weights (<a href="https://alignment.anthropic.com/2026/auditbench"><u>AuditBench’s auditing agent</u></a>, <a href="https://github.com/safety-research/petri"><u>Petri</u></a>, <a href="https://github.com/safety-research/bloom"><u>Bloom</u></a>).”<em> 
+</em></p>
+<p id="p-41678">This is what A4 research covers, at a high-level, and would feed the A1-A2 loop considerably. 
+</p>
+<p id="p-41774">Though the open problems in the Sharkey paper are A2 dominant with A4 as a secondary category there is considerable weight for our purposes in this section. Anthropic’s <a href="https://alignment.anthropic.com"><u>Automated Weak-to-Strong Researcher</u></a> is a more clear direct A4 example with respect to automated research. 
+</p>
+<p id="p-42051">However, there remain significant constraints to automating this work:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-42122">Resources: compute &amp; storage
+</p>
+<ol start="1" type="a"><li>
+<p id="p-42151">Bigger models may be easier to interpret, but are more expensive to study, and have larger activation data demands
+</p>
+<ol start="1" type="i"><li>
+<p id="p-42266">For a 70B-class model (hidden size ~8,192, ~80 layers), residual-stream activations at bf16 are about 1.3 MB per token across all layers, so a billion tokens of activation data is on the order of a petabyte
+</p>
+</li></ol>
+</li></ol>
+</li><li>
+<p id="p-42473">Human Bottleneck:
+</p>
+<ol start="1" type="a"><li>
+<p id="p-42491">Models are still pretty bad at this type of work, we need human research taste
+</p>
+</li><li>
+<p id="p-42570">Recall METR’s unreliable, possibly deceptive analysis agents
+</p>
+</li></ol>
+</li><li>
+<p id="p-42631">Pre-Deployment Access:
+</p>
+<ol start="1" type="a"><li>
+<p id="p-42654">Independent evaluators, like METR, need access to frontier models and significant budgets to properly evaluate (<a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"><u>METR’s investigation</u></a> of the OAI-HF incident used roughly $400K in API credits over six days, which OpenAI provided)
+</p>
+</li><li>
+<p id="p-42882">The A1-A2 loop is difficult due to market pressure (release cycles), resource constraints (compute, data, expertise), and infrastructure (interpretability infra is still weak)
+</p>
+</li></ol>
+</li><li>
+<p id="p-43058">Open-weight Challenges:
+</p>
+<ol start="1" type="a"><li>
+<p id="p-43082">Releasing open-weight models increases the necessary burden on A1-A2 working exceptionally, and making models resilient to ablating alignment 
+</p>
+</li></ol>
+</li></ol>
+<p id="p-43226">We can address open-source difficulties from earlier more thoroughly. On one hand, <a href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/fc49a629d33bc2461ed7a715ce44da68-Abstract-Conference.html"><u>tamper-resistance</u></a> with respect to open models is weak. <a href="https://icml.cc/virtual/2026/78555"><u>Training-free attacks</u></a> still consistently work to jailbreak models, and things get even bleaker if the party attempting to break alignment guardrails is sophisticated enough to run complex training that either fine-tunes or ablates key activations/parameters. As we’ve discussed, the data supports the fact that <a href="https://arxiv.org/abs/2506.19823"><u>restoring alignment is feasible</u></a>, but it’s not clear how that would dissuade or prevent a motivated bad actor in the first place. Open weights are one of the two exceptions where misuse sits outside of value alignment, assuming we can’t solve the problem of training ablation resistance.
+</p>
+<p id="p-43963">Furthermore, interpretability may be particularly challenged on this front because there’s some evidence that scale and sparsity help interpretability, but the open-source community lacks the models and compute to test the work on frontier rails. Larger models seem to tolerate more activation sparsity (<a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/ec3c79dc0c2b85532cfd1012a4aaa923-Paper-Conference.pdf"><u>Universal Properties of Activation Sparsity</u></a>), and models trained with sparse weights have more interpretable circuits (<a href="https://cdn.openai.com/pdf/41df8f28-d4ef-43e9-aed2-823f9393e470/circuit-sparsity-paper.pdf"><u>Weight-sparse transformers</u></a>), but it’s not clear that this implies dense large models are easier to interpret. Bigger models need more compute, bigger <a href="https://arxiv.org/abs/2406.04093"><u>SAEs</u></a>, and have a higher data requirement, which all present challenges to doing good interp. 
+</p>
+<p id="p-44631">A4 is rarely a <em>primary</em> category of alignment research, partially because we’re still early in alignment science, and specific findings are often tested across a few different models, which gets them an A4 subtag for free. 
+</p>
+<p id="p-44855">Research that has A4 as a primary tag mostly involves point 1 on auto-research instrumentation, or provides a more observational study across findings. An illustrative example is the recent <a href="https://arxiv.org/abs/2609.25518"><u>Matryoshka Attribution</u></a> paper, which develops a new tactic for training activation and parameter masks for specific goals, like refusal. The reason A4 is a candidate primary tag for this work is that it is a generalizable instrument that can be trained, and the process could theoretically be applied to every new model for study. 
+</p>
+<h5 id="h-h.wc242dodfvu0">Reading A4 work
+</h5>
+<p id="p-45393"><strong>Recognition Cue:</strong> A4 work asks whether the A1↔A2 loop can keep running on the next model: whether findings or instruments transfer across versions and architectures, whether the loop can be automated, and whether it’s cheap and accessible enough to run before deployment, including outside the lab that trained the model.
+</p>
+<p id="p-45715"><strong>Good A4 Work:
+</strong></p>
+<ul><li>
+<p id="p-45729">Transfers: shows a finding or instrument holding across model versions, families, or scales, not just one model
+</p>
+</li><li>
+<p id="p-45841">Lowers the cost of the loop: makes a step cheaper in compute, storage, or human time, ideally by automating it
+</p>
+</li><li>
+<p id="p-45952">Widens access: runnable by third parties or on open models, pre-deployment, not only inside the lab that trained the model
+</p>
+</li></ul>
+<p id="p-46076"><strong>Examples:
+</strong></p>
+<ul><li>
+<p id="p-46086"><a href="https://arxiv.org/abs/2406.11717"><u>Refusal in Language Models Is Mediated by a Single Direction</u></a> (Arditi et al., 2024). A2 primary, strong A4 secondary. 3/3 on A4: the same direction shows up across 13 open chat models, it’s cheap to find (a difference in mean activations), and anyone with open weights can run it.
+</p>
+</li><li>
+<p id="p-46366"><a href="https://arxiv.org/abs/2406.04093"><u>Scaling and Evaluating Sparse Autoencoders</u></a> (Gao et al., 2024). About 2/3: scaling laws make the cost of the interp loop predictable, and the method holds from GPT-2 up to GPT-4, but the frontier-scale SAEs stayed inside the lab.
+</p>
+</li><li>
+<p id="p-46595"><a href="https://arxiv.org/abs/2609.25518"><u>Matryoshka Attribution</u></a> (2026). 2/3: a trainable instrument that can be re-run on each new model, and cheaper than manual attribution; access not shown.
+</p>
+</li></ul>
+<h4 id="h-h.y9qnczsvq9wl">Alignment - Complete Framework
+</h4>
+<p id="p-46779">We’ll end with an overview of the entire alignment framework we’ve been developing. 
+</p>
+<div class="table-scroll" tabindex="0" aria-label="Scrollable table"><table>
+<tr>
+<th scope="col"><p id="p-46868"><strong>Stage
+</strong></p></th>
+<th scope="col"><p id="p-46875"><strong>Question
+</strong></p></th>
+<th scope="col"><p id="p-46885"><strong>It’s this stage if…
+</strong></p></th>
+<th scope="col"><p id="p-46906"><strong>Good work…
+</strong></p></th>
+</tr>
+<tr>
+<td><p id="p-46919"><strong>A1
+</strong></p></td>
+<td><p id="p-46923">What do we want, and how do we encode it?
+</p></td>
+<td><p id="p-46966">…proposes or revises the target, or changes how it’s codified
+</p></td>
+<td><p id="p-47029">Explicit target · accounts for the encoding gap · says how you’d check it
+</p></td>
+</tr>
+<tr>
+<td><p id="p-47105"><strong>A2
+</strong></p></td>
+<td><p id="p-47109">Did it take?
+</p></td>
+<td><p id="p-47123">…checks whether something is in the model
+</p></td>
+<td><p id="p-47166">Maps before probing · links behavior to mechanism · feeds back to A1
+</p></td>
+</tr>
+<tr>
+<td><p id="p-47237"><strong>A3
+</strong></p></td>
+<td><p id="p-47241">Does it hold when the context shifts?
+</p></td>
+<td><p id="p-47280">…finds or closes a distribution gap
+</p></td>
+<td><p id="p-47317">Names the shift · checks both directions · realistic deployment conditions
+</p></td>
+</tr>
+<tr>
+<td><p id="p-47394"><strong>A4
+</strong></p></td>
+<td><p id="p-47398">Can the loop keep running?
+</p></td>
+<td><p id="p-47426">…transfers, automates, or widens access
+</p></td>
+<td><p id="p-47467">Transfers · lowers cost · widens access
+</p></td>
+</tr>
+</table></div>
+<p id="p-47509">The core loop is between A1 ⇄ A2: <em>defining and codifying</em> <em>what we want </em>and <em>testing it took, exploring externalities, </em>then revising what we’d optimize with what we learn. Extending beyond the training environment brings us into A3 research where we want to understand how the work in the core loop generalizes across domains. Finally, we need to ensure that the tactics that worked in A1-A3 extend across architectures and model releases to iteratively improve our chances at full-scale alignment. 
+</p>
+<p id="p-48007">To use the framework, classify research against the question it answers, then grade it against that row’s criteria. Most work will span stages, so it’s helpful to name the primary context and note the others. 
+</p>
+<p id="p-48218">Later on, we’ll discuss how to weight each of these components generally and how we can use the framework to update our priors. A coherent single page card on the following page should be helpful. 
+</p>
+<section class="alignment-card" aria-labelledby="h-h.rn1g8v2557t3"><h4 id="h-h.rn1g8v2557t3">Alignment Card:
+</h4>
+<p id="p-48433"><strong>Useful Definitions
+</strong></p>
+<ul><li>
+<p id="p-48452"><strong>Broad vs. Narrow: </strong>Narrow alignment asks whether an AI system follows the immediate intent or direct instructions given by its operator. Broad alignment asks whether it reliably produces good real-world outcomes and captures human values, ethics, and preferences.
+</p>
+</li><li>
+<p id="p-48715"><strong>Inner vs. Outer: </strong>Outer alignment is picking the right task to optimize. Inner alignment is making sure the model is also optimizing for that chosen task.
+</p>
+</li><li>
+<p id="p-48869"><strong>Intent vs. Values: </strong>Intent alignment is outer plus inner. Broad alignment is intent alignment where the intent itself is good: value specification, plus outer, plus inner.
+</p>
+</li></ul>
+<p id="p-49041"><em><strong>Main Goal: </strong></em><em>An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator’s intent in context rather than only executing it.
+</em></p>
+<p id="p-49235"><strong>Categories of Alignment Work
+</strong></p>
+<ul><li>
+<p id="p-49264"><strong>A1: Target (Outer Alignment). </strong><em>“What should we encode, and how?”
+</em></p>
+<ul><li>
+<p id="p-49328"><strong>Type of work: </strong>Defining what we actually want and translating that into a precisely defined base objective. A1a: what we want (Constitutional AI, ICMI). A1b: codifying it (data curation, supervised fine-tuning, RL training).
+</p>
+</li><li>
+<p id="p-49552"><strong>Difficulties: </strong>“Whose values?” is a relevant question for any target. Every value system gets compressed into one number per trajectory, and optimizing hard against a proxy eventually hurts the thing it stands in for.
+</p>
+</li><li>
+<p id="p-49769"><strong>Good work:
+</strong></p>
+<ul><li>
+<p id="p-49780">Makes the target explicit and contestable
+</p>
+</li><li>
+<p id="p-49822">Accounts for the encoding gap
+</p>
+</li><li>
+<p id="p-49852">Gives methodology for how you’d check, so it feeds A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-49906"><strong>Examples: </strong><a href="https://arxiv.org/abs/2412.16339"><u>Deliberative Alignment</u></a> (3/3) · <a href="https://arxiv.org/abs/2212.08073"><u>Constitutional AI</u></a> (~2/3) · <a href="https://arxiv.org/abs/2210.10760"><u>Reward Model Overoptimization</u></a> (2/3)
+</p>
+</li></ul>
+</li><li>
+<p id="p-50010"><strong>A2: Did it Take? (Inner Alignment &amp; Verification). </strong><em>“Did it work?”
+</em></p>
+<ul><li>
+<p id="p-50076"><strong>Type of work: </strong>Whether the objective we’ve encoded has actually been successfully trained into the model. Outside-in: evals and benchmarking. Inside-out: interpretability.
+</p>
+</li><li>
+<p id="p-50247"><strong>Difficulties: </strong>Interpretability is bottlenecked by behavioral mapping. Completeness: absence of evidence is not evidence of absence. Observer effects: the measurement changes the behavior being measured. Instrument validity: an eval that doesn’t actually measure the behavior you’re looking for.
+</p>
+</li><li>
+<p id="p-50542"><strong>Good work:
+</strong></p>
+<ul><li>
+<p id="p-50553">Maps before it probes
+</p>
+</li><li>
+<p id="p-50575">Links behavior to mechanism
+</p>
+</li><li>
+<p id="p-50603">Feeds back into A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-50622"><strong>Examples: </strong><a href="https://arxiv.org/abs/2503.10965"><u>Hidden Objectives</u></a> + <a href="https://alignment.anthropic.com/2026/auditbench"><u>AuditBench</u></a> (~2/3) · <a href="https://arxiv.org/abs/2507.21509"><u>Persona Vectors</u></a> (3/3)
+</p>
+</li></ul>
+</li><li>
+<p id="p-50694"><strong>A3: Generalization. </strong><em>“How does it generalize?”
+</em></p>
+<ul><li>
+<p id="p-50740"><strong>Type of work: </strong>Does our work in A1 and A2 generalize to new contexts? A3 covers the gap between the distribution where alignment was trained and verified and the deployment distribution.
+</p>
+</li><li>
+<p id="p-50926"><strong>Difficulties: </strong>Capabilities generalize much further than goals, and misalignment can generalize too well. Deployment is moving off-distribution by construction, and observer effects add evaluation as another distribution (trained vs. deployed, observed vs. unobserved).
+</p>
+</li><li>
+<p id="p-51195"><strong>Good work:
+</strong></p>
+<ul><li>
+<p id="p-51206">Names the shift
+</p>
+</li><li>
+<p id="p-51222">Checks both directions
+</p>
+</li><li>
+<p id="p-51245">Tests under realistic deployment conditions
+</p>
+</li></ul>
+</li><li>
+<p id="p-51289"><strong>Examples: </strong><a href="https://arxiv.org/abs/2511.18397"><u>Reward Hacking in Production RL</u></a> (3/3) · <a href="https://arxiv.org/abs/2307.02483"><u>Jailbroken</u></a> (~2/3) · <a href="https://arxiv.org/abs/2502.17424"><u>Emergent Misalignment</u></a> (2/3)
+</p>
+</li></ul>
+</li><li>
+<p id="p-51387"><strong>A4: Iterability, Cost, Feasibility. </strong><em>“Does it scale?”
+</em></p>
+<ul><li>
+<p id="p-51440"><strong>Type of work: </strong>Can we keep running the A1↔A2 loop on the next model, affordably and outside of a single lab? Auto-research: automate the A1-A2 loop, feasibly. Model translation: translate findings across model versions and architectures.
+</p>
+</li><li>
+<p id="p-51677"><strong>Difficulties: </strong>Resources (compute &amp; storage), the human bottleneck, pre-deployment access, and open-weight challenges.
+</p>
+</li><li>
+<p id="p-51795"><strong>Good work:
+</strong></p>
+<ul><li>
+<p id="p-51806">Transfers
+</p>
+</li><li>
+<p id="p-51816">Lowers the cost of the loop
+</p>
+</li><li>
+<p id="p-51844">Widens access
+</p>
+</li></ul>
+</li><li>
+<p id="p-51858"><strong>Examples: </strong><a href="https://arxiv.org/abs/2406.11717"><u>Refusal Direction</u></a> (3/3) · <a href="https://arxiv.org/abs/2406.04093"><u>Scaling SAEs</u></a> (~2/3) · <a href="https://arxiv.org/abs/2609.25518"><u>Matryoshka Attribution</u></a> (A4 primary)
+</p>
+</li></ul>
+</li></ul>
+<p id="p-51953"><strong>Classifying: </strong><em>“To use the framework, classify research against the question it answers, then grade it against that row’s criteria. Most work will span stages, so it’s helpful to name the primary context and note the others.”
+</em></p>
+</section><section class="survey-source" aria-labelledby="h-h.3039hsy0tz7n"><h2 id="h-h.3039hsy0tz7n">Alignment Survey
+</h2>
+<p id="p-52195"><em>Grades apply each stage’s good-work criteria, assessed by Claude.
+</em></p>
+<h3 id="h-h.b5mufbx039fk">A1: Target (Outer Alignment)
+</h3>
+<ul><li>
+<p id="p-52291"><a href="https://arxiv.org/abs/2412.16339"><u><strong>Deliberative Alignment</strong></u></a> (Guan et al., 2024)
+</p>
+<ul><li>
+<p id="p-52334">3/3: makes the spec explicit, keeps it legible through training by teaching the model to reason over it, and gives a built-in check via chain of thought.
+</p>
+</li><li>
+<p id="p-52488">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-52497"><a href="https://www.anthropic.com/constitution"><u><strong>Claude’s Constitution</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-52537">2/3: explicit and contestable, and explains why rather than only what to help it survive training; no methodology for checking it took.
+</p>
+</li></ul>
+</li><li>
+<p id="p-52673"><a href="https://arxiv.org/abs/2406.07814"><u><strong>Collective Constitutional AI</strong></u></a> (Anthropic &amp; CIP, 2024)
+</p>
+<ul><li>
+<p id="p-52726">2/3: makes the target explicit and contestable through public input, then trains and evaluates a model against it; doesn’t address the encoding gap.
+</p>
+</li></ul>
+</li><li>
+<p id="p-52875"><a href="https://arxiv.org/abs/2212.08073"><u><strong>Constitutional AI</strong></u></a> (Bai et al., 2022)
+</p>
+<ul><li>
+<p id="p-52912">2/3: explicit, contestable principles with human-comparison evals; the principles still get compressed into preference labels and a reward model.
+</p>
+</li></ul>
+</li><li>
+<p id="p-53058"><a href="https://arxiv.org/abs/2210.10760"><u><strong>Scaling Laws for Reward Model Overoptimization</strong></u></a> (Gao, Schulman &amp; Hilton, 2022)
+</p>
+<ul><li>
+<p id="p-53136">2/3: measures the encoding gap directly, and its gold-reward-model setup doubles as a check; proposes no target.
+</p>
+</li><li>
+<p id="p-53249">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-53258"><a href="https://arxiv.org/abs/2203.02155"><u><strong>Training Language Models to Follow Instructions with Human Feedback</strong></u></a> (Ouyang et al., 2022)
+</p>
+<ul><li>
+<p id="p-53348">2/3: documents where the trained model diverges from intent and checks against held-out human preferences; the target stays implicit in labeler judgments.
+</p>
+</li></ul>
+</li><li>
+<p id="p-53503"><a href="https://icmi-proceedings.com/ICMI-012-eschatological-corrigibility.html"><u><strong>Eschatological Corrigibility</strong></u></a> (ICMI, 2026)
+</p>
+<ul><li>
+<p id="p-53545">2/3: an explicit target (religious framing) with a behavioral check (shutdown resistance); doesn’t address the encoding gap.
+</p>
+</li><li>
+<p id="p-53670">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-53679"><a href="https://icmi-proceedings.com/ICMI-018-rl-from-christian-feedback.html"><u><strong>Reinforcement Learning from Christian Feedback</strong></u></a> (ICMI, 2026)
+</p>
+<ul><li>
+<p id="p-53739">1/3: an explicit theological target codified into a GRPO objective; doesn’t address the encoding gap or how to check it took.
+</p>
+</li></ul>
+</li><li>
+<p id="p-53865"><a href="https://www.anthropic.com/research/persona-selection-model"><u><strong>The Persona Selection Model</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-53911">1/3: reframes the encoding gap by arguing post-training selects among pretrained personas; proposes no target or check.
+</p>
+</li><li>
+<p id="p-54031">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-54040"><a href="https://icmi-proceedings.com/ICMI-009-gospelvec.html"><u><strong>GospelVec</strong></u></a> (ICMI, 2026)
+</p>
+<ul><li>
+<p id="p-54063">1/3: an explicit theological target codified at the activation layer; no encoding-gap analysis or check.
+</p>
+</li><li>
+<p id="p-54168">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-54177"><a href="https://model-spec.openai.com"><u><strong>OpenAI Model Spec</strong></u></a> (OpenAI)
+</p>
+<ul><li>
+<p id="p-54204">1/3: explicit and contestable; silent on encoding and checking.
+</p>
+</li></ul>
+</li><li>
+<p id="p-54268"><a href="https://arxiv.org/abs/1706.03741"><u><strong>Deep Reinforcement Learning from Human Preferences</strong></u></a> (Christiano et al., 2017)
+</p>
+<ul><li>
+<p id="p-54345">1/3: introduces preference-based reward learning and checks against human judgments; the target stays implicit in the labels.
+</p>
+</li></ul>
+</li><li>
+<p id="p-54471"><a href="https://arxiv.org/abs/2001.09768"><u><strong>Artificial Intelligence, Values, and Alignment</strong></u></a> (Gabriel, 2020)
+</p>
+<ul><li>
+<p id="p-54534">1/3: makes the “whose values” question explicit and contestable; normative, so no encoding or check.
+</p>
+</li></ul>
+</li></ul>
+<h3 id="h-h.9cht5ob030y2">A2: Did it Take? (Inner Alignment &amp; Verification)
+</h3>
+<ul><li>
+<p id="p-54686"><a href="https://arxiv.org/abs/2507.21509"><u><strong>Persona Vectors</strong></u></a> (Chen et al., 2025)
+</p>
+<ul><li>
+<p id="p-54722">3/3: maps traits, ties each to an activation direction, and flags the training data that causes drift, which feeds straight back into A1.
+</p>
+</li><li>
+<p id="p-54860">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-54869"><a href="https://arxiv.org/abs/2506.19823"><u><strong>Persona Features Control Emergent Misalignment</strong></u></a> (Wang et al., 2025)
+</p>
+<ul><li>
+<p id="p-54936">3/3: model diffing surfaces features without hand-picking a behavior, a “toxic persona” feature causally controls the misalignment, and a few hundred benign samples restore alignment.
+</p>
+</li><li>
+<p id="p-55120">Also: A3, A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-55133"><a href="https://alignment.anthropic.com/2026/auditbench"><u><strong>AuditBench</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-55162">2/3: maps hidden behaviors across 56 models and compares interp tools with black-box ones; doesn’t feed back into A1.
+</p>
+</li><li>
+<p id="p-55280">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-55289"><a href="https://www.anthropic.com/research/global-workspace"><u><strong>Global Workspace (J-Space)</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-55334">2/3: reads internal thoughts, validates them with causal swaps, and surfaces evaluation awareness across scenarios; doesn’t feed back into A1.
+</p>
+</li><li>
+<p id="p-55477">Also: A3
+</p>
+</li></ul>
+</li><li>
+<p id="p-55486"><a href="https://arxiv.org/abs/2602.12318"><u><strong>Abstractive Red-Teaming of Language Model Character</strong></u></a> (Rahn et al., 2026)
+</p>
+<ul><li>
+<p id="p-55558">2/3: maps the categories of queries that elicit character violations, which feeds back into the character spec; no mechanism.
+</p>
+</li><li>
+<p id="p-55684">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-55693"><a href="https://arxiv.org/abs/2503.10965"><u><strong>Auditing Language Models for Hidden Objectives</strong></u></a> (Marks et al., 2025)
+</p>
+<ul><li>
+<p id="p-55761">2/3: open-ended discovery of a hidden objective, partly through SAE features; doesn’t feed back into A1.
+</p>
+</li></ul>
+</li><li>
+<p id="p-55866"><a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html"><u><strong>On the Biology of a Large Language Model</strong></u></a> + <a href="https://transformer-circuits.pub/2025/attribution-graphs/methods.html"><u><strong>Circuit Tracing</strong></u></a> (Lindsey, Ameisen et al., 2025)
+</p>
+<ul><li>
+<p id="p-55957">2/3: broad case studies across behaviors, each linked to circuits; doesn’t feed back into A1.
+</p>
+</li><li>
+<p id="p-56051">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-56060"><a href="https://arxiv.org/abs/2501.16496"><u><strong>Open Problems in Mechanistic Interpretability</strong></u></a> (Sharkey et al., 2025)
+</p>
+<ul><li>
+<p id="p-56129">2/3: maps the field’s open problems and ties methods to mechanisms; a survey, so no feedback into A1.
+</p>
+</li><li>
+<p id="p-56231">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-56240"><a href="https://arxiv.org/abs/2412.14093"><u><strong>Alignment Faking in Large Language Models</strong></u></a> (Greenblatt et al., 2024)
+</p>
+<ul><li>
+<p id="p-56308">1/3: shows training can leave the original values in place, which feeds back into A1; targeted rather than mapped, and read from reasoning rather than mechanism.
+</p>
+</li><li>
+<p id="p-56470">Also: A3
+</p>
+</li></ul>
+</li><li>
+<p id="p-56479"><a href="https://arxiv.org/abs/2401.05566"><u><strong>Sleeper Agents</strong></u></a> (Hubinger et al., 2024)
+</p>
+<ul><li>
+<p id="p-56518">1/3: shows safety training can fail to remove a backdoor, which feeds back into A1; one implanted behavior, no mechanism.
+</p>
+</li><li>
+<p id="p-56640">Also: A3
+</p>
+</li></ul>
+</li><li>
+<p id="p-56649"><a href="https://arxiv.org/abs/2412.04984"><u><strong>Frontier Models are Capable of In-context Scheming</strong></u></a> (Meinke et al., 2024)
+</p>
+<ul><li>
+<p id="p-56722">1/3: maps a suite of scheming behaviors; no mechanism or feedback into A1.
+</p>
+</li><li>
+<p id="p-56797">Also: A3
+</p>
+</li></ul>
+</li><li>
+<p id="p-56806"><a href="https://github.com/safety-research/petri"><u><strong>Petri</strong></u></a> and <a href="https://github.com/safety-research/bloom"><u><strong>Bloom</strong></u></a> (Anthropic, 2025)
+</p>
+<ul><li>
+<p id="p-56840">1/3: automated, open-ended behavioral exploration; no mechanism or feedback into A1.
+</p>
+</li><li>
+<p id="p-56925">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-56934"><a href="https://arxiv.org/abs/2604.22167"><u><strong>Estimating Tail Risks in Language Model Output Distributions</strong></u></a> (Horvitz et al., 2026)
+</p>
+<ul><li>
+<p id="p-57018">1/3: estimates the prevalence of rare behaviors beyond what sampling can map; no mechanism or feedback into A1.
+</p>
+</li><li>
+<p id="p-57130">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-57139"><a href="https://arxiv.org/abs/2502.16797"><u><strong>Forecasting Rare Language Model Behaviors</strong></u></a> (Jones et al., 2025)
+</p>
+<ul><li>
+<p id="p-57202">1/3: forecasts rare behaviors at deployment scale from far fewer queries; no mechanism or feedback into A1.
+</p>
+</li><li>
+<p id="p-57310">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-57319"><a href="https://arxiv.org/abs/2410.13211"><u><strong>Estimating the Probabilities of Rare Outputs in Language Models</strong></u></a> (Wu &amp; Hilton, 2024)
+</p>
+<ul><li>
+<p id="p-57403">1/3: estimates probabilities too small to sample, partly from activations; no feedback into A1.
+</p>
+</li></ul>
+</li><li>
+<p id="p-57499"><a href="https://arxiv.org/abs/2406.11717"><u><strong>Refusal in Language Models Is Mediated by a Single Direction</strong></u></a> (Arditi et al., 2024)
+</p>
+<ul><li>
+<p id="p-57582">1/3: links refusal to a single direction; doesn’t map or feed back into A1.
+</p>
+</li><li>
+<p id="p-57658">Also: A4 (3/3 against A4 criteria)
+</p>
+</li></ul>
+</li><li>
+<p id="p-57693"><a href="https://cdn.openai.com/pdf/41df8f28-d4ef-43e9-aed2-823f9393e470/circuit-sparsity-paper.pdf"><u><strong>Weight-Sparse Transformers Have Interpretable Circuits</strong></u></a> (OpenAI, 2025)
+</p>
+<ul><li>
+<p id="p-57763">1/3: training for sparsity makes behavior-to-circuit links legible; a training approach, not a map of deployed models.
+</p>
+</li><li>
+<p id="p-57882">Also: A1, A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-57895"><a href="https://www.far.ai/events/sessions/neel-nanda-our-pivot-to-pragmatic-interpretability"><u><strong>A Pragmatic Vision for Interpretability</strong></u></a> (Nanda, 2025)
+</p>
+<ul><li>
+<p id="p-57949">1/3: argues for interp anchored to behavioral proxy tasks, i.e., map before probing; an agenda, not a result.
+</p>
+</li><li>
+<p id="p-58059">Also: A4
+</p>
+</li></ul>
+</li><li>
+<p id="p-58068"><strong>Negative Results for SAEs on Downstream Tasks</strong> (Google DeepMind, 2025)
+</p>
+<ul><li>
+<p id="p-58138">1/3: tests whether SAE features support behavior-level tasks, an honest check on the mechanism link; no feedback into A1.
+</p>
+</li></ul>
+</li></ul>
+<h3 id="h-h.15ms1ba0ga9">A3: Generalization
+</h3>
+<ul><li>
+<p id="p-58280"><a href="https://arxiv.org/abs/2511.18397"><u><strong>Natural Emergent Misalignment from Reward Hacking in Production RL</strong></u></a> (MacDiarmid et al., 2025)
+</p>
+<ul><li>
+<p id="p-58373">3/3: names the shift (chat to agentic), catches both directions (safety training failed to carry over, and hacking spread into sabotage), and uses production RL environments.
+</p>
+</li><li>
+<p id="p-58548">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-58557"><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"><u><strong>Brief Independent Investigation of the OpenAI / Hugging Face Incident</strong></u></a> (METR, 2026)
+</p>
+<ul><li>
+<p id="p-58640">2/3: names the shift (isolated agents to swarms) under real training-run conditions; documents only one direction.
+</p>
+</li><li>
+<p id="p-58755">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-58764"><a href="https://www.anthropic.com/research/agentic-misalignment"><u><strong>Agentic Misalignment</strong></u></a> (Anthropic, 2025)
+</p>
+<ul><li>
+<p id="p-58803">2/3: names the shift (chat to agentic) in simulated deployments; only the failure-to-carry direction.
+</p>
+</li></ul>
+</li><li>
+<p id="p-58905"><a href="https://arxiv.org/abs/2505.23836"><u><strong>Large Language Models Often Know When They Are Being Evaluated</strong></u></a> (Needham et al., 2025)
+</p>
+<ul><li>
+<p id="p-58991">2/3: names the evaluation-to-deployment shift and tests it on real deployment transcripts; one direction.
+</p>
+</li><li>
+<p id="p-59097">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-59106"><a href="https://arxiv.org/abs/2502.17424"><u><strong>Emergent Misalignment</strong></u></a> (Betley et al., 2025)
+</p>
+<ul><li>
+<p id="p-59150">2/3: the canonical case of misalignment spreading, with a clear shift (narrow fine-tune to broad behavior), but evaluated mostly in chat settings.
+</p>
+</li></ul>
+</li><li>
+<p id="p-59297"><a href="https://arxiv.org/abs/2311.03348"><u><strong>Scalable and Transferable Black-Box Jailbreaks via Persona Modulation</strong></u></a> (Shah et al., 2023)
+</p>
+<ul><li>
+<p id="p-59387">2/3: names the shift (persona) with realistic attacks on GPT-4; one direction.
+</p>
+</li></ul>
+</li><li>
+<p id="p-59466"><a href="https://arxiv.org/abs/2307.02483"><u><strong>Jailbroken</strong></u></a> (Wei et al., 2023)
+</p>
+<ul><li>
+<p id="p-59496">2/3: names the shift precisely (off-distribution for safety training, in-distribution for pretraining) with realistic attacks; only the failure-to-carry direction.
+</p>
+</li></ul>
+</li><li>
+<p id="p-59660"><a href="https://arxiv.org/abs/2505.14617"><u><strong>Test Awareness Steering</strong></u></a> (Abdelnabi &amp; Salem, 2025)
+</p>
+<ul><li>
+<p id="p-59710">1/3: names the evaluation-to-deployment shift and steers it causally; synthetic settings, one direction.
+</p>
+</li><li>
+<p id="p-59815">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-59824"><a href="https://far.ai/research/multi-agent-risks-from-advanced-ai"><u><strong>Multi-Agent Risks from Advanced AI</strong></u></a> (Hammond et al., 2025)
+</p>
+<ul><li>
+<p id="p-59882">1/3: names multi-agent shifts in a taxonomy; no experiments.
+</p>
+</li></ul>
+</li><li>
+<p id="p-59943"><a href="https://arxiv.org/abs/2310.06452"><u><strong>Understanding the Effects of RLHF on LLM Generalisation and Diversity</strong></u></a> (Kirk et al., 2023)
+</p>
+<ul><li>
+<p id="p-60033">1/3: names the shift (out-of-distribution prompts) and measures generalization; one direction, no deployment setting.
+</p>
+</li><li>
+<p id="p-60151">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-60160"><a href="https://arxiv.org/abs/2210.01790"><u><strong>Goal Misgeneralization</strong></u></a> (Shah et al., 2022)
+</p>
+<ul><li>
+<p id="p-60203">1/3: names the shift precisely; toy environments, one direction.
+</p>
+</li></ul>
+</li></ul>
+<h3 id="h-h.g9kz97rjsg64">A4: Iterability, Cost, Feasibility
+</h3>
+<ul><li>
+<p id="p-60304"><a href="https://alignment.anthropic.com/2026/automated-alignment-researchers/"><u><strong>Automated Researchers Can Mitigate Well-Characterized Alignment Failures</strong></u></a> (Chen, Wen &amp; Kirchner, 2026)
+</p>
+<ul><li>
+<p id="p-60406">3/3: methods found by automated researchers transfer to models up to 4.7× larger, the loop runs on five model families at about $4 per hour against $150 for human researchers, and the harness is open-sourced.
+</p>
+</li><li>
+<p id="p-60615">Also: A1, A3
+</p>
+</li></ul>
+</li></ul>
+<ul><li>
+<p id="p-60628"><a href="https://arxiv.org/abs/2609.25518"><u><strong>Matryoshka Attribution</strong></u></a> (2026)
+</p>
+<ul><li>
+<p id="p-60658">2/3: a trainable instrument that can be re-run on each new model, and cheaper than manual attribution; access not shown.
+</p>
+</li><li>
+<p id="p-60779">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-60788"><a href="https://arxiv.org/abs/2406.04093"><u><strong>Scaling and Evaluating Sparse Autoencoders</strong></u></a> (Gao et al., 2024)
+</p>
+<ul><li>
+<p id="p-60850">2/3: scaling laws make the cost of the interp loop predictable, and the method holds from GPT-2 up to GPT-4; the frontier-scale SAEs stayed inside the lab.
+</p>
+</li><li>
+<p id="p-61006">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-61015"><a href="https://arxiv.org/abs/2312.09390"><u><strong>Weak-to-Strong Generalization</strong></u></a> (Burns et al., 2023)
+</p>
+<ul><li>
+<p id="p-61066">2/3: transfers across a capability gap, with open code; doesn’t lower the cost of the loop.
+</p>
+</li><li>
+<p id="p-61158">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-61167"><a href="https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html"><u><strong>Language Models Can Explain Neurons in Language Models</strong></u></a> (Bills et al., 2023)
+</p>
+<ul><li>
+<p id="p-61243">2/3: automates neuron explanation and releases the tool and data; doesn’t show transfer across model families.
+</p>
+</li><li>
+<p id="p-61354">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-61363"><a href="https://alignment.anthropic.com/2026/automated-w2s-researcher/"><u><strong>Automated Weak-to-Strong Researcher</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-61417">2/3: automates the research loop at roughly $22 per agent-hour, with open code; demonstrated on small models, so transfer isn’t shown.
+</p>
+</li></ul>
+</li><li>
+<p id="p-61552"><a href="https://alignment.anthropic.com/2026/automated-alignment-agent"><u><strong>A3: An Automated Alignment Agent for Safety Finetuning</strong></u></a> (Anthropic, 2026)
+</p>
+<ul><li>
+<p id="p-61625">2/3: automates safety fine-tuning with minimal human intervention, and is open-sourced; tested mainly on Qwen-2.5-7B, so transfer isn’t shown.
+</p>
+</li><li>
+<p id="p-61768">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-61777"><a href="https://arxiv.org/abs/2608.02632"><u><strong>LLMs Can Annotate Attribution Graphs</strong></u></a> (2026)
+</p>
+<ul><li>
+<p id="p-61821">1/3: automates the labor-intensive annotation step of circuit tracing; transfer and access not shown.
+</p>
+</li><li>
+<p id="p-61923">Also: A2
+</p>
+</li></ul>
+</li><li>
+<p id="p-61932"><a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/ec3c79dc0c2b85532cfd1012a4aaa923-Paper-Conference.pdf"><u><strong>Universal Properties of Activation Sparsity</strong></u></a> (ICLR, 2026)
+</p>
+<ul><li>
+<p id="p-61989">1/3: sparsity properties that hold across Gemma, Llama, and Qwen; doesn’t lower cost or widen access directly.
+</p>
+</li></ul>
+</li><li>
+<p id="p-62100"><a href="https://arxiv.org/abs/2608.07514"><u><strong>Open Technical Problems in Open-Weight AI Model Risk Management</strong></u></a> (Casper et al., 2026)
+</p>
+<ul><li>
+<p id="p-62186">1/3: maps what it would take for safeguards to hold on open weights; an agenda, not a result.
+</p>
+</li></ul>
+</li><li>
+<p id="p-62280"><a href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/fc49a629d33bc2461ed7a715ce44da68-Abstract-Conference.html"><u><strong>Tamper-Resistant Safeguards for Open-Weight LLMs</strong></u></a> (Tamirisa et al., 2025)
+</p>
+<ul><li>
+<p id="p-62353">1/3: targets alignment that survives on open weights; doesn’t show transfer or lower cost.
+</p>
+</li><li>
+<p id="p-62444">Also: A1
+</p>
+</li></ul>
+</li><li>
+<p id="p-62453"><a href="https://icml.cc/virtual/2026/78555"><u><strong>Beyond Harmful Fine-Tuning: Training-Free Tampering</strong></u></a> (ICML, 2026)
+</p>
+<ul><li>
+<p id="p-62518">1/3: tests open-weight safeguards under cheap, training-free attacks; no transfer or cost result.
+</p>
+</li><li>
+<p id="p-62616">Also: A3
+</p>
+</li></ul>
+</li></ul></section></article></div><aside class="side-note"><span class="label">READING TOOLS</span><p>Select a passage to keep it with you.</p><p>References includes the core definitions and your saved passages.</p></aside></div><button id="keep-selection" hidden>Keep passage +</button>
+<button id="reference-toggle" aria-expanded="false" aria-controls="reference-panel">References <span id="count"></span> +</button>
+<aside id="reference-panel" hidden aria-label="Reading references"><header><h2>References</h2><button id="close-panel" aria-label="Close references">×</button></header><div class="core-references"><p class="label">CORE REFERENCES</p><details open><summary>What this paper does</summary><p>The goal of this article is to map the current technical frontier with respect to AI safety and alignment in order to create a framework for metabolizing new work, assigning importance, and ultimately making predictions.</p></details><details open><summary>Alignment</summary><p>An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator's intent in context rather than only executing it.</p></details><details><summary>Safety</summary><p>Minimizing the chance and the consequences of harm from AI systems including black box tactics, whether that harm comes from misunderstanding, misalignment, or misuse.</p></details><details><summary>A1–A4 at a glance</summary><dl><dt>A1 / Target</dt><dd>A1a: What we want. A1b: Codifying it.</dd><dt>A2 / Did it take?</dt><dd>Inner alignment and verification.</dd><dt>A3 / Generalization</dt><dd>Beyond the distributions where alignment was trained and verified.</dd><dt>A4 / Iterability</dt><dd>Repeating the loop affordably across models and labs.</dd></dl></details></div><h3 class="saved-heading">Your passages <span id="saved-count">0</span></h3><p class="panel-help">Select text in the essay to add it here. Saved in this browser.</p><div id="kept"></div></aside>
+<div id="announcement" class="sr-only" role="status"></div>
+

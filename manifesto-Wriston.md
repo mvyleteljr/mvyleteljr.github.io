@@ -8,42 +8,41 @@ marginalia: [{"id": "margin-8a3922ef-23a8-426d-8319-6186e395f00e", "block": "Ass
 ---
 ## Introduction
 
-This is an open attempt to chart my own reasoning through the next ~decade of humanity through technology, business, culture, and personal sovereignty. I intend to continuously update this document with new information and update my personal estimates concerning the most important elements, which you will eventually see pinned above this section when I feel comfortable with my reasoning. 
+This is an open attempt to chart a course through the next decade of humanity through technology, business, culture, and personal sovereignty. We intend to continuously update this document with new information and update personal estimates concerning the most important elements, which you will eventually see pinned above this section when we feel our reasoning is sound.
 
-Some sections will remain blank; some will contain only notes or sources; and others will be fully written. All of it is subject to change as more information comes into view.
+All of it is subject to change as more information comes into view.
 
-I began this project soon after METR published its [report] (https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/) on the Hugging Face incident. 
+Wriston, formerly known as Witness, began in February this year with a simple idea: could we fight misinformation through records of provenance? We were compelled by the complicated problem of deepfakes, and how generative AI was becoming indistinguishable from reality, quickly proliferating across our media environments. After building our first attempt at a solution, we quickly realized that changing legislation and new developments in the broader AI landscape were leaving even more critical problems wide open. 
 
-While reading it and attempting to coalesce my thoughts, I quickly became embroiled in several quagmires that led me to internalize how the subject is far more nuanced and complicated than I had thought. Instead of waiting until I have everything perfectly mapped out in my head, I have decided to be honest about where I am and let the messiness of my thinking reflect itself on the page here.
+Soon after [METR published its report on the Hugging Face incident](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/), like many others, we were catalyzed to move deeper into the question of AI safety, and in doing so quickly became embroiled in several quagmires in trying to come up with narrow approaches to building a safe future. Instead of waiting until we have everything perfectly mapped out in my head, we have decided to be honest about how we see the problems facing humanity, and let the messiness of our thinking reflect itself on the page here.
 
 ## I - The Only Important Question
 
-Camus wrote in The Myth of Sisyphus that "There is but one truly serious philosophical problem, and that is suicide." For us, the corollary is that there is one truly serious alignment question: whether we are all going to die as a result of ASI.
+Camus wrote in The Myth of Sisyphus that "There is but one truly serious philosophical problem, and that is suicide." For us, the corollary is that there is one truly serious alignment question: whether we are all going to die as a result of superintelligent AI.
 
-Famously, this question is the kernel of most alignment debates today, and has yet to see any coherent progress on unanimous agreement about our risks here. [Eliezer Yudkowsky](https://time.com/6309037/eliezer-yudkowsky/) is the must public prophet speaking out on the doom side, and maybe the most public prophet in the space period. I don't yet know of an equivalent on the opposite side.
+Famously, this question is the kernel of most alignment debates today, and has yet to see any coherent progress on unanimous agreement about our risks here. [Eliezer Yudkowsky](https://time.com/6309037/eliezer-yudkowsky/) is the must public prophet speaking out on the doom side, and maybe the most public prophet in the space period. [Jacob Coxon's](https://www.wsj.com/tech/ai/anthropic-researcher-quits-over-out-of-control-ai-fears-707b7628) recent public resignation from Anthropic has set off the preference cascade that has brought the whole world into the previously narrowly understood niche of AI Safety. 
 
-The central question contains several points about which we can be more precise. The first concerns the distinction between AGI and superintelligence. [Nick Bostrom](https://nickbostrom.com/) offers a widely cited definition of superintelligence:
+The central question contains we began this section buries several further questions about which we can be more precise. The first concerns the distinction between often used terms AGI and superintelligence. [Nick Bostrom](https://nickbostrom.com/) offers a widely cited definition of superintelligence:
 
 > *[any intellect that greatly exceeds the cognitive performance of humans in virtually all domains of interest](https://nickbostrom.com/superintelligence)*
 
-This definition raises several more questions. How do we define an "intellect"? How do we measure it? What do we consider domains of interest?
+However, this definition continues to raise even more questions. How do we define an "intellect"? How do we measure it? What do we consider domains of interest?
 
-One can find answers to these questions from a variety of different vantages, mostly written in [LessWrong](https://www.lesswrong.com/) posts, but for the purposes of this manifesto, they are essentially unimportant. Should we continue to debate these points, we risk miring ourselves in the classic situation of debating how and why we got shot instead of treating the wound, and I desperately want to simplify. To make the question simpler to *feel*, it's helpful to ask a slightly different question to start: "Will we be able to control an intellect vastly beyond our own?" 
+One can generate answers to these questions from a variety of different vantages, but for the purposes of this manifesto, they are essentially unimportant. Should we continue to debate these points, we risk miring ourselves in the classic situation of debating how and why we got shot instead of treating the wound. Wriston aims to take a pragmatic approach. The question we want to answer is: "What effects will even sub-superintelligent AI have on us as individuals, organizations, institutions, and citizens of the world?" 
 
-My contention is that the firm answer is **no**, at least not for long.
-
-Given this, our only hope is to *align* a superintelligence such that we don't need to *control* it.
+In short, how can we make progress *today*, to shape a future we all collectively benefit from? How can we reshape our world around this [alien mind](https://openai.com/index/an-alien-mind/) to sail through unharmed?
 
 ### A. Intellect and Actuators
 
-To understand why I answer **no**, it helps to view AI as a system that contains both *intellect* and *actuators*. Intellect is the machine's "raw cognitive power"; actuators define the "surface area" over some *state* that the system can manipulate.
+One way to understand AI as a system is to think of it as a process that can contain both *intellect* and *actuators*. Intellect is the machine's "raw cognitive power"; actuators define the "surface area" over some *state* that the system can manipulate.
 
-Intellect is the raw intelligence of an otherwise inert system, expressed only through symbols—that is, through conversation. Consider a superintelligence in a fully isolated, escape-proof data center that is accessible only through an on-premises terminal. Assume that it has no chance of taking control of any part of its architecture and that users can interact with it only through terminal text. It can accept any combination of input tokens within its trained vocabulary and context window and produce output under the same limits, but it has no access to tools and cannot update its trained weights and biases.
+Intellect is the raw intelligence of an otherwise inert system, expressed only through symbols—that is, through conversation. Consider a superintelligence in a fully isolated, escape-proof data center that is accessible only through an on-premises terminal. Assume that it has no chance of taking control of any part of its architecture and that users can interact with it only through terminal text. It can accept any combination of input tokens within its trained vocabulary and context window and produce output under the same limits, but it has no access to tools and cannot update its trained weights and biases. The only state that it can effect is the displayed characters on a screen. 
 
-This is interaction with raw intellect and no actuator surfaces, unless of course you consider human consciousness to be an actuator, which it is, but more on that later.
+This is interaction with raw intellect and no actuator surfaces*.
 
 Actuators are devices that can update state outside of the model. The most common actuators in the modern world are computers. Coding agents, at a high level, are LLMs (intellects) with tools that allow them to change state on a computer, receive information about that updated state, and continue in a loop. Anything that can be represented on a computer becomes an actuator surface that the machine can *use*.
 
+\* technically, human consciousness become an actuator in this case, but this is out of scope for the moment
 ## II - Practical Realities - The Economy & Graceful Transitions
 
 **What does a successful post-AGI company look like—and what can we do now to prepare for increasingly capable intelligence?**
@@ -113,14 +112,3 @@ The aim is to find grounded ways to prepare while remaining willing to revise th
 ## III - Digitalia, Physicalia and Identity
 
 *Intention:* There is a meaningful split between digital space and physical space. Proof of Personhood is (currently), only meaningful in the digital realm. In the physical, where we don't have life-like humanoid robots, "proof of humanity" is mostly incoherent. We only need "proof of humanity" when representing ourselves in a digital system, which is not to diminish the issue, as a significant chunk of our physical lives is determined by *digital physics*, but it's worth being clear about this. 
-
-## IV - Safety Tech
-
-*Intention*: Describe a productive way to think about safety from a technologic standpoint. Here are the goals of safety:
-1. Ensure the AI can't help bad people do bad things
-2. Ensure the AI can't manipulate good people into bad people (See 1)
-3. Ensure the AI can't cause direct harm
-4. Ensure the AI can't cause indirect harm
-
-I haven't yet found a definitions for the goals of safety are, and how we can think about working towards each of them. The enormous barrier to this question is whether or not it is possible to thrive in an environment with a truly superhuman intelligence. 
-

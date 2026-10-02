@@ -39,3 +39,5 @@ span.margin-highlight{cursor:pointer;padding:0;box-decoration-break:clone}
 .manifesto-updated,.margin-timestamp{font-size:12px;font-weight:400;font-style:normal;line-height:1.5}
 .manifesto>.page-heading h1{margin-bottom:12px}
 .margin-timestamp{margin:12px 0 0}
+
+.site-header nav{flex-wrap:wrap}

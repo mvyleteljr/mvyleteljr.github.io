@@ -106,3 +106,15 @@ You can add multiple notes to the same text, including overlapping selections. B
 Saving rebuilds the local site. The editor checks `manifesto.md` every 1.5 seconds and rebuilds and refreshes when it changes. An open note dialog delays the refresh so unsaved text is preserved. Build errors appear in the status bar and server terminal. The editor uses a separate temporary build folder. The Open Manifesto page shows an **Edit mode** button on localhost, including the normal Jekyll preview. This button opens the local editor, which must be running. Published pages show saved notes and links without edit controls or write endpoints. Commit `manifesto.md` with the other site files and push when ready to publish.
 
 The manifesto shows `last_updated` from its front matter. Update this ISO date when you change the essay directly in Markdown. The local note editor updates it automatically when you save a note. New notes receive `created_at` and `updated_at` timestamps; later edits preserve the creation date and update the modification date. Unchanged notes retain their timestamps. Older notes without timestamps show “Date not recorded” until edited. Note times use the reader's local time zone.
+
+## Alignment Framework
+
+The public page is `/framework.html`, linked from the main navigation. It uses the shared site header and keeps the full document, reference panel, saved passages, and agent prompt.
+
+The saved Google Doc Write-Up tab is in `design-studies/source/write-up.json`. To rebuild the page after changes to the converter or study assets:
+
+```sh
+python3 scripts/build-alignment-study.py
+```
+
+This checks the source text, lists, tables, and links, then creates `framework.html`, `framework.css`, and `framework.js` at the site root. Commit those generated files with the source changes. The build does not fetch new Google Doc changes; import a new snapshot first when needed. The source snapshot and separate loop visual remain excluded from the public site.

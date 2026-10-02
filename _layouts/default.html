@@ -11,9 +11,10 @@
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 {% endif %}
+{% if page.framework %}<link rel="stylesheet" href="/framework.css"><script src="/framework.js" defer></script>{% endif %}
 {% if page.notebook %}<script src="/notebook.js" defer></script>{% endif %}
 </head><body class="{% if page.notebook %}notebook-page{% elsif page.layout == 'post' %}post-page{% else %}{{ page.section }}-page{% endif %}">
 {% if site.font_preview %}{% include font-preview.html %}{% endif %}
 <a class="skip" href="#main">Skip to content</a><div class="site-shell">
-<header class="site-header"><a class="name" href="/" {% if page.section == 'home' %}aria-current="page"{% endif %}>Marshall Vyletel Jr.</a><nav aria-label="Main"><a href="/writing.html" {% if page.section == 'writing' or page.layout == 'post' %}aria-current="page"{% endif %}>Writing</a><a href="/manifesto.html" {% if page.section == 'manifesto' %}aria-current="page"{% endif %}>Open Manifesto</a><a href="/photos.html" {% if page.section == 'photos' %}aria-current="page"{% endif %}>Photos</a></nav></header>
+<header class="site-header"><a class="name" href="/" {% if page.section == 'home' %}aria-current="page"{% endif %}>Marshall Vyletel Jr.</a><nav aria-label="Main"><a href="/writing.html" {% if page.section == 'writing' or page.layout == 'post' %}aria-current="page"{% endif %}>Writing</a><a href="/framework.html" {% if page.section == 'framework' %}aria-current="page"{% endif %}>Alignment Framework</a><a href="/manifesto.html" {% if page.section == 'manifesto' %}aria-current="page"{% endif %}>Open Manifesto</a><a href="/photos.html" {% if page.section == 'photos' %}aria-current="page"{% endif %}>Photos</a></nav></header>
 <main id="main">{{ content }}</main></div></body></html>
