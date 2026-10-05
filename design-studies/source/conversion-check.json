@@ -1,21 +1,21 @@
 {
-  "documentId": "15d-FEd6pa1nKKB21a8BwL1OxYkH__jD1UDSr-9eFGqI",
+  "documentId": "1MZFHjks0I84OhmXwxuP53FdKeWfPw5skUYZ8IwHa76I",
   "tabId": "t.4zsgft128fwd",
-  "revisionId": "ANLCKQm6khM-5wp4sn_kyFJsgc26nAxGTFwmcfJaV25C6xLmtFOCtCep1LhlBpJ52wlzkTORgFrBXDmChsX_x-TqoJNDgEoemRNHQIk4OsM",
-  "retrievedAt": "2026-10-02T00:44:39.680Z",
-  "wordCount": 9674,
-  "sourceParagraphs": 554,
-  "headings": 22,
-  "listItems": 252,
-  "tables": 2,
-  "tableCells": 44,
-  "links": 153,
+  "revisionId": "ANLCKQmL15XoRE7pqfsA6H-4rv0D7O1kyK44SHRNNOH5gsXQPN5PuQfVfSvWxlpzPXZe5NmXJeRfJgT6h9DWY70aoPQoF7YIRwszPNgzEvk",
+  "retrievedAt": "2026-10-05T18:17:30.784Z",
+  "wordCount": 13268,
+  "sourceParagraphs": 784,
+  "headings": 36,
+  "listItems": 344,
+  "tables": 3,
+  "tableCells": 56,
+  "links": 208,
   "normalizedTextMatches": true,
   "linkTargetsAndOrderMatch": true,
   "approvedChange": {
     "from": "with black box tactics",
     "to": "including black box tactics",
-    "occurrences": 1
+    "occurrences": 0
   },
-  "sourceSHA256": "33ef0fcd2ab647c77b60c720e7a6b8e5ce1024ab171fd0da09b75a3e19dfa755"
+  "sourceSHA256": "6214de2da171ceacd8b31b0c1d8fa9cdb7e6f44c7bbed189251368c483533ad7"
 }

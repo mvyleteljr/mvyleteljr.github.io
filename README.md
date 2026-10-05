@@ -118,3 +118,19 @@ python3 scripts/build-alignment-study.py
 ```
 
 This checks the source text, lists, tables, and links, then creates `framework.html`, `framework.css`, and `framework.js` at the site root. Commit those generated files with the source changes. The build does not fetch new Google Doc changes; import a new snapshot first when needed. The source snapshot and separate loop visual remain excluded from the public site.
+
+### Review a draft before release
+
+Keep writing in the main draft Doc (`1MZFHjks0I84OhmXwxuP53FdKeWfPw5skUYZ8IwHa76I`, Write-Up tab). The separate public Doc (`1kyRJjqGT04682q6-LIZWehKG3S0TMx_EKVim9La9jNY`) remains the link for readers and comments.
+
+Save each imported Write-Up snapshot under `design-studies/source/revisions/` with a new filename. Do not replace `source/write-up.json` during review. Build an isolated preview:
+
+```sh
+python3 scripts/build-alignment-study.py \
+  --source design-studies/source/revisions/2026-10-05-draft.json \
+  --preview-dir /private/tmp/alignment-draft-2026-10-05
+```
+
+The preview contains `framework.html`, `changes.html` (a paragraph text comparison), `changes.diff`, and a conversion report. Text, link targets/order, list counts, headings, and table cells are checked against the candidate. The text comparison does not show formatting-only or link-only changes. Candidate imports require a separate preview output; they do not modify the release files or either Google Doc.
+
+After review, archive the current release snapshot under a new revision filename before promoting the approved candidate to `design-studies/source/write-up.json`. Run the normal converter and Jekyll build, review the Git diff, then commit and push. Updating the public Google Doc is a separate step; the importer does not overwrite it. Existing heading IDs are kept. Paragraph positions can change when the text changes, so saved passage destinations also need a check before release.
