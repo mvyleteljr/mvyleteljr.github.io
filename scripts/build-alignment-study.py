@@ -6,7 +6,8 @@ from pathlib import Path
 from html import escape
 from html.parser import HTMLParser
 from collections import Counter
-import json, re, hashlib, argparse, difflib
+import json, re, hashlib, argparse, difflib, runpy
+reading=runpy.run_path(str(Path(__file__).with_name('framework-reading.py')))
 
 ROOT=Path(__file__).resolve().parents[1]
 STUDY=ROOT/'design-studies'
@@ -128,8 +129,12 @@ def render(content):
     return '\n'.join(out)
 
 body=render(tab['body']['content'])
-# Bound each card and survey separately, even when the draft heading levels vary.
-for section in reversed(headings):
+# Insert wrappers at original boundaries so adjacent cards and surveys cannot nest.
+insertions={}
+def insert(at, markup, closing=False):
+    entry=insertions.setdefault(at,{'close':[],'open':[]})
+    entry['close' if closing else 'open'].append(markup)
+for section in headings:
     name=section['text'].rstrip(':')
     is_card=name in ('Alignment Card','Safety - Card','Safety Card')
     is_survey=name in ('Alignment Survey','Safety Survey')
@@ -138,8 +143,16 @@ for section in reversed(headings):
         (h['level']<=section['level'] or h['text']=='Safety Framework')),None)
     start=body.index(f'<h{section["level"]} id="{section["id"]}">')
     end=body.index(f'<h{following["level"]} id="{following["id"]}">') if following else len(body)
-    css='alignment-card' if is_card else 'survey-source'
-    body=body[:start]+f'<section class="{css}" aria-labelledby="{section["id"]}">'+body[start:end]+'</section>'+body[end:]
+    if is_card:
+        insert(start,f'<section class="alignment-card" aria-labelledby="{section["id"]}">')
+        insert(end,'</section>',True)
+    else:
+        heading_end=body.index(f'</h{section["level"]}>',start)+len(f'</h{section["level"]}>')
+        insert(start,'<details class="survey-source"><summary>')
+        insert(heading_end,'</summary><div class="survey-body">')
+        insert(end,'</div></details>',True)
+for at,parts in sorted(insertions.items(),reverse=True):
+    body=body[:at]+''.join(parts['close']+parts['open'])+body[at:]
 
 class Verify(HTMLParser):
     def __init__(self):super().__init__(convert_charrefs=True);self.text=[];self.tags=Counter();self.links=[]
@@ -175,10 +188,15 @@ for h in headings:
         nav.append(f'<details class="nav-group"><summary><a href="#{h["id"]}">{escape(h["text"])}</a></summary><div>');groups.append(h)
     else:nav.append(f'<a class="nav-level-{h["level"]}" href="#{h["id"]}">{escape(navtext(h))}</a>')
 if groups:nav.append('</div></details>')
+new_nav,overview=reading['navigation'](headings)
+if new_nav:nav=[new_nav]
+body,standalone,concept_data,belief_id=reading['enhance'](body,headings,tab,plain,walk)
+
 
 # Preserve the approved reference panel, with its core definitions and reader tools.
 old=(STUDY/'framework.html').read_text()
 controls=old[old.index('<button id="keep-selection"'):old.index('</body>')]
+controls=re.sub(r'<script type="application/json" id="framework-concepts">.*?</script>','',controls,flags=re.S)
 controls=controls.replace(OLD,NEW)
 # Reference definitions follow the selected source rather than an older release.
 for label in ('Safety','Alignment'):
@@ -207,6 +225,18 @@ reading_intro += '<details class="agent-prompt"><summary>Explore this document w
 page='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Alignment &amp; Safety Frontiers: A Framework</title><link rel="stylesheet" href="framework.css"><script src="framework.js" defer></script></head><body>
 <div class="study-label">Local design study · Full Write-Up tab · <a href="loop.html">Separate loop visual ↗</a></div><header class="site"><a href="http://127.0.0.1:4175/">Marshall Vyletel Jr.</a><span>Writing / Alignment</span></header>
 <div class="layout full-document"><nav class="contents" aria-label="Document contents"><span class="label">CONTENTS</span>'''+''.join(nav)+'''<a id="resume" hidden>Continue reading →</a></nav><main><header class="intro" id="introduction"><p class="label">ALIGNMENT &amp; SAFETY</p><h1>Alignment &amp; Safety Frontiers: A Framework</h1>'''+reading_intro+'''</header><article id="write-up" class="prose">'''+body+'''</article></main><aside class="side-note"><span class="label">READING TOOLS</span><p>Select a passage to keep it with you.</p><p>References includes the core definitions and your saved passages.</p></aside></div>'''+controls+'''</body></html>'''
+page=page.replace('</head>','<script src="framework-reference.js" defer></script></head>')
+page=page.replace('</header><article id="write-up"',overview+'</header><article id="write-up"')
+page=page.replace('</body>',concept_data+'</body>')
+if standalone:
+    standalone_page=page.replace(body,standalone).replace(''.join(nav),reading['navigation'](headings,True)[0])
+    standalone_page=standalone_page.replace('<h1>Alignment &amp; Safety Frontiers: A Framework</h1>','<h1>Beliefs &amp; Trajectory</h1>')
+    standalone_page=standalone_page.replace(overview,'<p class="standalone-link"><a href="framework.html#'+belief_id+'">Read in the full framework ↗</a></p>')
+    standalone_page=standalone_page.replace('<title>Alignment &amp; Safety Frontiers: A Framework</title>','<title>Beliefs &amp; Trajectory</title>')
+    standalone_page=standalone_page.replace('The safety framework is still in progress and will be added here soon. ','')
+    if args.preview_dir:
+        standalone_page=standalone_page.replace('Local design study · Full Write-Up tab ·','Draft preview · <a href="changes.html">Review changes</a> ·')
+    (OUTPUT/'beliefs.html').write_text(standalone_page)
 if has_safety:
     page=page.replace('The safety framework is still in progress and will be added here soon. ','')
 if args.preview_dir:
@@ -218,7 +248,7 @@ print(json.dumps(report,indent=2))
 
 # Drafts never write release files.
 if args.preview_dir:
-    for asset in ('framework.css','framework.js','loop.html'):
+    for asset in ('framework.css','framework.js','framework-reference.js','loop.html'):
         (OUTPUT/asset).write_text((STUDY/asset).read_text())
     previous=json.loads((STUDY/'source/write-up.json').read_text())
     def paragraphs(data):
@@ -232,6 +262,11 @@ if args.preview_dir:
 public_content=page[page.index('<div class="layout full-document">'):page.index('</body>')]
 public_content=public_content.replace('<main>', '<div class="framework-reading">').replace('</main>', '</div>')
 front_matter='---\nlayout: default\ntitle: "Alignment & Safety Frontiers: A Framework"\nsection: framework\nframework: true\ndescription: "A framework and research survey of AI alignment and safety."\n---\n'
-(ROOT/'framework.html').write_text(front_matter+public_content+'\n')
-for asset in ('framework.css','framework.js'):
+(ROOT/'framework.html').write_text(front_matter+'<script src="/framework-reference.js" defer></script>'+public_content+'\n')
+for asset in ('framework.css','framework.js','framework-reference.js'):
     (ROOT/asset).write_text((STUDY/asset).read_text())
+
+if standalone:
+    content=standalone_page[standalone_page.index('<div class="layout full-document">'):standalone_page.index('</body>')]
+    content=content.replace('<main>','<div class="framework-reading">').replace('</main>','</div>')
+    (ROOT/'beliefs.html').write_text(front_matter.replace('Alignment & Safety Frontiers: A Framework','Beliefs & Trajectory')+'<script src="/framework-reference.js" defer></script>'+content+'\n')

@@ -3,11 +3,11 @@ const $=s=>document.querySelector(s),key='alignment-reading-full-v1';
 let saved=[],selection=null;
 try{const data=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(data))saved=data.filter(x=>x.kind==='Your passage'&&typeof x.text==='string'&&typeof x.kind==='string'&&/^#[\w.:-]+$/.test(x.source)).slice(0,100);}catch{}
 const headings=[...document.querySelectorAll('.prose h2,.prose h3,.prose h4,.prose h5')];
-headings.forEach(h=>{const a=document.createElement('a');a.href='#'+h.id;a.title='Link to this section';while(h.firstChild)a.append(h.firstChild);h.append(a)});
+headings.forEach(h=>{if(h.closest('summary'))return;const a=document.createElement('a');a.href='#'+h.id;a.title='Link to this section';while(h.firstChild)a.append(h.firstChild);h.append(a)});
 const navLinks=[...document.querySelectorAll('.contents a[href^="#"]')];
 let navFrame;
 function updateNavigation(){
-  const current=headings.filter(h=>h.getBoundingClientRect().top<=160).pop();
+  const current=headings.filter(h=>!h.closest('details.survey-source:not([open]) .survey-body')&&h.getBoundingClientRect().top<=160).pop();
   navLinks.forEach(a=>{if(current&&a.hash==='#'+current.id){a.setAttribute('aria-current','location');const group=a.closest('.nav-group');if(group)group.open=true}else a.removeAttribute('aria-current')});
 }
 addEventListener('scroll',()=>{cancelAnimationFrame(navFrame);navFrame=requestAnimationFrame(updateNavigation)},{passive:true});

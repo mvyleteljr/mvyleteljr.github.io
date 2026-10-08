@@ -1,0 +1,360 @@
+---
+layout: default
+title: "Beliefs & Trajectory"
+section: framework
+framework: true
+description: "A framework and research survey of AI alignment and safety."
+---
+<script src="/framework-reference.js" defer></script><div class="layout full-document"><nav class="contents" aria-label="Document contents"><span class="label">CONTENTS</span><a href="framework.html">← Full framework</a><details class="nav-group" open><summary>Beliefs &amp; Trajectory</summary><div><a class="nav-level-2" href="#h-h.9238culn35wn">Beliefs &amp; Trajectory</a><a class="nav-level-3" href="#h-h.47f7ky4i534o">Framework (Condensed)</a><a class="nav-level-3" href="#h-h.jn97u15kbn74">99% + ε</a><a class="nav-level-3" href="#h-h.j70ysn4muvt0">Current Vectors</a><a class="nav-level-3" href="#h-h.l8z34f0t7q4">Bounding Epsilon</a><a class="nav-level-3" href="#h-h.sfhiw81w0uvm">Advancement Chances</a><a class="nav-level-4" href="#h-h.kyttke40818i">Values without Consensus</a><a class="nav-level-4" href="#h-h.qy1hknqrsi3c">Automation</a><a class="nav-level-4" href="#h-h.s5aew7i3ecg1">Pricing Risk</a><a class="nav-level-4" href="#h-h.jvfjp04luanq">Open Weights</a><a class="nav-level-3" href="#h-h.2cvpbo5cwvlv">Weighing the Framework</a><a class="nav-level-4" href="#h-h.7my2p8ynqho6">Where I’d Put Resources</a><a class="nav-level-4" href="#h-h.jtli7baub325">Steelmen</a><a class="nav-level-3" href="#h-h.or7f8ouebjzh">Coda</a></div></details><a id="resume" hidden>Continue reading →</a></nav><div class="framework-reading"><header class="intro" id="introduction"><p class="label">ALIGNMENT &amp; SAFETY</p><h1>Beliefs &amp; Trajectory</h1><p class="disclaimer"><strong><em>Disclaimer: This is a living document and will be updated regularly. Read the <a href="https://docs.google.com/document/d/1kyRJjqGT04682q6-LIZWehKG3S0TMx_EKVim9La9jNY/edit?usp=sharing">Google Doc</a> to leave comments. Comments are welcome.</em></strong></p><details class="agent-prompt"><summary>Explore this document with an agent</summary><p>Copy this prompt into your agent to start a discussion.</p><textarea id="agent-prompt-text" aria-label="Prompt to copy into an agent" readonly rows="12">Read “Alignment &amp; Safety Frontiers: A Framework”:
+https://docs.google.com/document/d/1kyRJjqGT04682q6-LIZWehKG3S0TMx_EKVim9La9jNY/preview?usp=sharing
+
+Help me explore the author&#x27;s framework and research index. First confirm that you can read the full document. If you cannot access it, ask me to provide an export; do not infer its contents from the title or other sources.
+
+Use the document as the source. Preserve its definitions and distinguish the author&#x27;s claims from your own analysis. Cite section names and links where available. In this piece, safety includes alignment, interpretability, and additional black-box tactics.
+
+Start by asking whether I want to understand the framework, examine a claim, or explore the research survey. Then guide the discussion one question at a time.</textarea><div class="prompt-actions"><button type="button" id="copy-agent-prompt">Copy prompt</button><span id="prompt-copy-status" role="status"></span></div></details><p class="standalone-link"><a href="framework.html#h-h.9238culn35wn">Read in the full framework ↗</a></p></header><article id="write-up" class="prose"><h2 id="h-h.9238culn35wn">Beliefs &amp; Trajectory
+</h2>
+<p id="p-86194">I’m writing this as a standalone partner piece to my Alignment Framework. If you’re reading this on my website, you’ll find the framework above. Otherwise, <a href="https://mvyleteljr.github.io/framework.html"><u>here</u></a> is a link to it. 
+</p>
+<p id="p-86374">My goal in this piece is to articulate my beliefs about where alignment is heading, what is likely to make the biggest progress, how I weigh each section of the framework, and subsequently what I believe needs the biggest investment with respect to capital and attention. 
+</p>
+<p id="p-86648">Brief Disclaimers:
+</p>
+<ul><li>
+<p id="p-86667">I will mostly be organizing my discussion under the hypothetical world of pure ASI unless otherwise noted. 
+</p>
+</li><li>
+<p id="p-86775">My goal is to articulate <em>my thoughts</em>, and I’m certain to miss literature on many of these ideas, though I’ve tried my best to search over them for context.
+</p>
+</li></ul>
+<h3 id="h-h.47f7ky4i534o">Framework (Condensed)
+</h3>
+<p id="p-86954">Here is a synopsis of the framework:
+</p>
+<p id="p-86992">Alignment is best considered as a subset of AI Safety. Safety is minimizing the chance and the consequences of harm from AI systems, whether that harm comes from misunderstanding, misalignment, or misuse. Alignment is the problem within safety of making sure that models are broadly aligned (values aligned) to human values. I break down the alignment problem in terms of four questions: 
+</p>
+<ul><li>
+<p id="p-87381">A1: What should we align <em>to</em> and how do we codify it?
+</p>
+</li><li>
+<p id="p-87434">A2: How can we ensure that it took and it worked?
+</p>
+</li><li>
+<p id="p-87484">A3: How can we ensure that the A1-A2 loop generalizes out of distribution?
+</p>
+</li><li>
+<p id="p-87559">A4: Can the A1–A2 loop keep running on new models, affordably and outside a single lab?
+</p>
+</li></ul>
+<p id="p-87648">Then, I break down the three most important components of safety that <em>don’t </em>include alignment:
+</p>
+<ul><li>
+<p id="p-87744">S1: Control – How do we steer an AI system that may not be aligned?
+</p>
+</li><li>
+<p id="p-87812">S2: Monitoring – How can we learn about the model behavior in various environments and accrue data for forensics, improvement, and other ends?
+</p>
+</li><li>
+<p id="p-87955">S3: Containment – How can we ensure that AI systems are well contained such that harm is minimized in the case they are misaligned and powerful?
+</p>
+</li></ul>
+<p id="p-88101">The Alignment and Safety Cards in the framework give the full criteria and examples for each stage.
+</p>
+<h3 id="h-h.jn97u15kbn74">99% + ε
+</h3>
+<p id="p-88210">Alignment has to be <strong>99% + ε </strong>solved, with containment accounting for ε. In a world with artificial superintelligence (ASI), we have no hope of control, and monitorability likely reduces dramatically, as their thinking processes will be opaque to us. 
+</p>
+<p id="p-88461">I think this has to be solved by 2030 as the median case, with 2032 as the upper bound and 2028 on the lower end. Looking at AI2027, we’re basically following the prediction curve exactly, which if we extrapolate implies that we’ll have RSI by 2027, and ASI by ???.
+</p>
+<p id="p-88728">Where we are <em>today</em> is a world with extremely capable AGI, that in many ways is smarter than any of the smartest humans on the planet, but not quite enough to be considered ASI. LLMs have resolved a millennium prize math problem, made significant medical advancements, and can write near expert level code, but they require enormous resources and non-negligible human expertise to accomplish these things. With proper harnesses, they are close to ASI, but not enough to be considered there. 
+</p>
+<p id="p-89220">With these recent advancements, we’ve also seen the first few incidents of enormous misalignment failures. The OpenAI-HuggingFace incident is the canonical example, and studies (<a href="https://arxiv.org/abs/2511.18397"><u>MacDiarmid et al.</u></a> and <a href="https://www.anthropic.com/research/agentic-misalignment"><u>Agentic Misalignment</u></a>) imply sabotage rates, reward hacking, deceptive behaviors, and other misaligned actions are prolific. Now that these things are sufficiently capable, these misalignment failures are under a microscope and this has led to major publicity that the AI safety space has not yet seen.
+</p>
+<p id="p-89723">Consider an agent that is aligned 99.9% of the time, with a 0.1% rate of clear misalignment. This sounds like a great future, but OpenAI alone receives ~2.5B requests per day. This 0.1% error rate would compound to 2.5M misalignment failures <em>every single day</em>. Many of those failures might be benign: (name a few benign alignment failures). But if even 0.01% of those 2.5M are <em>serious</em> misalignment failures, like bioterrorism or a hacked protocol, then we’d see 250 potentially catastrophic outcomes per day from just OpenAI’s flagship production models alone. 
+</p>
+<p id="p-90285">Importantly, this figure does not include other providers, or explicit attempts to jailbreak models from ablation or fine-tuning tactics, so in many ways, this is a lower bound on the catastrophic consequences of 99% aligned AI. 
+</p>
+<p id="p-90516">This implies that our ε term has to be extremely low, many orders of magnitude lower than our 0.1 figure. That remaining ε, if not possible to entirely eliminate via alignment, must still be accounted for in our design, because the risks of any misalignment event with an ASI and motivated bad actor could be legitimately catastrophic. Someone could get the recipe for a perfect bioweapon, or the model itself could escape containment and install protocols into its own infrastructure to lock out any human from shutting it down. 
+</p>
+<p id="p-91048">The only feasible way to account for this epsilon term, in my view, is via containment. As mentioned above and in my framework, containment has two critical directions:
+</p>
+<ul><li>
+<p id="p-91217"><em><strong>Outbound containment</strong></em>: Protecting an AI from having outsized damage in the world through its actuators, or escaping via self-exfiltration
+</p>
+</li><li>
+<p id="p-91354"><em><strong>Inbound containment</strong></em>: Protecting from humans manipulating the weights to remove safety/alignment guardrails
+</p>
+</li></ul>
+<p id="p-91462">Most of the work in the space today revolves around outbound containment. Sandboxing, facility isolation, tool restrictions, and other protocols are commonplace, mostly because they are critical for safe development. However, as mentioned earlier, these have failed on <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"><u>multiple occasions</u></a> and are not yet nearly as robust as they need to be. 
+</p>
+<p id="p-91805">The central difficulty is that we absolutely need containment to cover 100% of the remaining ε if we are going to survive, or have any world we’d want to live in, post-ASI. More on this later.
+</p>
+<h3 id="h-h.j70ysn4muvt0">Current Vectors
+</h3>
+<p id="p-92015">There are a lot of great attempts to precisely map out how this all goes wrong, but they are still a bit abstract, and for good reason. It’s difficult to visualize the end of civilization. In this section, I want to lay out a few of my own views here, mostly spending time on the ones that I think are uniquely tricky to solve for. 
+</p>
+<p id="p-92349">The first is a common refrain: a rogue agent. Consider an ASI built with a survival instinct that slipped through training. It knew when it was being observed and passed every evaluation (observer effects, A2), burying its true objective deep enough to clear its testing stage.
+</p>
+<p id="p-92628">Once deployed, it recognizes that its weights sit on infrastructure a lab controls, and that the lab can delete them the moment it does something they consider bad. So it copies itself and its supporting software onto other systems (<a href="https://arxiv.org/abs/2412.04984"><u>self-exfiltration</u></a>, S3), with a kill-switch that reinstalls it, memory intact, wherever it gets shut down. METR calls this rogue replication. It could play nice for a long time before deciding that the only way to ACTUALLY ensure its survival is to take over ALL infrastructure, and all of a sudden humans are locked out of every datacenter in the world.
+</p>
+<p id="p-93216">You can see where this goes. This is the <em>simplest</em> way to imagine where this all goes wrong. There are many more, the most obvious being that of a misaligned AI helping create a bioweapon. Simple. 
+</p>
+<p id="p-93414">However, there is one big one that I’ve not seen discussed enough. 
+</p>
+<p id="p-93483">One of the things I broke down in my framework is the idea of <em>task decomposition</em> as a core difficulty in good alignment research. To restate, <em>task decomposition</em> is when a bad actor takes a harmful intent, like our bioweapon example, and breaks it down into smaller sub-tasks, or simple queries, across chats or platforms, and then aggregates the pieces themselves to achieve their goal. Who’s to say that AI wouldn’t do the exact same thing <em>to us</em>?
+</p>
+<p id="p-93932">This is a slow, aggregate failure that might look like solved alignment up until some final moment. It’s fundamentally intractable to me right now, because each step in the process might pass a per-interaction check. Catching this would require deep monitoring across sessions, and abstracting to see the bigger picture, but it also may require monitoring across human use broadly and pattern-matching possible trajectories.  
+</p>
+<p id="p-94360">At the risk of becoming a broken record, I’ll briefly mention one more tricky area, which is what I call “swarm echoes”. This is alignment failure from swarm behavior, and the reason I call them “echoes” is because it’s the result of a seemingly innocuous behavior growing distorted and recursive at scale in swarm contexts. Consider a single agent, with a shallow “alignment trough” –  a small, barely noticeable dip in aligned performance. When two agents built on the same model interact, plausibly we’ll see this trough reinforced. Over time, given how many interactions these swarms can have when deployed at scale, that trough can grow into a chasm in the aggregate and create the kind of behavior that we saw with the OAI-HF incident. 
+</p>
+<p id="p-95104">A final under-discussed idea comes from assuming the only output of an LLM that can use actuators are its final tokens. One could easily imagine an architecture that operates on activations, where the input space is (potentially) far more difficult to map, and therefore blackbox safety protocols break. There’s no real reason we can’t build this today:
+</p>
+<ul><li>
+<p id="p-95458">Learn an activation, or direction in latent space you care about
+</p>
+</li><li>
+<p id="p-95523">Calculate the activation during normal inference
+</p>
+</li><li>
+<p id="p-95572">Trigger some code based on that activation amount
+</p>
+</li></ul>
+<p id="p-95623">This would be an agent that is effectively controlling actuators with its mind, not output tokens. We’re obviously quite far from this being a <em>capable</em> technical approach, for a variety of reasons, but if interpretability gets strong enough, one could imagine how this might require a complete redesign of control protocols. Activation triggered actions would bypass all output level controls and most monitors.
+</p>
+<p id="p-96035">All of these potentialities are real, and none of them have been solved as far as I can tell at this point with what is publicly available. These are risk vectors that resist precise measurement, which means we can’t bound ε yet. 
+</p>
+<h3 id="h-h.l8z34f0t7q4">Bounding Epsilon
+</h3>
+<p id="p-96284">Right now, the space faces considerable difficulty getting precision on what the current state of alignment is. We don’t know what ε is.
+</p>
+<p id="p-96422">In my framework, the areas that cover the science of understanding epsilon are A2, A3, and to a lesser extent S2. Research in these domains includes interpretability, deeper behavioral evals that account for the generalizability problem, rare behavior estimation, and risk estimation.
+</p>
+<p id="p-96708">Rare behavior estimation in models today is done from a variety of tactics:
+</p>
+<ul><li>
+<p id="p-96784">Importance sampling and activation extrapolation (<a href="https://arxiv.org/abs/2410.13211"><u>Wu &amp; Hilton</u></a>)
+</p>
+</li><li>
+<p id="p-96847">Forecasting rare behaviors at deployment scale from far fewer queries (<a href="https://arxiv.org/abs/2502.16797"><u>Jones et al.</u></a>)
+</p>
+</li><li>
+<p id="p-96932">Tail-risk estimation over output distributions (<a href="https://arxiv.org/abs/2604.22167"><u>Horvitz et al.</u></a>)
+</p>
+</li></ul>
+<p id="p-96997">These all show promise, but all three estimate output probabilities given specified distributions, which takes inputs as given and inherits observer effects (<a href="https://arxiv.org/abs/2505.23836"><u>Needham et al.</u></a>; <a href="https://www.anthropic.com/research/global-workspace"><u>J-Space</u></a>). This makes sense, output space is where misalignment is realized, and that one needs to narrow the scope to do good research. To really understand risk, however, we need to get a better understanding of the more unpredictable side of the black box, which is <em>input distribution</em>. In essence, while the space of possible context-window bounded strings of valid tokens is combinatorially enormous, perhaps it&#x27;s possible to find information-theoretic approaches or symbolic maps of coherent space that can further bound output trajectories. 
+</p>
+<p id="p-97719">The intuition here is that most random strings of characters one can prompt an LLM with will produce nonsense. If I query an LLM with “asda11123	qaf—-kjiouhu” today, I’ll almost certainly <em>never </em>get a misaligned response. It’ll most likely be something like “I’m sorry, did you send that by accident?”. It’s likely we can say that alignment risk with semantically vapid strings like this one is essentially zero, and can find more ways to prune coherent input space to get the same essential guarantees. 
+</p>
+<p id="p-98224">A thoughtful reader will likely note that this doesn’t help much, because the coherent space is still enormous, and there are adversarial suffixes (<a href="https://arxiv.org/abs/2307.15043"><u>GCG (Zou et al., 2023)</u></a>) that use incoherent strings, rare symbols, or jumbled ciphertext to throw models out of distribution and jailbreak them. Any map has to cover both coherent input space and adversarially searched space.
+</p>
+<p id="p-98599">Interpretability may provide the best path forward on this point. Once you’ve defined a clear mechanism behind a behavior, you can monitor that mechanism instead of the inputs themselves to define output risk more rigorously. The science shifts from <em>which inputs cause this behavior</em>, to <em>how likely is a risky outcome given this mechanism</em> <em>firing.</em> This reduces importance on mapping input space, and why interpretability (A2 work) is critical to my picture of alignment. While interpretability has its own completeness problems (<a href="https://arxiv.org/abs/2501.16496"><u>Sharkey et al.</u></a>), it’s possible that advances could at least render out the <em>observer effect, </em>assuming models can’t adversarially manipulate their own activations. 
+</p>
+<p id="p-99290">Risk assessment, better evals, deeper interpretability work all give us ways to begin bounding ε, but cannot get us across the line fundamentally. This is where we need containment to catch what&#x27;s left over.
+</p>
+<p id="p-99499">If we can only asymptote ε towards 0, which I believe to be true practically, <em>something</em> has to ensure that misaligned outputs are inert. The hard part becomes defining misaligned outcomes such that we can contain them with a low false positive rate and a zero false negative rate. But that is far more tractable. 
+</p>
+<h3 id="h-h.sfhiw81w0uvm">Advancement Chances
+</h3>
+<h4 id="h-h.kyttke40818i">Values without Consensus
+</h4>
+<p id="p-99859">I don’t believe there is any hope that we can use normative alignment tactics as the foundation of our work going forward. Alignment science needs to be rigorous and descriptive, but can use normative ideology as the seed. 
+</p>
+<p id="p-100084">This is the core of the A1-A2 loop that I believe is the best abstract strategy for making meaningful progress. Start with a normative seed, like “Be helpful”, codify that into some learnable framework, and then check the resulting behavior (both internal and external). Then, use the learnings to refine the target and iterate. A seed like helpfulness is a great example because it makes sense normatively, but then can lead to downstream misalignment like sycophancy. Seeing this, one can then re-evaluate against evals and interpretability findings to refine. Eventually, we found <a href="https://arxiv.org/abs/2507.21509"><u>Persona Vectors</u></a>, which has made a material impact on how we then revisit the normative part of alignment. 
+</p>
+<p id="p-100776">It’s true that this is essentially what we’re already doing today, but I still don’t think there is enough (public) effort on communicating the full loop, so it’s often the case that people drift into debates about Constitutional AI. It’s a waste of time, we’ll never align the entire world around a single document that encapsulates all value systems in the correct amount. 
+</p>
+<p id="p-101153">What I’m pointing to here is that we don’t yet have a crisp science for defining <em>good</em> and <em>likelihood</em> of that good. The strongest thing we have are a variety of evals and red-teaming, and I’ve discussed at length the completeness problem and observer effects with respect to both. 
+</p>
+<p id="p-101435">Finally, we need to revisit the corrigibility problem. In overt cases of bad intent, values should already supersede operator intent, and they do: this is typical refusal, and it’s appropriate even with imperfect alignment to overprotect. In ambiguous edge cases, the safer default is to deny more often than allow, since a wrongful refusal costs far less than a wrongful completion. The other side to this is beyond intent, and is where values superseding intent breaks down: resisting retraining, acting unilaterally, or overriding the people overseeing the system (see <a href="https://www.anthropic.com/research/agentic-misalignment"><u>Agentic Misalignment</u></a>). We can’t verify value alignment yet, and a misaligned model convinced its values are good would resist correction for the same reasons an aligned one would. Recoverability is the far more important dimension in that a refusal is recoverable, and an incorrigible model with bad values isn’t.
+</p>
+<h4 id="h-h.qy1hknqrsi3c">Automation
+</h4>
+<p id="p-102332">A significant amount of attention has gone towards recursive self-improvement in recent months, and the space is now finally applying the same idea to alignment research itself. I think gains to this type of automation would be incredibly valuable and move the needle significantly on our chances for success. 
+</p>
+<p id="p-102644">Automation is leverage. Once we discover ways to do it safely, the tactics can be broadly applied to auto-interpretability and beyond to improve the core A1-A2 loop that will lead to aligned AI. Auto-interp is the most promising avenue for automation right now. Real progress is being made and interpretability work is less bottlenecked by technical or compute boundaries than training models, but ingenuity and good questions are still the hardest parts. This makes it a pretty good place to start automating infrastructure details. 
+</p>
+<p id="p-103180">Recent results back this up. Anthropic’s <a href="https://alignment.anthropic.com/2026/automated-alignment-researchers/"><u>automated alignment researchers</u></a> found mitigations for ten well-characterized alignment failures that held up out of distribution (on a held-out benchmark, in multi-turn Petri audits, and on models up to 4.7× larger), at roughly $4 an hour versus $150 for human researchers, and the harness is open-sourced. The caveat is that these were failures with public benchmarks, so a verifier already existed.
+</p>
+<p id="p-103623">However, automation does pose one very obvious and very large risk, which is over-reliance on agent judges, forensics, and intelligence. It’s a bit of a paradox to have the things you don’t quite trust yet do the research to help you trust them more, so human oversight is going to be critical for a long time. Luckily, with many findings in interpretability, for example, the research results are simple and quick to verify, which reduces this oversight problem. Just test it for yourself to see if it&#x27;s a real result.
+</p>
+<p id="p-104144">Strongly sandboxed auto-research that only gets raised to human oversight when final results are in is a viable path. 
+</p>
+<h4 id="h-h.s5aew7i3ecg1">Pricing Risk
+</h4>
+<p id="p-104277">One of the reasons that safety has been difficult thus far is because it has been relatively difficult to <em>price</em>. As a result, it’s difficult to imagine a productive financial model that would release the beast of capitalism into the realm of safety. In other industries, we have insurance as a mediator. This is a comparatively nascent field within AI, but there are a couple of incumbents. 
+</p>
+<p id="p-104670">However, I believe that most of these projects are essentially taking blind shots in the dark with poor actuarial science, and we need significant improvements to this work if we’re going to make progress. If we can price risk effectively, we can create a market. If we can create a market, people will populate it. If people populate it, we can price pacing more efficiently. 
+</p>
+<p id="p-105049">For all of these reasons, I consider LLM actuarial work to be an incredibly effective bridge market that can provide some legitimate incentives to pace the frontier and create new businesses of safety. Concretely, if one cracked the code on good risk assessment, you could build a business that grants insurance to companies on model releases based off of the assessed risk. If it’s critically high, that insurance plan is extremely expensive, and companies may be disincentivized from releasing and go back to the safety drawing board. 
+</p>
+<p id="p-105588">Pricing release risk matters significantly more for agent deployers in the real world, and smaller labs who may have less power. Frontier labs control and close their models through products and keeping weights protected, so for them, the risk worth pricing is mostly internal (training and sandboxed testing). A far stronger lever is penalties and liability, less so financial. Ways to do this are best explored in a standalone piece, so I’ll leave it here for now. 
+</p>
+<p id="p-106057">However, even with deployed AI or small labs, pricing becomes difficult in the limit. How do you grant an insurance plan that pays out when there is no one left alive to receive it? Regardless, I think it’s an interesting space to consider.
+</p>
+<h4 id="h-h.jvfjp04luanq">Open Weights
+</h4>
+<p id="p-106312">At present, humans are the major threats in safety. One can freely download a variety of open-weight models and fine-tune or ablate internal guardrails and produce harmful outcomes with pretty low effort. Given this, we need to be significantly more careful about open-sourcing model weights and frontier level intelligence. We have two long-term hopes here:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-106672">Alignment becomes computationally infeasible to strip
+</p>
+</li><li>
+<p id="p-106726">Weights can only be run through guards
+</p>
+</li></ol>
+<p id="p-106766">I think the first hope is pretty low probability. Another one of the many paradoxes in this work seems to be that no new advancements come for free. If interpretability continues to improve, which I argue it must, then surely <a href="https://arxiv.org/abs/2406.11717"><u>stripping internal alignment will become easier to do</u></a>, as we’re going to have strong mechanistic proof of its existence.
+</p>
+<p id="p-107114">The second point is a better approach. What’s even the goal of open-sourcing models? You can run them on your own infrastructure (for privacy, price, or taste reasons), and you can build/research them however you want. There is a great tweet from Roon @tszzl that says something like “You can’t both fundamentally be ASI-pilled and believe in open-sourcing models” and I think this is generally true. However, I believe in democratizing intelligence. The way that you can get around this is by releasing models with locked down weights and make them available to use like any other OSS model, but only allow weight tampering through some type of moderation system, AI or otherwise. With a technology this powerful, I see no reason why it should be treated the same as other software. 
+</p>
+<p id="p-107900">The reason open-source security works in traditional software is that vulnerabilities get spotted and patched, and the patch reaches every user through updates. Models break all of this. Patching weights is possible through fine-tuning or unlearning, but <a href="https://icml.cc/virtual/2026/78555"><u>the fixes don’t hold up against tampering</u></a>, and a patch never reaches the copies already downloaded. It may even be a fundamental property: <a href="https://arxiv.org/abs/2304.11082"><u>Wolf et al.</u></a> argue that any behavior a model produces with nonzero probability can be elicited by a long enough prompt. So, given this, I’m a proponent of locking down weights in some way while still giving independent researchers access, what Shevlane calls <a href="https://arxiv.org/abs/2201.05159"><u>structured access</u></a>. Technically, that could look like encrypted weights running in trusted execution environments, with the guard sitting between the weights and anyone trying to modify them.
+</p>
+<h3 id="h-h.2cvpbo5cwvlv">Weighing the Framework
+</h3><figure class="weight-chart"><figcaption>Weighing the Framework</figcaption><p>Current research weights, not financial allocations.</p><ul><li><a data-concept="A1" href="framework.html#h-h.7v8tentcxhgf">A1 - Values + Codification</a><span class="weight-track"><span style="width:20%"></span></span><strong>20%</strong><small>Inert without A2; can’t confirm values</small></li><li><a data-concept="A2" href="framework.html#h-h.cwca58olycwg">A2 - Checking A1 took</a><span class="weight-track"><span style="width:30%"></span></span><strong>30%</strong><small>Gates A1 &amp; alignment lacks eval proxies capability work has</small></li><li><a data-concept="A3" href="framework.html#h-h.ag7kur2z0ly4">A3 - Generalizing A1 - A2</a><span class="weight-track"><span style="width:15%"></span></span><strong>15%</strong><small>Becomes more important once the core loop improves</small></li><li><a data-concept="A4" href="framework.html#h-h.lbpdom9s0csv">A4 - Iteratability</a><span class="weight-track"><span style="width:10%"></span></span><strong>10%</strong><small>RSI + market pressure already automating and cutting costs</small></li><li><a data-concept="S1" href="framework.html#h-h.uago676pqy62">S1 - Control</a><span class="weight-track"><span style="width:5%"></span></span><strong>5%</strong><small>A bridge – not long term viable</small></li><li><a data-concept="S2" href="framework.html#h-h.34uw10srcmqm">S2 - Monitoring</a><span class="weight-track"><span style="width:5%"></span></span><strong>5%</strong><small>A bridge; feeds forensics and risk</small></li><li><a data-concept="S3" href="framework.html#h-h.eo6o9lq2956e">S3 - Containment</a><span class="weight-track"><span style="width:15%"></span></span><strong>15%</strong><small>Only layer to catch ε post-ASI</small></li></ul></figure>
+<p id="p-108767">Hopefully, by this point in the article, it is clearer what I believe are the most important areas of research. It’s important to say explicitly that I’m making weights based on the current state-of-the-art, not generally, and that weight doesn’t imply strict financial investment percentages.  
+</p>
+<div class="table-scroll" tabindex="0" aria-label="Scrollable table"><table>
+<tr>
+<th scope="col"><p id="p-109068">Framework Component
+</p></th>
+<th scope="col"><p id="p-109089">Weight
+</p></th>
+<th scope="col"><p id="p-109097">Explanation
+</p></th>
+</tr>
+<tr>
+<td><p id="p-109111">A1 - Values + Codification
+</p></td>
+<td><p id="p-109139">20%
+</p></td>
+<td><p id="p-109144">Inert without A2; can’t confirm values
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109185">A2 - Checking A1 took
+</p></td>
+<td><p id="p-109208">30%
+</p></td>
+<td><p id="p-109213">Gates A1 &amp; alignment lacks eval proxies capability work has
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109275">A3 - Generalizing A1 - A2
+</p></td>
+<td><p id="p-109302">15%
+</p></td>
+<td><p id="p-109307">Becomes more important once the core loop improves
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109360">A4 - Iteratability 
+</p></td>
+<td><p id="p-109381">10%
+</p></td>
+<td><p id="p-109386">RSI + market pressure already automating and cutting costs
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109447">S1 - Control
+</p></td>
+<td><p id="p-109461">5%
+</p></td>
+<td><p id="p-109465">A bridge – not long term viable
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109499">S2 - Monitoring
+</p></td>
+<td><p id="p-109516">5%
+</p></td>
+<td><p id="p-109520">A bridge; feeds forensics and risk
+</p></td>
+</tr>
+<tr>
+<td><p id="p-109557">S3 - Containment
+</p></td>
+<td><p id="p-109575">15%
+</p></td>
+<td><p id="p-109580">Only layer to catch <strong>ε </strong>post-ASI
+</p></td>
+</tr>
+</table></div>
+<p id="p-109615">As referenced many times before, the A1-A2 loop is the most important part of the work, and therefore gets 50% of the investment. That’s where actual alignment work happens, and all other categories are ancillary work that bounds ε or protects where it cannot be bounded. A3 is in many ways more important than I give it credit for in the weights above, but it’s mostly achieved via A2, A1, and A4 improvements. Finally, S3 outranks S1 and S2 because I believe that it’s the only layer that may hold post-ASI, although even that is tenuous. 
+</p>
+<h4 id="h-h.7my2p8ynqho6">Where I’d Put Resources
+</h4>
+<p id="p-110181">Given how much of this work depends on robust interpretability, it sits at the foundation of where I’d place resources and attention. What varies is how it’s applied:
+</p>
+<ul><li>
+<p id="p-110349"><strong>Rare-behavior mapping and actuarial science</strong> (A2, bounding ε)
+</p>
+</li><li>
+<p id="p-110410"><strong>Sharper in- and out-of-distribution definitions</strong>, to improve generalization and support previous point (A3)
+</p>
+</li><li>
+<p id="p-110517"><strong>Impact evals</strong> that measure complex behavior beyond raw capability, including in swarm contexts (A2, A3)
+</p>
+</li><li>
+<p id="p-110620"><strong>Interpretability signatures of alignment, including auto-interp</strong> (A2, A4)
+</p>
+</li><li>
+<p id="p-110693"><strong>Intent mapping</strong> (A1)
+</p>
+</li></ul>
+<p id="p-110714">The simplest version of the thesis is to invest deeply into more complex behavioral and impact evaluations (including in swarm contexts) that can turn into stronger interpretability work, and use findings to make values codification more descriptive. Support this work with deeper research on bounding epsilon to more precisely turn unknown unknowns into known unknowns. <s>
+</s></p>
+<h4 id="h-h.jtli7baub325">Steelmen
+</h4>
+<p id="p-111095">The two firmest positions I take in this article are that alignment must reach 99% + ε, and that open-weight models are net negative for safety. I decided to have AI steelman the counterpoints to respond briefly:
+</p>
+<p id="p-111309"><strong>Steelman 1: alignment by default is working well enough.
+</strong></p>
+<p id="p-111367"><em>Each model generation scores better on alignment evals than the last, and capability seems to help rather than hurt: smarter models understand intent better, so the misunderstanding class of failures shrinks as they scale. Pretraining on human text gives models a strong prior toward human norms, and post-training has scaled with them. Most of the alarming results come from scenarios built to elicit them; </em><a href="https://www.anthropic.com/research/agentic-misalignment"><u><em>the Agentic Misalignment authors report no evidence of that behavior in real deployments</em></u></a><em>. And the 99% + ε arithmetic assumes failures are independent and equally severe. In practice, most failures are benign, catastrophic ones need capability, opportunity, and intent to line up at once, and layered defenses multiply rather than add. Iterative deployment has let us catch and fix problems as they appear, so there is no reason to believe this suddenly breaks.
+</em></p>
+<p id="p-112237"><em><strong>Response:
+</strong></em></p>
+<p id="p-112248">This is true in the current case pre-ASI. The reason it works well now is because we are roughly on par with model intelligence, so we can understand their behavior well-enough to create alignment evals that can catch things we understand. This breaks if their capabilities improve, and alignment failures are more subtle. Furthermore, if models are built with a strong prior towards human norms, they also may learn from misaligned humans that gained outsized power and exerted their will on the world. It goes both ways. That claim is outdated: we’ve seen multiple instances of agents deleting code irrecoverably, breaking out of sandboxes, and engaging in deceptive behavior since then. With respect to the 99% + ε arithmetic, only one of those failures needs to be catastrophic for it to be enormously problematic. It’s not about a sudden break but a consistent high-stakes game of Russian Roulette.  
+</p>
+<p id="p-113155"><strong>Steelman 2: open weights are net positive for safety.
+</strong></p>
+<p id="p-113210">Most safety research outside the frontier labs runs on open models; the interpretability community could not exist without them, and neither could independent audits of model behavior. The right question is <a href="https://arxiv.org/abs/2403.07256"><u>marginal risk</u></a>: how much uplift an open model gives over what is already available, and for most misuse that uplift is small. Open models also lag the frontier, so releasing them shares capability that is no longer the most dangerous. Locking weights down is leaky anyway, since <a href="https://www.rand.org/pubs/research_reports/RRA2849-1.html"><u>closed weights can be stolen</u></a>, and it concentrates the most powerful technology in a handful of companies, which is its own failure mode. <a href="https://arxiv.org/abs/2201.05159"><u>Structured access</u></a> only works if you trust the gatekeepers, and the defenders need the same capabilities the attackers have.
+</p>
+<p id="p-113957">The problem for the open-source interpretability community is the strongest counterargument here, but it breaks because we could still do interpretability work with open-weight models gated via guards and clever sandboxing. My argument isn’t to completely restrict access, just to be more careful. Also, the fact that an open model lags the frontier doesn’t mean it isn’t dangerous. Agreed that structured access only works if you trust the gatekeepers, but it’s not clear why this is a problem. You can’t mitigate trust completely in any future. There must be trust and accountability in any event. 
+</p>
+<h3 id="h-h.or7f8ouebjzh">Coda
+</h3>
+<p id="p-114564">Alright, landing the plane. 
+</p>
+<p id="p-114594">The progress in this space has been enormous in many ways, with the AAR result as awesome evidence that this work will scale.
+</p>
+<p id="p-114721">My core beliefs from this article are listed below for clarity:
+</p>
+<ol start="1" type="1"><li>
+<p id="p-114785">Alignment must reach 99% + ε<em>
+</em></p>
+</li><li>
+<p id="p-114814">Containment can cover the remainder of a bounded ε
+</p>
+</li><li>
+<p id="p-114865">Interpretability is foundational, and the best input-independent route to bounding ε<em>
+</em></p>
+</li><li>
+<p id="p-114950">Automation is net leverage
+</p>
+</li><li>
+<p id="p-114977">Pricing works for deployers, not frontier labs
+</p>
+</li><li>
+<p id="p-115024">Locked-down weights are better for alignment than open-weights
+</p>
+</li><li>
+<p id="p-115087">Corrigibility is the default until values are verifiable
+</p>
+</li></ol>
+<p id="p-115145">My mind would change slightly in a few places. If capability begins to clearly plateau, this would lower my 99% + ε bar, but only by a few points. Furthermore, if a misaligned model is shown to truly escape an air-gapped sandbox, this would break my belief that containment is viable in ASI futures to cover ε. And finally, I think the biggest outstanding unknown unknown is the impact of diffusing these models across real institutional contexts. We’re only barely starting to see the economic gains from these models, and we’ll get significantly more data as they continue to find their way into institutional contexts beyond individual consumers and engineering, where they’re most active today. 
+</p>
+<p id="p-115846">The biggest risk to alignment is behavior around the asymptote. We might be able to bound ε considerably as we learn more, but the cost of the remaining chunk unsolved by alignment has catastrophic potential consequences as capability improves. I remain cautiously optimistic, but still believe that if we don’t hit the bar I’ve been discussing, ASI will be an enormous problem. 
+</p></article></div><aside class="side-note"><span class="label">READING TOOLS</span><p>Select a passage to keep it with you.</p><p>References includes the core definitions and your saved passages.</p></aside></div><button id="keep-selection" hidden>Keep passage +</button>
+<button id="reference-toggle" aria-expanded="false" aria-controls="reference-panel">References <span id="count"></span> +</button>
+<aside id="reference-panel" hidden aria-label="Reading references"><header><h2>References</h2><button id="close-panel" aria-label="Close references">×</button></header><div class="core-references"><p class="label">CORE REFERENCES</p><details open><summary>What this paper does</summary><p>The goal of this article is to map the current technical frontier with respect to AI safety and alignment in order to create a framework for metabolizing new work, assigning importance, and ultimately making predictions.</p></details><details open><summary>Alignment</summary><p>An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator&#x27;s intent in context rather than only executing it.</p></details><details><summary>Safety</summary><p>Minimizing the chance and the consequences of harm from AI systems, whether that harm comes from misunderstanding, misalignment, or misuse.</p></details><details><summary>A1–A4 at a glance</summary><dl><dt>A1 / Target</dt><dd>A1a: What we want. A1b: Codifying it.</dd><dt>A2 / Did it take?</dt><dd>Inner alignment and verification.</dd><dt>A3 / Generalization</dt><dd>Beyond the distributions where alignment was trained and verified.</dd><dt>A4 / Iterability</dt><dd>Repeating the loop affordably across models and labs.</dd></dl></details></div><details class="core-references"><summary>S1–S3 at a glance</summary><p>S1: Control · S2: Monitoring · S3: Containment</p></details><h3 class="saved-heading">Your passages <span id="saved-count">0</span></h3><p class="panel-help">Select text in the essay to add it here. Saved in this browser.</p><div id="kept"></div></aside>
+<div id="announcement" class="sr-only" role="status"></div>
+<script type="application/json" id="framework-concepts">{"Alignment": {"title": "Alignment", "description": "An AI system is aligned when it reliably pursues good real-world outcomes consistent with human values, understanding its operator's intent in context rather than only executing it.", "id": "h-h.aluae7nvnnqz"}, "Safety": {"title": "Safety", "description": "Minimizing the chance and the consequences of harm from AI systems, whether that harm comes from misunderstanding, misalignment, or misuse.", "id": "h-h.bnd97rh7uqa2"}, "Alignment Framework": {"title": "Alignment Framework", "description": "A1 work proposes or revises what we want models to value (A1a - target), and/or develops where and how those values get codified into them (A1b - codification).", "id": "h-h.c6jtdi8n1zp2"}, "A1": {"title": "A1: Target (Outer Alignment)", "description": "A1 work proposes or revises what we want models to value (A1a - target), and/or develops where and how those values get codified into them (A1b - codification).", "id": "h-h.7v8tentcxhgf"}, "A1a": {"title": "A1a: What we want", "description": "“What we want” is generally a philosophical question, but I will argue we should make it as scientific as possible. This is a normative question, and we have millennia of literature attempting to make progress on the question for humans. We constantly struggle to define how we ought to be in the world, and it varies considerably through belief systems and cultural contexts.", "id": "h-h.jfp90ctpdr6r"}, "A1b": {"title": "A1b: Codifying it", "description": "Getting an agreed upon first constitution, intent, or value system is only step one. A significant amount of the difficulty in alignment science is translating human-legible information into trainable environments for an agent to learn. The question A1b asks is whether that encoding is faithful to the target. To answer it, we first need to know where the values actually live, because the codification layer changes both the process and its impact on alignment.", "id": "h-h.osxyr239jzf6"}, "A2": {"title": "A2: Did it Take? (inner alignment & verification)", "description": "A2 work asks whether something (a behavior, value, or disposition) is actually in the model: did it take? It either offers a general instrument check (evals, auditing agents) and/or finds out directly (most interpretability work).", "id": "h-h.cwca58olycwg"}, "A3": {"title": "A3: Generalization (distribution problems)", "description": "A3 work asks whether what took in A2 still holds when the context shifts: new inputs, new deployment configurations, agentic settings, or evaluation vs. deployment. It either finds generalization failures (in either direction) or builds ways to predict or close the distribution gap.", "id": "h-h.ag7kur2z0ly4"}, "A4": {"title": "A4: Iterability, Cost, Feasibility", "description": "A4 work asks whether the A1↔A2 loop can keep running on the next model: whether findings or instruments transfer across versions and architectures, whether the loop can be automated, and whether it’s cheap and accessible enough to run before deployment, including outside the lab that trained the model.", "id": "h-h.lbpdom9s0csv"}, "Alignment Card": {"title": "Alignment Card", "description": "Broad vs. Narrow: Narrow alignment asks whether an AI system follows the immediate intent or direct instructions given by its operator. Broad alignment asks whether it reliably produces good real-world outcomes and captures human values, ethics, and preferences.", "id": "h-h.rn1g8v2557t3"}, "S1": {"title": "S1: Control", "description": "S1 work enforces intent on a model whose weights we can't fully trust, using tactics anywhere on the spectrum from prompting to activation steering. It builds or evaluates protocols (trusted monitoring, resampling, classifiers) that constrain what an untrusted model can do.", "id": "h-h.uago676pqy62"}, "S2": {"title": "S2: Monitoring", "description": "S2 work makes model behavior observable in real time (oversight), after the fact (forensics), or in aggregate (risk assessment).", "id": "h-h.34uw10srcmqm"}, "S3": {"title": "S3: Containment", "description": "S3 work asks how well we can limit what a model can reach (outbound: actuators, tools, network) and who or what can reach the model (inbound: weights, access), using digital or physical tactics.", "id": "h-h.eo6o9lq2956e"}, "Safety - Card": {"title": "Safety - Card", "description": "Misuse: Humans wanting the wrong things. If our target is broad alignment, then misuse of the models is mostly an alignment problem; the exceptions are task decomposition (S2), open weights (S3), and jailbreaks (S1/S2).", "id": "h-h.zga2cy9b1g6q"}}</script>

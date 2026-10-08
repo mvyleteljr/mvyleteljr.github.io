@@ -35,3 +35,20 @@
 .framework-page .full-document .contents{display:block;padding-top:0}
 .site-header nav{flex-wrap:wrap}
 @media(max-width:760px){.framework-page .site-header nav{gap:10px 20px}}
+/* Reading paths, source-based weights, and inline framework references. */
+.reading-map{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-block:1px solid;margin:28px 0 12px}
+.reading-map>a{padding:16px 12px;text-decoration:none;border-right:1px solid;font-size:14px;line-height:1.4}
+.reading-map>a:first-child{padding-left:0}.reading-map>a:last-child{border:0}.reading-map span{display:block;font-size:12px;margin-top:8px}.standalone-link{font-size:13px;margin:12px 0 28px}
+.prose a.framework-term{color:#365f83;text-decoration:underline dotted;text-underline-offset:4px;cursor:help}
+.framework-popover{position:fixed;z-index:30;width:min(380px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #000;background:#fff;box-shadow:3px 3px 0 #000;padding:20px;line-height:1.55;font-size:14px}
+.framework-popover>strong{display:block;padding-right:22px;font-size:17px}.framework-popover p{margin:12px 0 16px}.framework-popover>a{font-size:12px;color:#365f83}.framework-popover>button{position:absolute;right:9px;top:9px;border:0;font-size:22px;padding:0 6px}
+.weight-chart{margin:24px 0 32px;border-block:1px solid;padding:20px 0}.weight-chart figcaption{font-size:18px}.weight-chart>p{font-size:12px;margin:8px 0 20px}.prose .weight-chart ul{list-style:none;padding:0;margin:0}.weight-chart li{display:grid;grid-template-columns:minmax(150px,1fr) 1fr 40px;gap:8px 14px;align-items:center;margin:16px 0!important;font-size:13px}.weight-chart small{grid-column:1/-1;font-size:12px}.weight-track{height:8px;background:#eee}.weight-track>span{display:block;height:100%;background:#365f83}
+@media(max-width:760px){.reading-map{grid-template-columns:1fr}.reading-map>a{border:0;border-bottom:1px solid;padding:12px 0}.reading-map span{margin-top:4px}.weight-chart li{grid-template-columns:minmax(120px,1fr) 1fr 36px}}
+@media print{.framework-popover{display:none!important}}
+
+/* Surveys are independent disclosures, outside the framework cards. */
+details.survey-source{margin:44px 0;border-block:1px solid}
+details.survey-source>summary{padding:20px 0;cursor:pointer}
+.prose details.survey-source>summary>h2{display:inline;margin:0;font-size:27px}
+.survey-body{padding-top:12px;padding-bottom:16px}
+@media print{details.survey-source>.survey-body{display:block!important}}

@@ -134,3 +134,11 @@ python3 scripts/build-alignment-study.py \
 The preview contains `framework.html`, `changes.html` (a paragraph text comparison), `changes.diff`, and a conversion report. Text, link targets/order, list counts, headings, and table cells are checked against the candidate. The text comparison does not show formatting-only or link-only changes. Candidate imports require a separate preview output; they do not modify the release files or either Google Doc.
 
 After review, archive the current release snapshot under a new revision filename before promoting the approved candidate to `design-studies/source/write-up.json`. Run the normal converter and Jekyll build, review the Git diff, then commit and push. Updating the public Google Doc is a separate step; the importer does not overwrite it. Existing heading IDs are kept. Paragraph positions can change when the text changes, so saved passage destinations also need a check before release.
+
+### Beliefs & Trajectory reading preview
+
+A snapshot with the “Beliefs & Trajectory” heading generates both the full `framework.html` and a standalone `beliefs.html` from the same source. `scripts/framework-reading.py` builds the grouped contents, reading paths, source excerpts, and chart from the source weights table. The original table remains in place.
+
+`design-studies/framework-reference.js` adds dotted blue reference links for A1–A4, A1a/A1b, and S1–S3, plus existing links to known framework sections. Hover, keyboard focus, or click opens the source excerpt. Each box has a separate full-section link. Escape, close, or clicking outside dismisses it. No added libraries are used.
+
+To review the new draft, use `--source design-studies/source/revisions/2026-10-08-draft.json --preview-dir /private/tmp/alignment-oct8` with the converter. This does not promote the release.
